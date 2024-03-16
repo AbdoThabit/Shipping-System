@@ -1,3 +1,7 @@
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Shipping_System.DAL.Database;
+
 namespace Shipping_System
 {
     public class Program
@@ -8,6 +12,8 @@ namespace Shipping_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+
 
             var app = builder.Build();
 
