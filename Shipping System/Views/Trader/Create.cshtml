@@ -1,10 +1,10 @@
-﻿@model EmployeeVM
+﻿@model TraderVM
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
-            <strong class="card-title ">الموظفين</strong>
-            <form method="post" asp-action="Create" asp-controller="Employee" class="form-sample">
-                <p class="card-description"> بيانات الموظف </p>
+            <strong class="card-title ">التجار</strong>
+            <form method="post" asp-action="Create" asp-controller="Trader" class="form-sample">
+                <p class="card-description"> بيانات التاجر </p>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -32,8 +32,8 @@
                             <label class="col-sm-3 col-form-label">الفرع</label>
                             <div class="col-sm-9">
                                 <select asp-for="Branch_Id" class="form-control">
-                                    <option value=1>بنها</option>
-                                    <option value=3> طنطا</option>
+                                    <option value=2>بنها</option>
+                                    <option value=4> طنطا</option>
                                 </select>
                                 <span style="color:red" asp-validation-for="Branch_Id"></span>
 
@@ -45,15 +45,15 @@
                             <label class="col-sm-3 col-form-label">المدينة</label>
                             <div class="col-sm-9">
                                 <select asp-for="City_Id" class="form-control">
-                                    <option value=1>بنها</option>
-                                    <option value=2> طنطا</option>
+                                    <option value=3>بنها</option>
+                                    <option value=4> طنطا</option>
                                 </select>
                                 <span style="color:red" asp-validation-for="City_Id"></span>
 
                             </div>
                         </div>
                     </div>
-                    
+
                 </div>
                 <div class="row">
                     <div class="col-md-6">
@@ -80,33 +80,33 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
-                            <div class="col-sm-9">
-                                <input asp-for="Email" type="email" class="form-control" />
-                                <span style="color:red" asp-validation-for="Email"></span>
-                            </div>
+                <div class="col-md-6">
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
+                        <div class="col-sm-9">
+                            <input asp-for="Email" type="email" class="form-control" />
+                            <span style="color:red" asp-validation-for="Email"></span>
                         </div>
                     </div>
+                    </div>
                     <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">رقم الهاتف</label>
-                            <div class="col-sm-9">
-                                <input asp-for="PhoneNumber" type="text" class="form-control" />
-                                <span style="color:red" asp-validation-for="PhoneNumber"></span>
-                            </div>
+                    <div class="form-group row">
+                        <label class="col-sm-3 col-form-label">رقم الهاتف</label>
+                        <div class="col-sm-9">
+                            <input asp-for="PhoneNumber" type="text" class="form-control" />
+                            <span style="color:red" asp-validation-for="PhoneNumber"></span>
                         </div>
                     </div>
                 </div>
+                </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">كلمة المرور</label>
                             <div class="col-sm-9">
-                                <input asp-for="Password" type="password" class="form-control"/>
+                                <input asp-for="Password" type="password" class="form-control" />
                                 <span style="color:red" asp-validation-for="Password"></span>
                             </div>
                         </div>
@@ -123,16 +123,28 @@
                     </div>
                 </div>
                 <div class="row">
-                    <input type="submit" value="اضافة" class=" btn btn-primary"/>
+                <div class="form-group row">
+                <label class="col-sm-4 col-form-label">نسبة تحمل التاجر لقيمة شحن الطلبات المرفوضه</label>
+                <div class="col-sm-8">
+                <input asp-for="Trader_RejOrderPrec" type="number" class="form-control" />
+                <span style="color:red" asp-validation-for="Trader_RejOrderPrec"></span>
+                </div>
                 </div>
 
-                <div style="color:red" asp-validation-summary="All">
+                <div class="row">
+                    <input type="submit" value="اضافة" class=" btn btn-primary" />
+                </div>
+                <div class="row">
+                    <input asp-for="Id" type="hidden" value=1 class=" btn btn-primary" />
+                </div>
+
+                <div asp-validation-summary="All">
                 </div>
             </form>
         </div>
     </div>
 </div>
-@section Scripts{
+@section Scripts {
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
