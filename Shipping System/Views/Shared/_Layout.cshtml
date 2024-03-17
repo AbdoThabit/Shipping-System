@@ -19,6 +19,8 @@
     <!-- endinject -->
     <!-- Layout styles -->
     <link rel="stylesheet" href="~/css/style.css">
+    @RenderSection("Styles", required: false)
+
     <!-- End layout styles -->
     <link rel="shortcut icon" href="~/images/favicon.png"/>
   </head>
@@ -354,16 +356,16 @@
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="../../index.html">
-                <span class="menu-title">صفحات التطبيق</span>
+              <a class="nav-link">
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">الصفحة الرئيسية</span>
                 <i class="mdi mdi-home menu-icon"></i>
               </a>
             </li>
 
-                    <li class="nav-item">
+                    <li  class="nav-item">
                         <a class="nav-link" asp-action="Index" asp-controller="Employee">
-                            <span class="menu-title">الموظفين</span>
-                            <i class="mdi mdi-home menu-icon"></i>
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">الموظفين</span>
+                            <i class="mdi mdi-account-group menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">

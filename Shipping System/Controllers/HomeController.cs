@@ -1,5 +1,4 @@
 using Microsoft.AspNetCore.Mvc;
-using Shipping_System.Models;
 using System.Diagnostics;
 
 namespace Shipping_System.Controllers
