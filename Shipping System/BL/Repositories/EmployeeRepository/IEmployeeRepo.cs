@@ -8,10 +8,10 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
     {
      Task<List<EmployeeVM>> Get();
      Task<IdentityResult> Add(EmployeeVM Employee);
-     Task<EmployeeVM> GetById(string id);
-     Task<IdentityResult> Edit(ApplicationUser Employee);
-     Task<IdentityResult> Delete(ApplicationUser Employee);
-        Task<IdentityResult> AddRole();
+     Task<EmployeeUpdateVM> GetById(string id);
+     Task<IdentityResult> Edit(EmployeeUpdateVM Employee);
+     Task<IdentityResult> Delete(string id);
+     Task<IdentityResult> AddRole();
 
     }
 }

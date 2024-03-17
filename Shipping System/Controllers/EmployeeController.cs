@@ -46,5 +46,50 @@ namespace Shipping_System.Controllers
             }
             return View(Employee);
         }
+
+        public async Task<IActionResult> Update(string id)
+        {
+            var Employee = await _EmployeeRepo.GetById(id);
+            if (Employee == null)
+                return NotFound();
+          
+            return View(Employee);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Update(EmployeeUpdateVM Employee)
+        {
+            if (ModelState.IsValid)
+            {
+               
+                var state = await _EmployeeRepo.Edit(Employee);
+                if (state.Succeeded)
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    foreach (var error in state.Errors)
+                    {
+                        ModelState.AddModelError("", error.Description);
+                    }
+
+
+                }
+            }
+            return View(Employee);
+
+        }
+
+        public async Task<IActionResult> Delete(string Id)
+        {
+            var state = await _EmployeeRepo.Delete(Id);
+            if (state.Succeeded)
+            {
+                return Ok();
+            }
+            return RedirectToAction("Index");
+
+        }
     }
 }

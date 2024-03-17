@@ -39,15 +39,17 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             return EmployeesVM;
         }
 
-        public async Task<EmployeeVM> GetById(string id)
+        public async Task<EmployeeUpdateVM> GetById(string id)
         {
             var Employee = await _UserManager.FindByIdAsync(id);
-            EmployeeVM EmployeeVM = new EmployeeVM()
+            EmployeeUpdateVM EmployeeVM = new EmployeeUpdateVM()
             {
                 Id = Employee.Id,
                 FullName = Employee.FullName,
                 Address = Employee.Address,
                 PhoneNumber = Employee.PhoneNumber,
+                UserName=Employee.UserName,
+                Email=Employee.Email,
                 Branch_Id = Employee.Branch_Id,
                 City_Id = Employee.City_Id,
                 Governate_Id = Employee.Governate_Id,
@@ -73,14 +75,38 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             return state;
         }
 
-        public async Task<IdentityResult> Delete(ApplicationUser Employee)
+        public async Task<IdentityResult> Delete(string Id)
         {
-            var state = await _UserManager.DeleteAsync(Employee);
-            return state;
+            var user = await _UserManager.FindByIdAsync(Id);
+
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+            }
+
+            var result = await _UserManager.DeleteAsync(user);
+            return result;
         }
-        public async Task<IdentityResult> Edit(ApplicationUser Employee)
+        public async Task<IdentityResult> Edit(EmployeeUpdateVM Employee)
         {
-            var state = await _UserManager.UpdateAsync(Employee);
+            var user = await _UserManager.FindByIdAsync(Employee.Id);
+
+            if (user == null)
+            {
+                return IdentityResult.Failed(new IdentityError { Description = "User not found."});
+            }
+
+            user.UserName = Employee.UserName;
+            user.Email = Employee.Email;
+            user.FullName = Employee.FullName;
+            user.Address = Employee.Address;
+            user.PhoneNumber = Employee.PhoneNumber;
+            user.Branch_Id = Employee.Branch_Id;
+            user.City_Id = Employee.City_Id;
+            user.Governate_Id = Employee.Governate_Id;
+
+
+            var state = await _UserManager.UpdateAsync(user);
             return state;
         }
 
