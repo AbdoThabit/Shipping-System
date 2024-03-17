@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Shipping_System.BL.Repositories.EmployeeRepository;
+using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.DAL.Database;
 using Shipping_System.DAL.Entites;
 
@@ -27,6 +28,7 @@ namespace Shipping_System
               }
               ).AddEntityFrameworkStores<Context>();
             builder.Services.AddScoped< IEmployeeRepo, EmployeeRepo>();
+            builder.Services.AddScoped<ITraderRepo, TraderRepo>();
 
 
             var app = builder.Build();
