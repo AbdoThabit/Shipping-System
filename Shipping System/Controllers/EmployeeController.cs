@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.ViewModels;
 
@@ -8,10 +9,12 @@ namespace Shipping_System.Controllers
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepo _EmployeeRepo;
+        private readonly IToastNotification _ToastNotification;
 
-        public EmployeeController(IEmployeeRepo employeeRepo)
+        public EmployeeController(IEmployeeRepo employeeRepo, IToastNotification toastNotification )
         {
             _EmployeeRepo = employeeRepo;
+            _ToastNotification = toastNotification;
         }
 
         public async Task< IActionResult> Index()
@@ -20,12 +23,13 @@ namespace Shipping_System.Controllers
             return View(Employees);
         }
 
-         public IActionResult Create()
+         public async Task< IActionResult> Create()
         {
-            return View();
+            var Lists = await _EmployeeRepo.IncludeLists();
+            return View(Lists);
         }
         [HttpPost]
-        public async Task< IActionResult> Create(EmployeeVM Employee) {
+        public async Task< IActionResult> Create(EmployeeRegistrationVM Employee) {
 
             if (ModelState.IsValid)
             {
@@ -33,6 +37,8 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _EmployeeRepo.AddRole();
+                    _ToastNotification.AddSuccessToastMessage("تم اضافة الموظف بنجاح");
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -57,7 +63,7 @@ namespace Shipping_System.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Update(EmployeeUpdateVM Employee)
+        public async Task<IActionResult> Update(EmployeeVM Employee)
         {
             if (ModelState.IsValid)
             {
@@ -65,6 +71,8 @@ namespace Shipping_System.Controllers
                 var state = await _EmployeeRepo.Edit(Employee);
                 if (state.Succeeded)
                 {
+                    _ToastNotification.AddSuccessToastMessage("تم تعديل بيانات الموظف بنجاح");
+
                     return RedirectToAction("Index");
                 }
                 else
@@ -86,6 +94,8 @@ namespace Shipping_System.Controllers
             var state = await _EmployeeRepo.Delete(Id);
             if (state.Succeeded)
             {
+                _ToastNotification.AddSuccessToastMessage("تم مسح بيانات الموظف بنجاح");
+
                 return Ok();
             }
             return RedirectToAction("Index");

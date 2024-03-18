@@ -1,7 +1,9 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
+using NToastNotify;
 using Shipping_System.BL.Repositories.EmployeeRepository;
+using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.DAL.Database;
@@ -31,6 +33,15 @@ namespace Shipping_System
             builder.Services.AddScoped< IEmployeeRepo, EmployeeRepo>();
             builder.Services.AddScoped<ITraderRepo, TraderRepo>();
             builder.Services.AddScoped<IRepresentativeRepo, RepresentativeRepo>();
+            builder.Services.AddScoped<IGovernateRepo, GovernateRepo>();
+          builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
+            {
+                ProgressBar = true,
+                PreventDuplicates = true,
+                CloseButton = true,
+                PositionClass = ToastPositions.TopCenter,
+
+            });
 
 
             var app = builder.Build();

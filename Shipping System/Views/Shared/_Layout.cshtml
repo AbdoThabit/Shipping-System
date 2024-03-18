@@ -370,14 +370,21 @@
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Index" asp-controller="Trader">
-                            <span class="menu-title">التجار</span>
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">التجار</span>
                             <i class="mdi mdi-home menu-icon"></i>
                         </a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-action="Index" asp-controller="Representative">
-                            <span class="menu-title">المناديب</span>
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">المناديب</span>
                             <i class="mdi mdi-home menu-icon"></i>
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Governate">
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">المحافظات</span>
+                            <i class="mdi mdi-account-group menu-icon"></i>
                         </a>
                     </li>
                 </ul>
@@ -413,6 +420,9 @@
     <!-- Custom js for this page -->
     <script src="~/js/dashboard.js"></script>
     @RenderSection("Scripts", required: false)
+
+    @await Component.InvokeAsync("NToastNotify")
+
     <!-- End custom js for this page -->
   </body>
 </html>

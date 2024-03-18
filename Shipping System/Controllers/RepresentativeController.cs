@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.ViewModels;
 
@@ -7,10 +8,14 @@ namespace Shipping_System.Controllers
     public class RepresentativeController : Controller
     {
         private readonly IRepresentativeRepo _RepresentativeRepo;
+        private readonly IToastNotification _ToastNotification;
 
-        public RepresentativeController(IRepresentativeRepo representativeRepo)
+
+
+        public RepresentativeController(IRepresentativeRepo representativeRepo, IToastNotification toastNotification)
         {
             _RepresentativeRepo = representativeRepo;
+            _ToastNotification = toastNotification;
         }
 
         public async Task<IActionResult> Index()
@@ -33,6 +38,8 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _RepresentativeRepo.AddRole();
+                    _ToastNotification.AddSuccessToastMessage("تم اضافة المندوب بنجاح");
+
                     return RedirectToAction("Index");
                 }
                 else

@@ -1,14 +1,14 @@
-﻿@model List<EmployeeRegistrationVM>
+﻿@model List<GovernateVM>
 @{
     ViewData["Title"] = "Home Page";
 }
-@section Styles{
+@section Styles {
 
-        <style>
+    <style>
         .top-section {
             display: flex;
-            justify-content:space-between;
-            margin-bottom:10px;
+            justify-content: space-between;
+            margin-bottom: 10px;
         }
 
         #myTable thead th {
@@ -27,35 +27,28 @@
                         <thead>
                             <tr>
                                 <th>الاسم</th>
-                                <th> العنوان </th>
-                                <th> رقم الموبايل </th>
-                                <th> البريد الالكتورني </th>
                                 <th> تعديل </th>
                                 <th> حذف </th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach(var Emp in Model)
+                            @foreach (var Gov in Model)
                             {
                                 <tr class="parent">
-                                    <td>@Emp.FullName</td>
-                                    <td>
-                                       @Emp.Address
-                                    </td>
-                                    <td>@Emp.PhoneNumber</td>
-                                    <td>@Emp.Email</td>
-                                    <td><a asp-action="Update" asp-controller="Employee" asp-route-Id="@Emp.Id" class=" btn btn-gradient-success">تعديل</a></td>
-                                    <td><a href="javascript:;" data-id="@Emp.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
+                                    <td>@Gov.Name</td>
+                          
+                                    <td><a asp-action="Update" asp-controller="Governate" asp-route-Id="@Gov.Id" class=" btn btn-gradient-success">تعديل</a></td>
+                                    <td><a href="javascript:;" data-id="@Gov.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 </tr>
                             }
-                          
-                      
+
+
                         </tbody>
                     </table>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a asp-action="Create" asp-controller="Employee" class="btn btn-primary">اضافة موظف</a>
+                    <a asp-action="Create" asp-controller="Governate" class="btn btn-primary">اضافة محافظة</a>
                 </div>
             </div>
         </div>
@@ -79,8 +72,8 @@
             $('.js-delete').on('click', function () {
                 var btn = $(this);
                 bootbox.confirm({
-                    title: 'مسح موظف',
-                    message: 'هل انت متاكد من انك تريد مسح  هذا الموظف ؟',
+                    title: 'مسح المحافظة',
+                    message: 'هل انت متاكد من انك تريد مسح المحافظة ؟',
                     buttons: {
                         cancel: {
                             label: '<i class="fa fa-times"></i> الغاء'
@@ -93,13 +86,13 @@
                     callback: function (result) {
                         if (result) {
                             $.ajax({
-                                url: '/Employee/Delete/' + btn.data('id'),
+                                url: '/Governate/Delete/' + btn.data('id'),
                                 success: function () {
                                     btn.parents('.parent').fadeOut();
-                                    toastr.success("تم حذف  بيانات الموظف بنجاح");
+                                    toastr.success("تم حدف المحافظة بنجاح");
                                 },
                                 error: function () {
-                                    toastr.error("حدث خطأ ما !");
+                                    toastr.error("حدث خطأ ما");
 
                                 }
                             });

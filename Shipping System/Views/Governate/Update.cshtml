@@ -1,0 +1,32 @@
+﻿@model GovernateVM
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title ">المحافظات</strong>
+            <form method="post" asp-action="Update" asp-controller="Governate" class="form-sample">
+                <p class="card-description"> تعديل بيانات المحافظة </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">اسم المحافظة</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Name" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+
+                    <div class="row">
+                        <input type="submit" value="تعديل" class=" btn btn-primary" />
+                    </div>
+                    <input type="hidden" asp-for="Id" />
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

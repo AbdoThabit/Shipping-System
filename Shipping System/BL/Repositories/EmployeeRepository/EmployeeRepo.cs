@@ -12,19 +12,24 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
     {
      
         private readonly UserManager<ApplicationUser> _UserManager;
+        private readonly Context _Context;
+
+        
+
         private ApplicationUser User { get; set; }
 
 
         public EmployeeRepo(Context context, UserManager<ApplicationUser> userManager)
         {
             _UserManager = userManager;
+            _Context = context;
         }
 
 
-        public async Task<List<EmployeeVM>> Get()
+        public async Task<List<EmployeeRegistrationVM>> Get()
         {
             var Employees = await _UserManager.GetUsersInRoleAsync("Employee");
-            var EmployeesVM = Employees.Select(Emp => new EmployeeVM
+            var EmployeesVM = Employees.Select(Emp => new EmployeeRegistrationVM
             {
                 Id = Emp.Id,
                 FullName = Emp.FullName,
@@ -34,15 +39,16 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                 Branch_Id = Emp.Branch_Id,
                 City_Id = Emp.City_Id,
                 Governate_Id = Emp.Governate_Id,
+              
             }).ToList();
-
+          
             return EmployeesVM;
         }
 
-        public async Task<EmployeeUpdateVM> GetById(string id)
+        public async Task<EmployeeVM> GetById(string id)
         {
             var Employee = await _UserManager.FindByIdAsync(id);
-            EmployeeUpdateVM EmployeeVM = new EmployeeUpdateVM()
+            EmployeeVM EmployeeVM = new EmployeeVM()
             {
                 Id = Employee.Id,
                 FullName = Employee.FullName,
@@ -56,7 +62,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             };
             return EmployeeVM;
         }
-        public Task<IdentityResult>Add(EmployeeVM Employee)
+        public Task<IdentityResult>Add(EmployeeRegistrationVM Employee)
         {
              User = new ApplicationUser
             {
@@ -87,7 +93,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             var result = await _UserManager.DeleteAsync(user);
             return result;
         }
-        public async Task<IdentityResult> Edit(EmployeeUpdateVM Employee)
+        public async Task<IdentityResult> Edit(EmployeeVM Employee)
         {
             var user = await _UserManager.FindByIdAsync(Employee.Id);
 
@@ -105,7 +111,6 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             user.City_Id = Employee.City_Id;
             user.Governate_Id = Employee.Governate_Id;
 
-
             var state = await _UserManager.UpdateAsync(user);
             return state;
         }
@@ -114,6 +119,16 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
         {
             var state = await _UserManager.AddToRoleAsync(User,"Employee");
             return state;
+        }
+
+        public async Task<EmployeeRegistrationVM> IncludeLists()
+        {
+            var Lists = new EmployeeRegistrationVM
+            {
+                Governates = await _Context.Governates.ToListAsync(),
+
+            };
+            return Lists;
         }
 
 
