@@ -9,5 +9,6 @@ namespace Shipping_System.BL.Repositories.CityRepository
         Task<CityVM> GetById(int id);
         Task<int> Edit(CityVM city);
         Task<int> Delete(int id);
+        Task<CityVM> IncludeLists();
     }
 }

@@ -20,7 +20,7 @@ namespace Shipping_System.BL.Repositories.CityRepository
             {
                 Name = City.Name,
                 Shipping_Cost = City.Shipping_Cost,
-                //Governate_Id = City.Governate_Id,
+                Governate_Id = City.Governate_Id,
 
             };
             await _Context.Cities.AddAsync(CityDB);
@@ -70,7 +70,7 @@ namespace Shipping_System.BL.Repositories.CityRepository
                 Id = City.Id,
                 Name = City.Name,
                 Shipping_Cost =City.Shipping_Cost,
-                //Governate_Id = City.Governate_Id,
+                Governate_Id = City.Governate_Id,
             }).ToListAsync();
             return Cities;
         }
@@ -83,10 +83,19 @@ namespace Shipping_System.BL.Repositories.CityRepository
                 Id = CityDB.Id,
                 Name = CityDB.Name,
                 Shipping_Cost = CityDB.Shipping_Cost,
-                //Governate_Id = CityDB.Governate_Id,
+                Governate_Id = CityDB.Governate_Id,
             };
             return City;
 
+        }
+        public async Task<CityVM> IncludeLists()
+        {
+            var Lists = new CityVM
+            {
+                Governates = await _Context.Governates.ToListAsync(),
+
+            };
+            return Lists;
         }
     }
 }
