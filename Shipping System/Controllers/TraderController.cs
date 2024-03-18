@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using NToastNotify;
 using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.ViewModels;
 
@@ -7,10 +8,13 @@ namespace Shipping_System.Controllers
     public class TraderController : Controller
     {
         private readonly ITraderRepo _TraderRepo;
+        private readonly IToastNotification _ToastNotification;
 
-        public TraderController(ITraderRepo traderRepo)
+
+        public TraderController(ITraderRepo traderRepo, IToastNotification toastNotification)
         {
             _TraderRepo = traderRepo;
+            _ToastNotification = toastNotification;
         }
 
         public async Task<IActionResult> Index()
@@ -33,6 +37,7 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _TraderRepo.AddRole();
+                    _ToastNotification.AddSuccessToastMessage("تم اضافة التاجر بنجاح");
                     return RedirectToAction("Index");
                 }
                 else

@@ -6,12 +6,13 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
 {
     public interface IEmployeeRepo
     {
-     Task<List<EmployeeVM>> Get();
-     Task<IdentityResult> Add(EmployeeVM Employee);
-     Task<EmployeeUpdateVM> GetById(string id);
-     Task<IdentityResult> Edit(EmployeeUpdateVM Employee);
+     Task<List<EmployeeRegistrationVM>> Get();
+     Task<IdentityResult> Add(EmployeeRegistrationVM Employee);
+     Task<EmployeeVM> GetById(string id);
+     Task<IdentityResult> Edit(EmployeeVM Employee);
      Task<IdentityResult> Delete(string id);
      Task<IdentityResult> AddRole();
+     Task<EmployeeRegistrationVM> IncludeLists();
 
     }
 }

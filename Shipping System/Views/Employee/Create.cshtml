@@ -1,4 +1,4 @@
-﻿@model EmployeeVM
+﻿@model EmployeeRegistrationVM
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
@@ -60,11 +60,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">المحافظة</label>
                             <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control">
-                                    <option value=1>الشرقية</option>
-                                    <option value=2>سوهاج</option>
-                                    <option value=3>الغربية</option>
-                                    <option value=4>الدهقلية</option>
+                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
+                                  
                                 </select>
                                 <span style="color:red" asp-validation-for="Governate_Id"></span>
                             </div>
@@ -86,7 +83,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
                             <div class="col-sm-9">
-                                <input asp-for="Email" type="email" class="form-control" />
+                                <input asp-for="Email" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Email"></span>
                             </div>
                         </div>
