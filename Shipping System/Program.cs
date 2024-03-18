@@ -2,6 +2,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NToastNotify;
+using Shipping_System.BL.Repositories.CityRepository;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
@@ -34,6 +35,7 @@ namespace Shipping_System
             builder.Services.AddScoped<ITraderRepo, TraderRepo>();
             builder.Services.AddScoped<IRepresentativeRepo, RepresentativeRepo>();
             builder.Services.AddScoped<IGovernateRepo, GovernateRepo>();
+            builder.Services.AddScoped<ICityRepo,CityRepo>();   
           builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
                 ProgressBar = true,

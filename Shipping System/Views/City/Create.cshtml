@@ -1,0 +1,39 @@
+﻿@model CityVM
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title ">المدن</strong>
+            <form method="post" asp-action="Create" asp-controller="City" class="form-sample">
+                <p class="card-description"> المدينة </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">اسم المدينة</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Name" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                     <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">سعر التوصيل</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Shipping_Cost" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Shipping_Cost"></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" value="اضافة" class=" btn btn-primary" />
+                    </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
