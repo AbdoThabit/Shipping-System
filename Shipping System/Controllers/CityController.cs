@@ -24,9 +24,10 @@ namespace Shipping_System.Controllers
             return View(Cities);
         }
 
-        public IActionResult Create()
+        public async Task <IActionResult> Create()
         {
-            return View();
+            var Lists = await _CityRepo.IncludeLists();
+            return View(Lists);
         }
 
         [HttpPost]
