@@ -84,6 +84,8 @@ namespace Shipping_System.BL.Repositories.CityRepository
                 Name = CityDB.Name,
                 Shipping_Cost = CityDB.Shipping_Cost,
                 Governate_Id = CityDB.Governate_Id,
+                Governates = await _Context.Governates.ToListAsync(),
+
             };
             return City;
 

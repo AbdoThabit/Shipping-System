@@ -1,14 +1,14 @@
-﻿@model CityVM
+﻿@model BranchVM
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
-            <strong class="card-title ">المدن</strong>
-            <form method="post" asp-action="Update" asp-controller="City" class="form-sample">
-                <p class="card-description"> تعديل بيانات المدينة </p>
+            <strong class="card-title ">الفروع</strong>
+            <form method="post" asp-action="Create" asp-controller="Branch" class="form-sample">
+                <p class="card-description"> الفرع </p>
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">اسم المدينة</label>
+                            <label class="col-sm-3 col-form-label">اسم الفرع</label>
                             <div class="col-sm-9">
                                 <input asp-for="Name" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Name"></span>
@@ -17,10 +17,10 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">سعر التوصيل</label>
+                            <label class="col-sm-3 col-form-label">تاريخ الانشاء</label>
                             <div class="col-sm-9">
-                                <input asp-for="Shipping_Cost" type="text" class="form-control" />
-                                <span style="color:red" asp-validation-for="Shipping_Cost"></span>
+                                <input asp-for ="Creation_Date" type="date" class="form-control" />
+                                <span style="color:red" asp-validation-for="Creation_Date"></span>
                             </div>
                         </div>
                     </div>
@@ -28,20 +28,17 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">المحافظة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
+                            <label class="col-sm-3 col-form-label">المدينه</label>
+                             <div class="col-sm-9">
+                                <select asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
                                 </select>
-                                <span style="color:red" asp-validation-for="Governate_Id"></span>
+                                <span style="color:red" asp-validation-for="City_Id"></span>
                             </div>
                         </div>
                     </div>
-                    <input type="hidden" asp-for="Id" />
-
                     <div class="row">
-                        <input type="submit" value="تعديل" class=" btn btn-primary" />
+                        <input type="submit" value="اضافة" class=" btn btn-primary" />
                     </div>
-                    <input type="hidden" asp-for="Id" />
             </form>
         </div>
     </div>

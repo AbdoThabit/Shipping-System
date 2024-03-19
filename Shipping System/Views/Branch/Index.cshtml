@@ -1,4 +1,4 @@
-﻿@model List<CityVM>
+﻿@model List<BranchVM>
 @{
     ViewData["Title"] = "Home Page";
 }
@@ -26,21 +26,21 @@
                     <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
                         <thead>
                             <tr>
-                                <th>اسم المدينة</th>
-                                <th>سعر التوصيل</th>
+                                <th> اسم الفرع </th>
+                                <th>تاريخ الانشاء</th>
                                 <th> تعديل </th>
                                 <th> حذف </th>
 
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach (var City in Model)
+                            @foreach (var Branch in Model)
                             {
                                 <tr class="parent">
-                                    <td>@City.Name</td>
-                                    <td>@City.Shipping_Cost</td>
-                                    <td><a asp-action="Update" asp-controller="City" asp-route-Id="@City.Id" class=" btn btn-gradient-success">تعديل</a></td>
-                                    <td><a href="javascript:;" data-id="@City.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
+                                    <td>@Branch.Name</td>
+                                    <td>@Branch.Creation_Date</td>
+                                    <td><a asp-action="Update" asp-controller="Branch" asp-route-Id="@Branch.Id" class=" btn btn-gradient-success">تعديل</a></td>
+                                    <td><a href="javascript:;" data-id="@Branch.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 </tr>
                             }
 
@@ -49,7 +49,7 @@
                     </table>
                 </div>
                 <div class="d-flex justify-content-center">
-                    <a asp-action="Create" asp-controller="City" class="btn btn-primary">اضافة مدينه</a>
+                    <a asp-action="Create" asp-controller="Branch" class="btn btn-primary">اضافة فرع</a>
                 </div>
             </div>
         </div>
@@ -73,8 +73,8 @@
             $('.js-delete').on('click', function () {
                 var btn = $(this);
                 bootbox.confirm({
-                    title: 'حذف المدينه',
-                    message: 'هل انت متاكد من انك تريد حذف المدينه ؟',
+                    title: 'حذف فرع',
+                    message: 'هل انت متاكد من انك تريد حذف الفرع ؟',
                     buttons: {
                         cancel: {
                             label: '<i class="fa fa-times"></i> الغاء'
@@ -87,10 +87,10 @@
                     callback: function (result) {
                         if (result) {
                             $.ajax({
-                                url: '/City/Delete/' + btn.data('id'),
+                                url: '/Branch/Delete/' + btn.data('id'),
                                 success: function () {
                                     btn.parents('.parent').fadeOut();
-                                    toastr.success("تم حدف المدينه بنجاح");
+                                    toastr.success("تم حدف الفرع بنجاح");
                                 },
                                 error: function () {
                                     toastr.error("حدث خطأ ما");
@@ -142,4 +142,5 @@
     </script>
 
 }
+
 

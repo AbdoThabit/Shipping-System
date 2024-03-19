@@ -1,4 +1,4 @@
-﻿@model RepresentativeVM
+﻿@model RepresentativeRegistrationVM
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
@@ -60,11 +60,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">المحافظة</label>
                             <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control">
-                                    <option value=1>الشرقية</option>
-                                    <option value=2>سوهاج</option>
-                                    <option value=3>الغربية</option>
-                                    <option value=4>الدهقلية</option>
+                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
                                 </select>
                                 <span style="color:red" asp-validation-for="Governate_Id"></span>
                             </div>
@@ -80,12 +76,13 @@
                         </div>
                     </div>
                 </div>
+
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
                             <div class="col-sm-9">
-                                <input asp-for="Email" type="email" class="form-control" />
+                                <input asp-for="Email" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Email"></span>
                             </div>
                         </div>
@@ -126,7 +123,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">نوع الخصم</label>
                             <div class="col-sm-9">
-                                <input asp-for="type_of_discount" type="number" placeholder="النسبه المئوية" class="form-control" />
+                                <input asp-for="type_of_discount" type="number" class="form-control" />
                                 <span style="color:red" asp-validation-for="type_of_discount"></span>
                             </div>
                         </div>
@@ -134,7 +131,7 @@
 
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-4 col-form-label">نسية الشركه من الطلب</label>
+                            <label class="col-sm-4 col-form-label">النسبه المئويه للشركه</label>
                             <div class="col-sm-8">
                                 <input asp-for="company_percantage" type="number" class="form-control" />
                                 <span style="color:red" asp-validation-for="company_percantage"></span>
@@ -145,11 +142,8 @@
                 <div class="row">
                     <input type="submit" value="اضافة" class=" btn btn-primary" />
                 </div>
-                <div class="row">
-                    <input asp-for="Id" type="hidden" value=1 class=" btn btn-primary" />
-                </div>
 
-                <div asp-validation-summary="All">
+                <div style="color:red" asp-validation-summary="All">
                 </div>
             </form>
         </div>
