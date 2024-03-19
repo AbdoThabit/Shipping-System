@@ -35,5 +35,7 @@ namespace Shipping_System.ViewModels
         public int Governate_Id { get; set; }
 
        public List<Governate> Governates { get; set; }
+        public List<City>? Cities { get; set; }
+        public List<Branch>? Branches { get; set; }
     }
 }

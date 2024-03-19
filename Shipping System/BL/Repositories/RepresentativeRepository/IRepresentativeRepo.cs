@@ -6,11 +6,12 @@ namespace Shipping_System.BL.Repositories.RepresentativeRepository
 {
     public interface IRepresentativeRepo
     {
-        Task<List<RepresentativeVM>> Get();
-        Task<IdentityResult> Add(RepresentativeVM Representative);
+        Task<List<RepresentativeRegistrationVM>> Get();
+        Task<IdentityResult> Add(RepresentativeRegistrationVM Representative);
         Task<RepresentativeVM> GetById(string id);
-        Task<IdentityResult> Edit(ApplicationUser Representative);
-        Task<IdentityResult> Delete(ApplicationUser Representative);
+        Task<IdentityResult> Edit(RepresentativeVM Representative);
+        Task<IdentityResult> Delete(string id);
         Task<IdentityResult> AddRole();
+        Task<RepresentativeRegistrationVM> IncludeLists();
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Shipping_System.DAL.Entites;
+using System.ComponentModel.DataAnnotations;
 using System.Diagnostics.CodeAnalysis;
 
 namespace Shipping_System.ViewModels
@@ -45,5 +46,9 @@ namespace Shipping_System.ViewModels
 
         [Required(ErrorMessage = "المحافظة مطلوبة")]
         public int Governate_Id { get; set; }
+        public List<Governate>? Governates { get; set; }
+        public List<City>? Cities { get; set; }
+        public List<Branch>? Branches { get; set; }
+
     }
 }

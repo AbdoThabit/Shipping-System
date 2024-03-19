@@ -5,11 +5,13 @@ namespace Shipping_System.BL.Repositories.TraderRepository
 {
     public interface ITraderRepo
     {
-        Task<List<TraderVM>> Get();
-        Task<IdentityResult> Add(TraderVM Trader);
+        Task<List<TraderRegistrationVM>> Get();
+        Task<IdentityResult> Add(TraderRegistrationVM Trader);
         Task<TraderVM> GetById(string id);
-        Task<IdentityResult> Edit(ApplicationUser Trader);
-        Task<IdentityResult> Delete(ApplicationUser Trader);
+        Task<IdentityResult> Edit(TraderVM Trader );
+        Task<IdentityResult> Delete(string id);
         Task<IdentityResult> AddRole();
+        Task<TraderRegistrationVM> IncludeLists();
+
     }
 }

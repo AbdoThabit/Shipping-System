@@ -126,6 +126,9 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             var Lists = new EmployeeRegistrationVM
             {
                 Governates = await _Context.Governates.ToListAsync(),
+                Cities = await _Context.Cities.ToListAsync(),
+                Branches = await _Context.Branches.ToListAsync(),
+
 
             };
             return Lists;

@@ -14,6 +14,6 @@ namespace Shipping_System.ViewModels
         public int Shipping_Cost { get; set; }
         [Required(ErrorMessage = "المحافظة مطلوبة")]
         public int Governate_Id { get; set; }
-        public List<Governate> Governates { get; set; }
+        public List<Governate>? Governates { get; set; }
     }
 }

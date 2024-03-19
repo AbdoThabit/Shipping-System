@@ -1,8 +1,22 @@
-﻿@model List<TraderVM>
+﻿@model List<TraderRegistrationVM>
+
 @{
     ViewData["Title"] = "Home Page";
 }
+@section Styles {
 
+    <style>
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #myTable thead th {
+            text-align: right;
+        }
+    </style>
+}
 <div class="row">
     <div class="col-12 grid-margin">
         <div class="card">
@@ -28,12 +42,17 @@
                                     </td>
                                     <td>@Trd.PhoneNumber</td>
                                     <td>@Trd.Email</td>
+                                    <td><a asp-action="Update" asp-controller="Trader" asp-route-Id="@Trd.Id" class=" btn btn-gradient-success">تعديل</a></td>
+                                    <td><a href="javascript:;" data-id="@Trd.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 </tr>
                             }
 
 
                         </tbody>
                     </table>
+                </div>
+                <div class="d-flex justify-content-center">
+                    <a asp-action="Create" asp-controller="Trader" class="btn btn-primary">اضافة تاجر</a>
                 </div>
             </div>
         </div>
@@ -49,9 +68,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
 
 
+    <script>
+        $(document).ready(function () {
+            $('.js-delete').on('click', function () {
+                var btn = $(this);
+                bootbox.confirm({
+                    title: 'حذف تاجر',
+                    message: 'هل انت متاكد من انك تريد حذف  هذا التاجر ؟',
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> الغاء'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> تاكيد',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/Trader/Delete/' + btn.data('id'),
+                                success: function () {
+                                    btn.parents('.parent').fadeOut();
+                                    toastr.success("تم حذف  بيانات التاجر بنجاح");
+                                },
+                                error: function () {
+                                    toastr.error("حدث خطأ ما !");
 
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
 
     <script>
         $(function () {
@@ -77,12 +133,12 @@
                 language: {
                     "decimal": "",
                     "emptyTable": "لا تتوفر بيانات في الجدول",
-                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
+                    "info": "عرض START إلى END من مجموع TOTAL مدخل",
                     "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
-                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
+                    "infoFiltered": "(تمت تصفية MAX من الإجمالي)",
                     "infoPostFix": "",
                     "thousands": ",",
-                    "lengthMenu": "عرض _MENU_ مدخل",
+                    "lengthMenu": "عرض MENU مدخل",
                     "loadingRecords": "تحميل...",
                     "processing": "جاري المعالجة...",
                     "search": "البحث:",
@@ -103,5 +159,3 @@
 
     </script>
 }
-
-
