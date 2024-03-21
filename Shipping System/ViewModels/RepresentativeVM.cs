@@ -16,27 +16,23 @@ namespace Shipping_System.ViewModels
 
         [Required(ErrorMessage = "العنوان مطلوب")]
         public string Address { get; set; }
-        [Required(ErrorMessage = "*")]
 
+        [Required(ErrorMessage = "نوع الخصم مطلوب")]
         public int? type_of_discount { get; set; }
-        [Required(ErrorMessage = "*")]
 
-        public int? company_percantage { get; set; }
+        [Required(ErrorMessage = " قيمة الشركة من الخصم مطلوبة")]
+        public int? company { get; set; }
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "بريد الكتروني غير صالح")]
         [Required(ErrorMessage = "البريد الاكتروني مطلوب")]
 
         public string Email { get; set; }
 
         [RegularExpression(@"^01[0-2]{1}[0-9]{8}$", ErrorMessage = "رقم الهاتف غير صالح")]
+        [Required(ErrorMessage = "رقم الهاتف مطلوب")]
+
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "كلمة المرور مطلوبة")]
-        public string Password { get; set; }
-
-        [Compare("Password", ErrorMessage = "كلمتا المرور غير متطابقتان")]
-        [Required(ErrorMessage = "تاكيد كلمة المرور مطلوبة")]
-
-        public string ConfirmPassword { get; set; }
+      
 
         [Required(ErrorMessage = " الفرع مطلوب")]
         public int Branch_Id { get; set; }

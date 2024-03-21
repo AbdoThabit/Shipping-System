@@ -62,7 +62,7 @@ namespace Shipping_System.Controllers
             user.City_Id = Representative.City_Id;
             user.Governate_Id = Representative.Governate_Id;
             user.type_of_discount = Representative.type_of_discount;
-            user.company_percantage = Representative.company_percantage;
+            user.company = Representative.company;
 
             return View(user);
         }
@@ -76,7 +76,8 @@ namespace Shipping_System.Controllers
             return View(Representative);
         }
 
-        [HttpPost]        public async Task<IActionResult> Update(RepresentativeVM Representative)
+        [HttpPost]      
+        public async Task<IActionResult> Update(RepresentativeVM Representative)
         {
             if (ModelState.IsValid)
             {

@@ -31,9 +31,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">الفرع</label>
                             <div class="col-sm-9">
-                                <select asp-for="Branch_Id" class="form-control">
-                                    <option value=2>بنها</option>
-                                    <option value=4> طنطا</option>
+                                <select asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
+                                    
                                 </select>
                                 <span style="color:red" asp-validation-for="Branch_Id"></span>
 
@@ -44,9 +43,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">المدينة</label>
                             <div class="col-sm-9">
-                                <select asp-for="City_Id" class="form-control">
-                                    <option value=3>بنها</option>
-                                    <option value=4> طنطا</option>
+                                <select asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
+                                   
                                 </select>
                                 <span style="color:red" asp-validation-for="City_Id"></span>
 
@@ -60,11 +58,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">المحافظة</label>
                             <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control">
-                                    <option value=1>الشرقية</option>
-                                    <option value=2>سوهاج</option>
-                                    <option value=3>الغربية</option>
-                                    <option value=4>الدهقلية</option>
+                                <select asp-for="Governate_Id" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))" class="form-control">
+                              
                                 </select>
                                 <span style="color:red" asp-validation-for="Governate_Id"></span>
                             </div>
@@ -105,7 +100,10 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">نوع الخصم</label>
                             <div class="col-sm-9">
-                                <input asp-for="type_of_discount" type="number" class="form-control" />
+                                <select class="form-control" asp-for="type_of_discount">
+                                    <option value="1">قيمة ثابتة</option>
+                                    <option value="2">نسبة مئوية</option>
+                                </select>
                                 <span style="color:red" asp-validation-for="type_of_discount"></span>
                             </div>
                         </div>
@@ -115,8 +113,8 @@
                         <div class="form-group row">
                             <label class="col-sm-4 col-form-label">النسبه المئويه للشركه</label>
                             <div class="col-sm-8">
-                                <input asp-for="company_percantage" type="number" class="form-control" />
-                                <span style="color:red" asp-validation-for="company_percantage"></span>
+                                <input asp-for="company" type="number" class="form-control" />
+                                <span style="color:red" asp-validation-for="company"></span>
                             </div>
                         </div>
                     </div>

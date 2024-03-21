@@ -16,24 +16,19 @@ namespace Shipping_System.ViewModels
 
         [Required(ErrorMessage = "العنوان مطلوب")]
         public string Address { get; set; }
+
         [RegularExpression(@"^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$", ErrorMessage = "بريد الكتروني غير صالح")]
         [Required(ErrorMessage = "البريد الاكتروني مطلوب")]
-
         public string Email { get; set; }
-        [Required(ErrorMessage = "*")]
 
+        [Required(ErrorMessage = "نسبة تحمل التاجر لطلبات المرفوضة مطلوبة")]
         public int? Trader_RejOrderPrec { get; set; }
 
         [RegularExpression(@"^01[0-2]{1}[0-9]{8}$", ErrorMessage = "رقم الهاتف غير صالح")]
+        [Required(ErrorMessage = "رقم الهاتف مطلوب")]
+
         public string PhoneNumber { get; set; }
 
-        [Required(ErrorMessage = "كلمة المرور مطلوبة")]
-        public string Password { get; set; }
-
-        [Compare("Password", ErrorMessage = "كلمتا المرور غير متطابقتان")]
-        [Required(ErrorMessage = "تاكيد كلمة المرور مطلوبة")]
-
-        public string ConfirmPassword { get; set; }
 
         [Required(ErrorMessage = " الفرع مطلوب")]
         public int Branch_Id { get; set; }

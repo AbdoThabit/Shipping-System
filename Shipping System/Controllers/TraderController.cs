@@ -95,7 +95,7 @@ namespace Shipping_System.Controllers
 
                 }
             }
-            
+
             return View(Trader);
 
         }
