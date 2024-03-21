@@ -31,6 +31,7 @@ using System.Net;
         var Representatives = await _UserManager.GetUsersInRoleAsync("Representative");
         var RepresentativeVM = Representatives.Select(Rep => new RepresentativeRegistrationVM
         {
+            Id = Rep.Id,
             FullName = Rep.FullName,
             Address = Rep.Address,
             PhoneNumber = Rep.PhoneNumber,
@@ -39,7 +40,7 @@ using System.Net;
             City_Id = Rep.City_Id,
             Governate_Id = Rep.Governate_Id,
             type_of_discount = Rep.type_of_discount,
-            company_percantage = Rep.company_percantage,
+            company = Rep.company_percantage,
         }).ToList();
 
         return RepresentativeVM;
@@ -50,6 +51,30 @@ using System.Net;
         var Representative = await _UserManager.FindByIdAsync(id);
         RepresentativeVM RepresentativeVM = new RepresentativeVM()
         {
+            Id = Representative.Id,
+            FullName = Representative.FullName,
+            Address = Representative.Address,
+            PhoneNumber = Representative.PhoneNumber,
+            UserName = Representative.UserName,
+            Email = Representative.Email,
+            Branch_Id = Representative.Branch_Id,
+            City_Id = Representative.City_Id,
+            Governate_Id = Representative.Governate_Id,
+            type_of_discount = Representative.type_of_discount,
+            company = Representative.company_percantage ?? Representative.company_value,
+           Governates = await _Context.Governates.ToListAsync(),
+           Cities = await _Context.Cities.ToListAsync(),
+           Branches = await _Context.Branches.ToListAsync(),
+
+        };
+        return RepresentativeVM;
+    }
+        public Task<IdentityResult> Add(RepresentativeRegistrationVM Representative)
+        {
+        User = new ApplicationUser
+        {
+            UserName = Representative.UserName,
+            Email = Representative.Email,
             FullName = Representative.FullName,
             Address = Representative.Address,
             PhoneNumber = Representative.PhoneNumber,
@@ -57,33 +82,11 @@ using System.Net;
             City_Id = Representative.City_Id,
             Governate_Id = Representative.Governate_Id,
             type_of_discount = Representative.type_of_discount,
-            company_percantage = Representative.company_percantage,
-
-            //Governates = await _Context.Governates.ToListAsync(),
-            //Cities = await _Context.Cities.ToListAsync(),
-            //Branches = await _Context.Branches.ToListAsync(),
+            company_value = Representative.type_of_discount == 1 ? Representative.company : null,
+            company_percantage = Representative.type_of_discount != 1 ? Representative.company : null
 
         };
-        return RepresentativeVM;
-    }
-        public Task<IdentityResult> Add(RepresentativeRegistrationVM Representative)
-        {
-            User = new ApplicationUser
-            {
-                UserName = Representative.UserName,
-                Email = Representative.Email,
-                FullName = Representative.FullName,
-                Address = Representative.Address,
-                PhoneNumber = Representative.PhoneNumber,
-                Branch_Id = Representative.Branch_Id,
-                City_Id = Representative.City_Id,
-                Governate_Id = Representative.Governate_Id,
-                type_of_discount = Representative.type_of_discount,
-                company_percantage = Representative.company_percantage,
 
-
-
-            };
             var state = _UserManager.CreateAsync(User, Representative.Password);
             return state;
         }
@@ -100,14 +103,14 @@ using System.Net;
             var result = await _UserManager.DeleteAsync(user);
             return result;
         }
-        public async Task<IdentityResult> Edit(RepresentativeVM Representative)
-        {
-            var user = await _UserManager.FindByIdAsync(Representative.Id);
+    public async Task<IdentityResult> Edit(RepresentativeVM Representative)
+    {
+        var user = await _UserManager.FindByIdAsync(Representative.Id);
 
-            if (user == null)
-            {
-                return IdentityResult.Failed(new IdentityError { Description = "User not found." });
-            }
+        if (user == null)
+        {
+            return IdentityResult.Failed(new IdentityError { Description = "User not found." });
+        }
 
         user.UserName = Representative.UserName;
         user.Email = Representative.Email;
@@ -118,8 +121,9 @@ using System.Net;
         user.City_Id = Representative.City_Id;
         user.Governate_Id = Representative.Governate_Id;
         user.type_of_discount = Representative.type_of_discount;
-        user.company_percantage = Representative.company_percantage;
-
+        user.company_value = Representative.type_of_discount == 1 ? Representative.company : null;
+        user.company_percantage = Representative.type_of_discount != 1 ? Representative.company : null;
+           
             var state = await _UserManager.UpdateAsync(user);
             return state;
         }

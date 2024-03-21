@@ -29,6 +29,7 @@ public class TraderRepo : ITraderRepo
         var Traders = await _UserManager.GetUsersInRoleAsync("Trader");
         var TraderVM = Traders.Select(Trd => new TraderRegistrationVM
         {
+            Id = Trd.Id,
             FullName = Trd.FullName,
             Address = Trd.Address,
             PhoneNumber = Trd.PhoneNumber,
@@ -47,17 +48,19 @@ public class TraderRepo : ITraderRepo
         var Trader = await _UserManager.FindByIdAsync(id);
         TraderVM TraderVM = new TraderVM()
         {
+            Id = Trader.Id,
             FullName = Trader.FullName,
             Address = Trader.Address,
             PhoneNumber = Trader.PhoneNumber,
+            Email =Trader.Email,
+            UserName = Trader.UserName,
             Branch_Id = Trader.Branch_Id,
             City_Id = Trader.City_Id,
             Governate_Id = Trader.Governate_Id,
             Trader_RejOrderPrec = Trader.Trader_RejOrderPrec,
-
-            //Governates = await _Context.Governates.ToListAsync(),
-            //Cities = await _Context.Cities.ToListAsync(),
-            //Branches = await _Context.Branches.ToListAsync(),
+           Governates = await _Context.Governates.ToListAsync(),
+            Cities = await _Context.Cities.ToListAsync(),
+            Branches = await _Context.Branches.ToListAsync(),
 
         };
         return TraderVM;
@@ -112,6 +115,7 @@ public class TraderRepo : ITraderRepo
         user.Branch_Id = Trader.Branch_Id;
         user.City_Id = Trader.City_Id;
         user.Governate_Id = Trader.Governate_Id;
+        user.Trader_RejOrderPrec = Trader.Trader_RejOrderPrec;
 
         var state = await _UserManager.UpdateAsync(user);
         return state;

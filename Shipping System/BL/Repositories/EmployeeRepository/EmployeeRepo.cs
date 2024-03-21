@@ -54,11 +54,14 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                 FullName = Employee.FullName,
                 Address = Employee.Address,
                 PhoneNumber = Employee.PhoneNumber,
-                UserName=Employee.UserName,
-                Email=Employee.Email,
+                UserName = Employee.UserName,
+                Email = Employee.Email,
                 Branch_Id = Employee.Branch_Id,
                 City_Id = Employee.City_Id,
                 Governate_Id = Employee.Governate_Id,
+                Governates = await _Context.Governates.ToListAsync(),
+                Cities = await _Context.Cities.ToListAsync(),
+                Branches = await _Context.Branches.ToListAsync(),
             };
             return EmployeeVM;
         }

@@ -11,7 +11,7 @@ namespace Shipping_System.ViewModels
         [Column(TypeName = "nvarchar(20)")]
         [Required]
         public string Name { get; set; }
-        public DateTime Creation_Date { get; set; }
+        public DateTime Creation_Date { get; set; } = DateTime.Now;
         [Required(ErrorMessage = "المدينه مطلوبة")]
 
         public int City_Id { get; set; }

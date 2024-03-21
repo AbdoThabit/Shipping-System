@@ -1,4 +1,4 @@
-﻿@model TraderVM
+﻿@model TraderRegistrationVM
 <div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
@@ -31,9 +31,8 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">الفرع</label>
                             <div class="col-sm-9">
-                                <select asp-for="Branch_Id" class="form-control">
-                                    <option value=2>بنها</option>
-                                    <option value=4> طنطا</option>
+                                <select asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
+                               
                                 </select>
                                 <span style="color:red" asp-validation-for="Branch_Id"></span>
 
@@ -80,7 +79,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
                             <div class="col-sm-9">
-                                <input asp-for="Email" type="email" class="form-control" />
+                                <input asp-for="Email" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Email"></span>
                             </div>
                         </div>
@@ -133,7 +132,7 @@
                         <input asp-for="Id" type="hidden" value=1 class=" btn btn-primary" />
                     </div>
 
-                    <div asp-validation-summary="All">
+                    <div style="color:red" asp-validation-summary="All">
                     </div>
             </form>
         </div>
