@@ -7,6 +7,7 @@ using Shipping_System.BL.Repositories.CityRepository;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
+using Shipping_System.BL.Repositories.ShippingSettingRepository;
 using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.DAL.Database;
 using Shipping_System.DAL.Entites;
@@ -38,6 +39,8 @@ namespace Shipping_System
             builder.Services.AddScoped<IGovernateRepo, GovernateRepo>();
             builder.Services.AddScoped<ICityRepo,CityRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
+            builder.Services.AddScoped<IShippingSettingRepo, ShippingSettingRepo>();
+
 
             builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
