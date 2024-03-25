@@ -1,0 +1,40 @@
+﻿@model WeightSettingsVM
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title ">اعدادات الوزن</strong>
+            <form method="post" asp-action="Create" asp-controller="WeightSettings" class="form-sample">
+                <p class="card-description"> الاعددادت </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">سعر الوزن الأضافي</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Default_Weight" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Default_Weight"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">سعر الوزن الأضافي</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Extra_Weight" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Extra_Weight"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <input type="submit" value="اضافة" class=" btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}

@@ -9,6 +9,7 @@ using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
 using Shipping_System.BL.Repositories.TraderRepository;
+using Shipping_System.BL.Repositories.WeightSettingsRepository;
 using Shipping_System.DAL.Database;
 using Shipping_System.DAL.Entites;
 
@@ -22,7 +23,7 @@ namespace Shipping_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ThabitConnection")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
               options =>
               {
@@ -40,6 +41,7 @@ namespace Shipping_System
             builder.Services.AddScoped<ICityRepo,CityRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IShippingSettingRepo, ShippingSettingRepo>();
+            builder.Services.AddScoped<IWeightSettingsRepo, WeightSettingsRepo>();
 
 
             builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
