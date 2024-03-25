@@ -1,0 +1,31 @@
+﻿@model VillageSettingVM
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title ">اعدادات الوزن</strong>
+            <form method="post" asp-action="Create" asp-controller="VillageSetting" class="form-sample">
+                <p class="card-description"> الاعددادت </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">سعر الشحن للقـريـة</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Price" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Price"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+                <div class="row">
+                    <input type="submit" value="اضافة" class=" btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
