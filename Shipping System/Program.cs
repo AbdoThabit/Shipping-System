@@ -9,6 +9,7 @@ using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
 using Shipping_System.BL.Repositories.TraderRepository;
+using Shipping_System.BL.Repositories.VillageSettingsRepository;
 using Shipping_System.BL.Repositories.WeightSettingsRepository;
 using Shipping_System.DAL.Database;
 using Shipping_System.DAL.Entites;
@@ -42,8 +43,9 @@ namespace Shipping_System
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IShippingSettingRepo, ShippingSettingRepo>();
             builder.Services.AddScoped<IWeightSettingsRepo, WeightSettingsRepo>();
+            builder.Services.AddScoped<IVillageSettingRepoe, VillageSettingRepoe>();
 
-
+            
             builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
                 ProgressBar = true,

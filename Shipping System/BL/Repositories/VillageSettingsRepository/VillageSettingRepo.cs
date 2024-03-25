@@ -27,7 +27,7 @@ namespace Shipping_System.BL.Repositories.VillageSettingsRepository
 
         public async Task<int> Delete(int id)
         {
-            var villagetSettingDB = await _Context.WeightSettings.FindAsync(id);
+            var villagetSettingDB = await _Context.VillageSettings.FindAsync(id);
 
             if (villagetSettingDB != null)
             {
