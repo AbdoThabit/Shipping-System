@@ -8,8 +8,8 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">الوزن الأساسي</label>
-                            <div class="col-sm-9">
+                            <label class="col-sm-8 col-form-label"> اعددات تكلفة الشحن الافتراضية (بالجنية) من وزن 0 كجم الي وزن</label>
+                            <div class="col-sm-4">
                                 <input asp-for="Default_Weight" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Default_Weight"></span>
                             </div>
@@ -17,21 +17,18 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">الوزن الأضافي</label>
-                            <div class="col-sm-9">
+                            <label class="col-sm-5 col-form-label">وسعر كل كجم اضافي بمبلغ الجنية</label>
+                            <div class="col-sm-4">
                                 <input asp-for="Extra_Weight" type="text" class="form-control" />
                                 <span style="color:red" asp-validation-for="Extra_Weight"></span>
                             </div>
                         </div>
                     </div>
                 </div>
-               
-                <input type="hidden" asp-for="Id" />
-                <div style="color:red" asp-validation-summary="All">
-                </div>
                 <div class="row">
-                    <input type="submit" value="تعديل" class=" btn btn-primary" />
+                    <input type="submit" value="حفظ" class=" btn btn-primary" />
                 </div>
+              
             </form>
         </div>
     </div>

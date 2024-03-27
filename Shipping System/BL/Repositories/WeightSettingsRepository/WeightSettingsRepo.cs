@@ -44,7 +44,7 @@ namespace Shipping_System.BL.Repositories.WeightSettingsRepository
 
         public async Task<int> Edit(WeightSettingsVM weightvm)
         {
-            var WeightSettingDB = await _Context.WeightSettings.FindAsync(weightvm.Id);
+            var WeightSettingDB = await _Context.WeightSettings.SingleOrDefaultAsync();
 
             if (WeightSettingDB != null)
             {
@@ -63,19 +63,17 @@ namespace Shipping_System.BL.Repositories.WeightSettingsRepository
         {
             var WeightSettings = _Context.WeightSettings.Select(set => new WeightSettingsVM
             {
-               Id = set.Id,
                Default_Weight = set.Default_Weight,
                Extra_Weight = set.Extra_Weight,
             }).ToListAsync();
             return WeightSettings;
         }
 
-        public async Task<WeightSettingsVM> GetById(int id)
+        public async Task<WeightSettingsVM> GetWeightSettings()
         {
-            var WeightSettingDB = await _Context.WeightSettings.FindAsync(id);
+            var WeightSettingDB = await _Context.WeightSettings.SingleOrDefaultAsync();
             var weightSetting = new WeightSettingsVM()
             {
-                Id = WeightSettingDB.Id,
                 Default_Weight = WeightSettingDB.Default_Weight,
                 Extra_Weight = WeightSettingDB.Extra_Weight,
             };
