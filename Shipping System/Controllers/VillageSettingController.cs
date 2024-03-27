@@ -15,32 +15,32 @@ namespace Shipping_System.Controllers
             _VillageSettingsRepo = VillageSettingRepoe;
             _ToastNotification = toastNotification;
         }
-        public async Task<IActionResult> Index()
-        {
-            var VillageSettings = await _VillageSettingsRepo.Get();
-            return View(VillageSettings);
-        }
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var VillageSettings = await _VillageSettingsRepo.Get();
+        //    return View(VillageSettings);
+        //}
+        //public async Task<IActionResult> Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(VillageSettingVM villageSettingVM)
-        {
-            if (ModelState.IsValid)
-            {
-                await _VillageSettingsRepo.Add(villageSettingVM);
-                _ToastNotification.AddSuccessToastMessage(" تم اضافة اعداد القرية");
-                return RedirectToAction("Index");
+        //[HttpPost]
+        //public async Task<IActionResult> Create(VillageSettingVM villageSettingVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _VillageSettingsRepo.Add(villageSettingVM);
+        //        _ToastNotification.AddSuccessToastMessage(" تم اضافة اعداد القرية");
+        //        return RedirectToAction("Index");
 
-            }
+        //    }
 
-            return View(villageSettingVM);
-        }
-        public async Task<IActionResult> Update(int Id)
+        //    return View(villageSettingVM);
+        //}
+        public async Task<IActionResult> Update()
         {
-            var VillageSetting = await _VillageSettingsRepo.GetById(Id);
+            var VillageSetting = await _VillageSettingsRepo.GetVillageSettings();
             return View(VillageSetting);
         }
         [HttpPost]
@@ -51,9 +51,9 @@ namespace Shipping_System.Controllers
                 var result = await _VillageSettingsRepo.Edit(villageSetting);
                 if (result != 0)
                 {
-                    _ToastNotification.AddSuccessToastMessage("تم تعديل اعــدادات القرية بنجاح");
+                    _ToastNotification.AddSuccessToastMessage("تم تعديل اعدادات الشحن لقرية بنجاح");
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Update));
 
                 }
                 else
@@ -65,20 +65,20 @@ namespace Shipping_System.Controllers
             return View(villageSetting);
 
         }
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var result = await _VillageSettingsRepo.Delete(Id);
-            if (result != 0)
-            {
-                _ToastNotification.AddSuccessToastMessage("تم حذف نوع الشحن بنجاح");
+        //public async Task<IActionResult> Delete(int Id)
+        //{
+        //    var result = await _VillageSettingsRepo.Delete(Id);
+        //    if (result != 0)
+        //    {
+        //        _ToastNotification.AddSuccessToastMessage("تم حذف نوع الشحن بنجاح");
 
-                return Ok();
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Failed to delete . Please try again.");
-                return RedirectToAction("Index");
-            }
-        }
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Failed to delete . Please try again.");
+        //        return RedirectToAction("Index");
+        //    }
+        //}
     }
 }

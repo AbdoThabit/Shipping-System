@@ -17,32 +17,32 @@ namespace Shipping_System.Controllers
 
         
 
-        public async Task<IActionResult> Index()
-        {
-            var ShippingSettings = await _WeightSettingsRepo.Get();
-            return View(ShippingSettings);
-        }
-        public async Task<IActionResult> Create()
-        {
-            return View();
-        }
+        //public async Task<IActionResult> Index()
+        //{
+        //    var ShippingSettings = await _WeightSettingsRepo.Get();
+        //    return View(ShippingSettings);
+        //}
+        //public async Task<IActionResult> Create()
+        //{
+        //    return View();
+        //}
 
-        [HttpPost]
-        public async Task<IActionResult> Create(WeightSettingsVM weightSettingsVM)
-        {
-            if (ModelState.IsValid)
-            {
-                await _WeightSettingsRepo.Add(weightSettingsVM);
-                _ToastNotification.AddSuccessToastMessage(" تم اضافة اعداد الوزن");
-                return RedirectToAction("Index");
+        //[HttpPost]
+        //public async Task<IActionResult> Create(WeightSettingsVM weightSettingsVM)
+        //{
+        //    if (ModelState.IsValid)
+        //    {
+        //        await _WeightSettingsRepo.Add(weightSettingsVM);
+        //        _ToastNotification.AddSuccessToastMessage(" تم اضافة اعداد الوزن");
+        //        return RedirectToAction("Index");
 
-            }
+        //    }
 
-            return View(weightSettingsVM);
-        }
-        public async Task<IActionResult> Update(int Id)
+        //    return View(weightSettingsVM);
+        //}
+        public async Task<IActionResult> Update()
         {
-            var WeightSetting = await _WeightSettingsRepo.GetById(Id);
+            var WeightSetting = await _WeightSettingsRepo.GetWeightSettings();
             return View(WeightSetting);
         }
         [HttpPost]
@@ -53,9 +53,9 @@ namespace Shipping_System.Controllers
                 var result = await _WeightSettingsRepo.Edit(WeightSetting);
                 if (result != 0)
                 {
-                    _ToastNotification.AddSuccessToastMessage("تم تعديل نوع الشحن بنجاح");
+                    _ToastNotification.AddSuccessToastMessage("تم حفظ اعدادات الوزن بنجاح");
 
-                    return RedirectToAction("Index");
+                    return RedirectToAction(nameof(Update));
 
                 }
                 else
@@ -67,20 +67,20 @@ namespace Shipping_System.Controllers
             return View(WeightSetting);
 
         }
-        public async Task<IActionResult> Delete(int Id)
-        {
-            var result = await _WeightSettingsRepo.Delete(Id);
-            if (result != 0)
-            {
-                _ToastNotification.AddSuccessToastMessage("تم حذف نوع الشحن بنجاح");
+        //public async Task<IActionResult> Delete(int Id)
+        //{
+        //    var result = await _WeightSettingsRepo.Delete(Id);
+        //    if (result != 0)
+        //    {
+        //        _ToastNotification.AddSuccessToastMessage("تم حذف نوع الشحن بنجاح");
 
-                return Ok();
-            }
-            else
-            {
-                ModelState.AddModelError(string.Empty, "Failed to delete . Please try again.");
-                return RedirectToAction("Index");
-            }
-        }
+        //        return Ok();
+        //    }
+        //    else
+        //    {
+        //        ModelState.AddModelError(string.Empty, "Failed to delete . Please try again.");
+        //        return RedirectToAction("Index");
+        //    }
+        //}
     }
 }

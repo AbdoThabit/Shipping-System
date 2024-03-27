@@ -6,7 +6,7 @@ namespace Shipping_System.BL.Repositories.WeightSettingsRepository
     {
         Task<List<WeightSettingsVM>> Get();
         Task<int> Add(WeightSettingsVM weightvm);
-        Task<WeightSettingsVM> GetById(int id);
+        Task<WeightSettingsVM> GetWeightSettings();
         Task<int> Edit(WeightSettingsVM weightvm);
         Task<int> Delete(int id);
     }

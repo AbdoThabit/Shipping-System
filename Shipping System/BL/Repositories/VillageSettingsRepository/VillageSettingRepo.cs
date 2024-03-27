@@ -14,37 +14,37 @@ namespace Shipping_System.BL.Repositories.VillageSettingsRepository
             _Context = context;
         }
 
-        public async Task<int> Add(VillageSettingVM villagevm)
-        {
-            var villageSetting = new VillageShipping()
-            {
-                Price = villagevm.Price,
-            };
-            await _Context.VillageSettings.AddAsync(villageSetting);
-            var result = await _Context.SaveChangesAsync();
-            return result;
-        }
+        //public async Task<int> Add(VillageSettingVM villagevm)
+        //{
+        //    var villageSetting = new VillageShipping()
+        //    {
+        //        Price = villagevm.Price,
+        //    };
+        //    await _Context.VillageSettings.AddAsync(villageSetting);
+        //    var result = await _Context.SaveChangesAsync();
+        //    return result;
+        //}
 
-        public async Task<int> Delete(int id)
-        {
-            var villagetSettingDB = await _Context.VillageSettings.FindAsync(id);
+        //public async Task<int> Delete(int id)
+        //{
+        //    var villagetSettingDB = await _Context.VillageSettings.FindAsync(id);
 
-            if (villagetSettingDB != null)
-            {
-                _Context.Entry(villagetSettingDB).State = EntityState.Deleted;
+        //    if (villagetSettingDB != null)
+        //    {
+        //        _Context.Entry(villagetSettingDB).State = EntityState.Deleted;
 
 
-                return await _Context.SaveChangesAsync();
-            }
-            else
-            {
-                return 0;
-            }
-        }
+        //        return await _Context.SaveChangesAsync();
+        //    }
+        //    else
+        //    {
+        //        return 0;
+        //    }
+        //}
 
         public async Task<int> Edit(VillageSettingVM villagevm)
         {
-            var villageSettingDB = await _Context.VillageSettings.FindAsync(villagevm.Id);
+            var villageSettingDB = await _Context.VillageSettings.SingleOrDefaultAsync();
 
             if (villageSettingDB != null)
             {
@@ -59,22 +59,21 @@ namespace Shipping_System.BL.Repositories.VillageSettingsRepository
             }
         }
 
-        public Task<List<VillageSettingVM>> Get()
-        {
-            var villageSettings = _Context.VillageSettings.Select(set => new VillageSettingVM
-            {
-                Id = set.Id,
-                Price = set.Price,
-            }).ToListAsync();
-            return villageSettings;
-        }
+        //public Task<List<VillageSettingVM>> Get()
+        //{
+        //    var villageSettings = _Context.VillageSettings.Select(set => new VillageSettingVM
+        //    {
+        //        Id = set.Id,
+        //        Price = set.Price,
+        //    }).ToListAsync();
+        //    return villageSettings;
+        //}
 
-        public async Task<VillageSettingVM> GetById(int id)
+        public async Task<VillageSettingVM> GetVillageSettings()
         {
-            var villageSettingDB = await _Context.VillageSettings.FindAsync(id);
+            var villageSettingDB = await _Context.VillageSettings.SingleOrDefaultAsync();
             var villageSetting = new VillageSettingVM()
             {
-                Id = villageSettingDB.Id,
                 Price = villageSettingDB.Price,
             };
             return villageSetting;
