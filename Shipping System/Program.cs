@@ -2,11 +2,13 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NToastNotify;
+using Shipping_System.BL.Repositories.AccountRepository;
 using Shipping_System.BL.Repositories.BranchRepository;
 using Shipping_System.BL.Repositories.CityRepository;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
+using Shipping_System.BL.Repositories.RolesRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
 using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.BL.Repositories.VillageSettingsRepository;
@@ -34,18 +36,23 @@ namespace Shipping_System
                   options.Password.RequireUppercase = false;
                   options.Password.RequiredLength = 4;
               }
-              ).AddEntityFrameworkStores<Context>();
+              ).AddEntityFrameworkStores<Context>().AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
             builder.Services.AddScoped< IEmployeeRepo, EmployeeRepo>();
             builder.Services.AddScoped<ITraderRepo, TraderRepo>();
             builder.Services.AddScoped<IRepresentativeRepo, RepresentativeRepo>();
+            builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IGovernateRepo, GovernateRepo>();
             builder.Services.AddScoped<ICityRepo,CityRepo>();
             builder.Services.AddScoped<IBranchRepo, BranchRepo>();
             builder.Services.AddScoped<IShippingSettingRepo, ShippingSettingRepo>();
             builder.Services.AddScoped<IWeightSettingsRepo, WeightSettingsRepo>();
             builder.Services.AddScoped<IVillageSettingRepoe, VillageSettingRepoe>();
+            builder.Services.AddScoped<IAccountRepo, AccountRepo>();
+            builder.Services.AddScoped<IRolesRepo, RolesRepo>();
 
-            
+
+
+
             builder.Services.AddMvc().AddNToastNotifyToastr(new ToastrOptions()
             {
                 ProgressBar = true,
@@ -75,7 +82,7 @@ namespace Shipping_System
 
             app.MapControllerRoute(
                 name: "default",
-                pattern: "{controller=Home}/{action=Index}/{id?}");
+                pattern: "{controller=Account}/{action=Login}/{id?}");
 
             app.Run();
         }

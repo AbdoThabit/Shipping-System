@@ -61,7 +61,7 @@
                 <a class="dropdown-item" href="#">
                   <i class="mdi mdi-cached me-2 text-success"></i> سجل النشاطات </a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">
+                <a asp-action="LogOut" asp-controller="Account" class="dropdown-item" >
                   <i class="mdi mdi-logout me-2 text-primary"></i> خروج </a>
               </div>
             </li>
@@ -412,6 +412,13 @@
                                 <li class="nav-item"> <a style="font-size:18px;font-weight:bolder; color:#b66dff;" class="nav-link" asp-action="Update" asp-controller="VillageSetting">اعدادات القري</a></li>
                             </ul>
                         </div>
+                    </li>
+
+                    <li class="nav-item">
+                        <a class="nav-link" asp-action="Index" asp-controller="Roles">
+                            <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">الصلاحيات</span>
+                            <i class="mdi mdi-account-group menu-icon"></i>
+                        </a>
                     </li>
                     
                 </ul>
