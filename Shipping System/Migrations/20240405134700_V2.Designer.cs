@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shipping_System.DAL.Database;
 
@@ -11,9 +12,11 @@ using Shipping_System.DAL.Database;
 namespace Shipping_System.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240405134700_V2")]
+    partial class V2
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -333,10 +336,14 @@ namespace Shipping_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Notes")
+                        .IsRequired()
                         .HasColumnType("nvarchar(120)");
 
                     b.Property<DateTime>("Order_Date")
                         .HasColumnType("datetime2");
+
+                    b.Property<int?>("Order_StatusId")
+                        .HasColumnType("int");
 
                     b.Property<decimal>("Order_Total_Cost")
                         .HasColumnType("money");
@@ -347,14 +354,11 @@ namespace Shipping_System.Migrations
                     b.Property<decimal>("Products_Total_Cost")
                         .HasColumnType("money");
 
-                    b.Property<string>("Representitive_Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("SecoundPhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("ShippingSetting_Id")
+                    b.Property<int>("ShippingSetting_Id")
                         .HasColumnType("int");
 
                     b.Property<int>("Status_Id")
@@ -363,16 +367,20 @@ namespace Shipping_System.Migrations
                     b.Property<int>("Total_weight")
                         .HasColumnType("int");
 
-                    b.Property<int?>("VillageSetting_Id")
+                    b.Property<int>("VillageSetting_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VillageShippingId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Village_Flag")
                         .HasColumnType("bit");
 
                     b.Property<string>("Village_Name")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("WeightSetting_Id")
+                    b.Property<int>("WeightSetting_Id")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -383,13 +391,11 @@ namespace Shipping_System.Migrations
 
                     b.HasIndex("Governate_Id");
 
-                    b.HasIndex("Representitive_Id");
+                    b.HasIndex("Order_StatusId");
 
                     b.HasIndex("ShippingSetting_Id");
 
-                    b.HasIndex("Status_Id");
-
-                    b.HasIndex("VillageSetting_Id");
+                    b.HasIndex("VillageShippingId");
 
                     b.HasIndex("WeightSetting_Id");
 
@@ -638,29 +644,27 @@ namespace Shipping_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shipping_System.DAL.Entites.ApplicationUser", "Representitive")
+                    b.HasOne("Shipping_System.DAL.Entites.Order_Status", null)
                         .WithMany("Orders")
-                        .HasForeignKey("Representitive_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("Order_StatusId");
 
                     b.HasOne("Shipping_System.DAL.Entites.ShippingSetting", "ShippingSetting")
                         .WithMany("Orders")
-                        .HasForeignKey("ShippingSetting_Id");
-
-                    b.HasOne("Shipping_System.DAL.Entites.Order_Status", "Status")
-                        .WithMany("Orders")
-                        .HasForeignKey("Status_Id")
+                        .HasForeignKey("ShippingSetting_Id")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Shipping_System.DAL.Entites.VillageShipping", "VillageShipping")
                         .WithMany("Orders")
-                        .HasForeignKey("VillageSetting_Id");
+                        .HasForeignKey("VillageShippingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Shipping_System.DAL.Entites.WeightSetting", "WeightSetting")
                         .WithMany("Orders")
-                        .HasForeignKey("WeightSetting_Id");
+                        .HasForeignKey("WeightSetting_Id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("Branch");
 
@@ -668,11 +672,7 @@ namespace Shipping_System.Migrations
 
                     b.Navigation("Governate");
 
-                    b.Navigation("Representitive");
-
                     b.Navigation("ShippingSetting");
-
-                    b.Navigation("Status");
 
                     b.Navigation("VillageShipping");
 
@@ -763,11 +763,6 @@ namespace Shipping_System.Migrations
                 });
 
             modelBuilder.Entity("Shipping_System.DAL.Entites.WeightSetting", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Shipping_System.DAL.Entites.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
                 });

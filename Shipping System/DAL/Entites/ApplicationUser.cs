@@ -32,6 +32,8 @@ namespace Shipping_System.DAL.Entites
         [ForeignKey("Branch")]
         public int Branch_Id { get; set; }
         public virtual Branch Branch { get; set; }
+        public virtual ICollection<Order> Orders { get; set; }
+
 
 
 

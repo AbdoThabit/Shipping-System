@@ -7,6 +7,7 @@ using Shipping_System.BL.Repositories.BranchRepository;
 using Shipping_System.BL.Repositories.CityRepository;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.BL.Repositories.GovernateRepository;
+using Shipping_System.BL.Repositories.OrderRepo;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.BL.Repositories.RolesRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
@@ -47,9 +48,9 @@ namespace Shipping_System
             builder.Services.AddScoped<IShippingSettingRepo, ShippingSettingRepo>();
             builder.Services.AddScoped<IWeightSettingsRepo, WeightSettingsRepo>();
             builder.Services.AddScoped<IVillageSettingRepoe, VillageSettingRepoe>();
+            builder.Services.AddScoped<IOrderRepo, OrderRepo>();
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IRolesRepo, RolesRepo>();
-
 
 
 

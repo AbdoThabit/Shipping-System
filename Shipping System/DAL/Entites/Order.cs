@@ -23,9 +23,9 @@ namespace Shipping_System.DAL.Entites
         [Required]
         public string FristPhoneNumber { get; set;}
 
-        public string SecoundPhoneNumber { get; set;}
+        public string? SecoundPhoneNumber { get; set;}
         public DateTime Order_Date { get; set;}
-        public string Village_Name {  get; set;}
+        public string? Village_Name {  get; set;}
         public bool Village_Flag { get; set;}
         public int Total_weight { get; set;}
 
@@ -35,10 +35,12 @@ namespace Shipping_System.DAL.Entites
         public decimal Order_Total_Cost { get; set;}
 
         public int Payment_Type {  get; set;}
-        public int Order_Status {  get; set;}
+        [ForeignKey("Status")]
+        public int Status_Id {  get; set;}
+        public virtual Order_Status Status { get; set;}
 
         [Column(TypeName = "nvarchar(120)")]
-        public string Notes { get; set;}
+        public string? Notes { get; set;}
 
 
         [ForeignKey("Governate")]
@@ -55,17 +57,23 @@ namespace Shipping_System.DAL.Entites
         public virtual Branch Branch { get; set;}
 
         [ForeignKey("ShippingSetting")]
-        public int ShippingSetting_Id {  get; set; }
+        public int? ShippingSetting_Id {  get; set; }
 
         public virtual ShippingSetting ShippingSetting { get; set; }
 
         [ForeignKey("WeightSetting")]
 
-        public int WeightSetting_Id { get; set;}
+        public int? WeightSetting_Id { get; set;}
         public virtual WeightSetting WeightSetting { get; set;}
+        [ForeignKey("VillageShipping")]
 
-        public int VillageSetting_Id { get; set;}
+        public int? VillageSetting_Id { get; set;}
         public virtual VillageShipping VillageShipping { get; set; }
+        [ForeignKey("Representitive")]
+        public string Representitive_Id { get; set; }
+        public virtual ApplicationUser Representitive { get; set; }
+
+        public virtual ICollection<Product> Products  { get; set; }
 
 
 
