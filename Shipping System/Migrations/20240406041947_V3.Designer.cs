@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shipping_System.DAL.Database;
 
@@ -11,9 +12,11 @@ using Shipping_System.DAL.Database;
 namespace Shipping_System.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240406041947_V3")]
+    partial class V3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -347,10 +350,6 @@ namespace Shipping_System.Migrations
                     b.Property<decimal>("Products_Total_Cost")
                         .HasColumnType("money");
 
-                    b.Property<string>("Representitive_Id")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.Property<string>("SecoundPhoneNumber")
                         .HasColumnType("nvarchar(max)");
 
@@ -364,6 +363,9 @@ namespace Shipping_System.Migrations
                         .HasColumnType("int");
 
                     b.Property<int?>("VillageSetting_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("VillageShippingId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Village_Flag")
@@ -383,13 +385,11 @@ namespace Shipping_System.Migrations
 
                     b.HasIndex("Governate_Id");
 
-                    b.HasIndex("Representitive_Id");
-
                     b.HasIndex("ShippingSetting_Id");
 
                     b.HasIndex("Status_Id");
 
-                    b.HasIndex("VillageSetting_Id");
+                    b.HasIndex("VillageShippingId");
 
                     b.HasIndex("WeightSetting_Id");
 
@@ -638,12 +638,6 @@ namespace Shipping_System.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Shipping_System.DAL.Entites.ApplicationUser", "Representitive")
-                        .WithMany("Orders")
-                        .HasForeignKey("Representitive_Id")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Shipping_System.DAL.Entites.ShippingSetting", "ShippingSetting")
                         .WithMany("Orders")
                         .HasForeignKey("ShippingSetting_Id");
@@ -656,7 +650,9 @@ namespace Shipping_System.Migrations
 
                     b.HasOne("Shipping_System.DAL.Entites.VillageShipping", "VillageShipping")
                         .WithMany("Orders")
-                        .HasForeignKey("VillageSetting_Id");
+                        .HasForeignKey("VillageShippingId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("Shipping_System.DAL.Entites.WeightSetting", "WeightSetting")
                         .WithMany("Orders")
@@ -667,8 +663,6 @@ namespace Shipping_System.Migrations
                     b.Navigation("City");
 
                     b.Navigation("Governate");
-
-                    b.Navigation("Representitive");
 
                     b.Navigation("ShippingSetting");
 
@@ -763,11 +757,6 @@ namespace Shipping_System.Migrations
                 });
 
             modelBuilder.Entity("Shipping_System.DAL.Entites.WeightSetting", b =>
-                {
-                    b.Navigation("Orders");
-                });
-
-            modelBuilder.Entity("Shipping_System.DAL.Entites.ApplicationUser", b =>
                 {
                     b.Navigation("Orders");
                 });

@@ -1,6 +1,20 @@
-﻿namespace Shipping_System.BL.Repositories.OrderRepo
+﻿using Shipping_System.DAL.Entites;
+using Shipping_System.ViewModels;
+
+namespace Shipping_System.BL.Repositories.OrderRepo
 {
-    public class IOrderRepo
+    public interface IOrderRepo
     {
+        Task<int> Add(OrderVM order);
+
+        Task<int> Update(OrderVM order);
+
+       Task< OrderVM> GetById(int orderId);
+
+       Task<List<OrderVM>> GetAll();
+
+        Task<OrderVM> IncludeLists();
+       Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate);
+        Task<int> Delete(int id);
     }
 }

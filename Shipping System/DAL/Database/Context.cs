@@ -19,8 +19,7 @@ namespace Shipping_System.DAL.Database
         public virtual DbSet<ShippingSetting> ShippingSettings { get; set; }
         public virtual DbSet<WeightSetting> WeightSettings{ get ; set; }
         public virtual DbSet<VillageShipping>  VillageSettings { get; set; }
-
-
+        public virtual DbSet<Order_Status> Order_Statuses { get; set; }
 
 
     }
