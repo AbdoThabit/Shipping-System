@@ -28,7 +28,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
 
         public async Task<List<EmployeeRegistrationVM>> Get()
         {
-            var Employees = await _UserManager.GetUsersInRoleAsync("Employee");
+            var Employees = await _UserManager.GetUsersInRoleAsync("موظف");
             var EmployeesVM = Employees.Select(Emp => new EmployeeRegistrationVM
             {
                 Id = Emp.Id,
@@ -120,7 +120,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
 
         public async Task<IdentityResult> AddRole()
         {
-            var state = await _UserManager.AddToRoleAsync(User,"Employee");
+            var state = await _UserManager.AddToRoleAsync(User,"موظف");
             return state;
         }
 

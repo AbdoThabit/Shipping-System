@@ -45,12 +45,19 @@ namespace Shipping_System.ViewModels
         public int? VillageSetting_Id { get; set; }
 
         public string Representitive_Id { get; set; }
+        public string Trader_Id { get; set; }
+        public string? GovernateName { get; set; }
+        public string? CityName { get; set; }
+        public string? BranchName { get; set; }
+        public string? RepresntiveName { get; set; }
+        
 
         public List<Governate>? Governates { get; set; }
         public List<City>? Cities { get; set; }
         public List<Branch>? Branches { get; set; }
         public List<ShippingSetting>?  shippingSettings { get; set; }
         public IList<ApplicationUser>? Representitve { get; set; }
+        public IList<ApplicationUser>? Traders { get; set; }
 
 
         public List<Product> Products { get; set;}

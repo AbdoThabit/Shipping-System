@@ -28,7 +28,7 @@ using System.Net;
 
         public async Task<List<RepresentativeRegistrationVM>> Get()
         {
-        var Representatives = await _UserManager.GetUsersInRoleAsync("Representative");
+        var Representatives = await _UserManager.GetUsersInRoleAsync("مندوب");
         var RepresentativeVM = Representatives.Select(Rep => new RepresentativeRegistrationVM
         {
             Id = Rep.Id,
@@ -130,7 +130,7 @@ using System.Net;
     
         public async Task<IdentityResult> AddRole()
         {
-            var state = await _UserManager.AddToRoleAsync(User, "Representative");
+            var state = await _UserManager.AddToRoleAsync(User, "مندوب");
             return state;
         }
 

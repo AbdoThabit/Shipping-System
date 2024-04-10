@@ -14,9 +14,10 @@ namespace Shipping_System.Controllers
             _OrderRepo = orderRepo;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var orders = await _OrderRepo.GetAll();
+            return View(orders);
         }
         public async Task< IActionResult> Create()
         {

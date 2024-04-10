@@ -84,10 +84,11 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Cities = await _Context.Cities.ToListAsync(),
                 Branches = await _Context.Branches.ToListAsync(),
                 shippingSettings = await _Context.ShippingSettings.ToListAsync(),
-                Representitve = await _UserManager.GetUsersInRoleAsync("Representative")
+                Representitve = await _UserManager.GetUsersInRoleAsync("مندوب"),
+                Traders = await _UserManager.GetUsersInRoleAsync("تاجر"),
 
 
-        };
+            };
             return Lists;
         }
 
@@ -96,9 +97,43 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             throw new NotImplementedException();
         }
 
-        public Task<List<OrderVM>> GetAll()
+        public async Task<List<OrderVM>> GetAll()
         {
-            throw new NotImplementedException();
+            List<OrderVM> orders =await _Context.Orders.Select(Order => new OrderVM
+            {
+                Id = Order.Id,
+                Client_Name = Order.Client_Name,
+                FristPhoneNumber = Order.FristPhoneNumber,
+                SecoundPhoneNumber = Order.SecoundPhoneNumber,
+                Email = Order.Email,
+                Address = Order.Address,
+                Village_Name = Order.Village_Name,
+                Governate_Id = Order.Governate_Id,
+                City_Id = Order.City_Id,
+                Village_Flag = Order.Village_Flag,
+                ShippingSetting_Id = Order.ShippingSetting_Id,
+                Payment_Type = Order.Payment_Type,
+                Branch_Id = Order.Branch_Id,
+                Status_Id = Order.Status_Id,
+                Order_Date = Order.Order_Date,
+                Notes = Order.Notes,
+                Representitive_Id = Order.Representitive_Id,
+                Products_Total_Cost = Order.Products_Total_Cost,
+                Order_Total_Cost = Order.Order_Total_Cost,
+                Total_weight = Order.Total_weight,
+                GovernateName = Order.Governate.Name,
+                CityName = Order.City.Name,
+                BranchName = Order.Branch.Name,
+                RepresntiveName = Order.Representitive.FullName,
+                Products = Order.Products.Select(prod => new Product
+                {
+                    Name = prod.Name,
+                    Qunatity = prod.Qunatity,
+                    Price = prod.Price,
+                    Weight = prod.Weight,
+                }).ToList()
+            }).ToListAsync();
+            return orders;
         }
 
         public Task<OrderVM> GetById(int orderId)
