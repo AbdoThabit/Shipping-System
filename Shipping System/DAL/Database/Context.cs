@@ -22,6 +22,31 @@ namespace Shipping_System.DAL.Database
         public virtual DbSet<Order_Status> Order_Statuses { get; set; }
 
 
+
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Configure cascade delete behavior for Order-Product relationship
+            modelBuilder.Entity<Order>()
+                .HasMany(o => o.Products)
+                .WithOne(p => p.Order)
+                .OnDelete(DeleteBehavior.Cascade);
+
+            // Disable cascade delete for relationships involving Trader and Representitive
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.RepresentiveOrders)
+                .WithOne(o => o.Representitive)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(u => u.TraderOrders)
+                .WithOne(o => o.Trader)
+                .OnDelete(DeleteBehavior.Restrict);
+        }
+
+
     }
 }
 
