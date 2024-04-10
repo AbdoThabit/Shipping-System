@@ -54,6 +54,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Order_Date = DateTime.Now,
                 Notes = Order.Notes,
                 Representitive_Id = Order.Representitive_Id,
+                Trader_Id = Order.Trader_Id,
                 Products_Total_Cost = costAllProducts,
                 Order_Total_Cost = costDeliverToVillage + costAddititonalWeight  + costShippingType,
                 Total_weight = (int) countWeight,
@@ -117,7 +118,6 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Status_Id = Order.Status_Id,
                 Order_Date = Order.Order_Date,
                 Notes = Order.Notes,
-                Representitive_Id = Order.Representitive_Id,
                 Products_Total_Cost = Order.Products_Total_Cost,
                 Order_Total_Cost = Order.Order_Total_Cost,
                 Total_weight = Order.Total_weight,
@@ -125,6 +125,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 CityName = Order.City.Name,
                 BranchName = Order.Branch.Name,
                 RepresntiveName = Order.Representitive.FullName,
+                TraderName = Order.Trader.FullName,
                 Products = Order.Products.Select(prod => new Product
                 {
                     Name = prod.Name,

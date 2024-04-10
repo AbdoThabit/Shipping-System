@@ -50,7 +50,8 @@ namespace Shipping_System.ViewModels
         public string? CityName { get; set; }
         public string? BranchName { get; set; }
         public string? RepresntiveName { get; set; }
-        
+        public string? TraderName { get; set; }
+
 
         public List<Governate>? Governates { get; set; }
         public List<City>? Cities { get; set; }
