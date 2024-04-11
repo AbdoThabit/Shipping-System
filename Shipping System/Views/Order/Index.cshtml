@@ -33,6 +33,7 @@
                                 <th> الفرع </th>
                                 <th> القرية </th>
                                 <th>التكلفة الكلية</th>
+                                <th>حــذف</th>
                                 
                                 
                             </tr>
@@ -50,6 +51,8 @@
                                     <td>@order.BranchName</td>
                                     <td>@order.Village_Name</td>
                                     <td>@order.Order_Total_Cost</td>
+                                    <td><a href="javascript:;" data-id="@order.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
+                                
                                     
                                 </tr>
                             }
@@ -112,4 +115,42 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-delete').on('click', function () {
+                var btn = $(this);
+                bootbox.confirm({
+                    title: 'حذف الطلــب',
+                    message: 'هل انت متاكد من انك تريد حذف الطلــب ؟',
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> الغاء'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> تاكيد',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/Order/Delete/' + btn.data('id'),
+                                success: function () {
+                                    btn.parents('.parent').fadeOut();
+                                    toastr.success("تم حدف الطلــب بنجاح");
+                                },
+                                error: function () {
+                                    toastr.error("حدث خطأ ما");
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
+    }
     }

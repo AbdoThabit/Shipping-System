@@ -93,9 +93,21 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             return Lists;
         }
 
-        public Task<int> Delete(int id)
+        public async Task<int> Delete(int id)
         {
-            throw new NotImplementedException();
+            var orderDB = await _Context.Orders.FindAsync(id);
+
+            if (orderDB != null)
+            {
+                _Context.Entry(orderDB).State = EntityState.Deleted;
+
+
+                return await _Context.SaveChangesAsync();
+            }
+            else
+            {
+                return 0;
+            }
         }
 
         public async Task<List<OrderVM>> GetAll()
