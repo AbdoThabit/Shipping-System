@@ -61,7 +61,8 @@ namespace Shipping_System.ViewModels
         public IList<ApplicationUser>? Traders { get; set; }
 
         public IList<Order_Status>? Statuses { get; set; }
+        [Required(ErrorMessage = "يجب ان يحتوي الطلب علي منتجات")]
         public List<Product> Products { get; set;}
-
+        public List<int> product_Ids_To_Delete  { get; set;}
     }
 }

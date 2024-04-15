@@ -206,12 +206,14 @@
                                 <input asp-for="@Model.Products[i].Weight" type="text" class="form-control product-weight" placeholder="الوزن">
                                 <span style="color:red" class="product-weight-validation"></span>
                             </div>
-                                <button type="button" class="btn btn-danger delete-product-btn">حذف</button>
+                            <div class="">
+                            <button type="button" class="btn btn-danger delete-existing_product-btn" id="@Model.Products[i].Id">حذف</button>
+                            </div>
+                                
 
                         </div>
                     }
                 <div class="col-md-12">
-                    <h4>المنتــج</h4>
                     <div id="products-container">
                     </div>
                     <button type="button" id="add-product-btn" class="btn btn-success">اضافة منتج</button>
@@ -219,7 +221,7 @@
 
                         <br><br>
                         <div class="row">
-                            <input id="submit-btn" type="submit" value="اضافة" class=" btn btn-primary" />
+                            <input id="submit-btn" type="submit" value="تعديل" class=" btn btn-primary" />
                         </div>
 
 
@@ -270,6 +272,19 @@
                             $(this).closest('.product-row').remove();
                             // Re-index the product fields after deletion
                             reindexProductFields();
+                        });
+                        // Handle delete exisiting product button click
+                        $(document).on('click', '.delete-existing_product-btn', function () {
+                            var index = 0;
+                            var id = $(this).attr('id');
+                            //alert(id);
+                            var productHtml = `<input type="hidden" name="product_Ids_To_Delete[${index}]" value="${id}" />`;
+
+                            $('#products-container').append(productHtml);
+                            
+                            $(this).closest('.product-row').remove();
+                            // Re-index the product fields after deletion
+                            
                         });
 
                         // Function to re-index product fields

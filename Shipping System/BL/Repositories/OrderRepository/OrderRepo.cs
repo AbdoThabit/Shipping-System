@@ -33,12 +33,10 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
         public async Task<int> Add(OrderVM Order)
         {
-            decimal costDeliverToVillage = await Cost_DeliverToVillage(Order.Village_Flag);
-            decimal costShippingType  =  await Cost_ShippingType(Order.ShippingSetting_Id);
-            decimal costCitySipping = await Cost_CityShipping(Order.City_Id);
+            decimal ShippingCost = await ShhipinlPrice(Order.Village_Flag, Order.ShippingSetting_Id, Order.Products, Order.City_Id);
             decimal costAllProducts = await Cost_AllProducts(Order.Products);
             double countWeight =  await CountWeight(Order.Products);
-            decimal costAddititonalWeight = (decimal) await Cost_AdditionalWeight(countWeight);
+            
 
             Order order = new Order()
             {
@@ -60,7 +58,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Representitive_Id = Order.Representitive_Id,
                 Trader_Id = Order.Trader_Id,
                 Products_Total_Cost = costAllProducts,
-                Shipping_Total_Cost = costDeliverToVillage + costAddititonalWeight  + costShippingType + costCitySipping,
+                Shipping_Total_Cost = ShippingCost,
                 Total_weight = (int) countWeight,
                 Products = Order.Products.Select(prod => new Product
                 {
@@ -202,18 +200,37 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
         public async Task<int> Update(OrderVM ordervm)
         {
+            
             var order =  await _Context.Orders.FindAsync(ordervm.Id);
             if (order != null)
             {
+                decimal ShippingCost = await ShhipinlPrice(ordervm.Village_Flag, order.ShippingSetting_Id, ordervm.Products, order.City_Id);
+                decimal costAllProducts = await Cost_AllProducts(ordervm.Products);
+                double countWeight = await CountWeight(ordervm.Products);
+
                 order.Client_Name = ordervm.Client_Name;
                 order.Address = ordervm.Address;
                 order.Email = ordervm.Email;
                 order.FristPhoneNumber = ordervm.FristPhoneNumber;
                 order.SecoundPhoneNumber = ordervm.SecoundPhoneNumber;
+                order.Products_Total_Cost = costAllProducts;
+                order.Shipping_Total_Cost = ShippingCost;
+                order.Total_weight = (int)countWeight;
                 order.Status_Id = ordervm.OrderStatusId;
                 order.Village_Flag = ordervm.Village_Flag;
                 order.Village_Name = ordervm.Village_Name;
-                foreach(Product prodVm in ordervm.Products)
+                if(ordervm.product_Ids_To_Delete !=null)
+                {
+                    foreach(int id in ordervm.product_Ids_To_Delete)
+                    {
+                       var productToDelete = order.Products.FirstOrDefault(p=>p.Id == id);
+                       if(productToDelete != null)
+                        {
+                            order.Products.Remove(productToDelete);
+                        }
+                    }
+                }
+                foreach (Product prodVm in ordervm.Products)
                 {
                     var productdb = await _Context.Products.FindAsync(prodVm.Id);
                     if (productdb != null)
@@ -226,7 +243,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                     }
                     else
                     {
-                         order.Products.Add(prodVm);
+                        order.Products.Add(prodVm);
                     }
                 }
 
@@ -288,14 +305,15 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             }
             return price;
         }
-        private async Task<decimal> countTotalPrice(bool Village_Flag, int ShippingSetting_Id, List<Product> products)
+       
+        private async Task<decimal> ShhipinlPrice(bool Village_Flag, int ShippingSetting_Id, List<Product> products,int cityId)
         {
             decimal costDeliverToVillage = await Cost_DeliverToVillage(Village_Flag);
             decimal costShippingType = await Cost_ShippingType(ShippingSetting_Id);
-            decimal costAllProducts = await Cost_AllProducts(products);
             double countWeight = await CountWeight(products);
             decimal costAddititonalWeight = (decimal)await Cost_AdditionalWeight(countWeight);
-            return costAllProducts + costDeliverToVillage + costAddititonalWeight + costShippingType;
+            decimal costCityShippingPrice = await Cost_CityShipping(cityId);
+            return  costDeliverToVillage + costAddititonalWeight + costShippingType + costCityShippingPrice;
         }
         private async Task<double> Cost_AdditionalWeight(double totalWeight)
         {
