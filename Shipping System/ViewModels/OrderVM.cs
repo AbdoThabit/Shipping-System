@@ -21,7 +21,7 @@ namespace Shipping_System.ViewModels
         public string Village_Name { get; set; }
         public bool Village_Flag { get; set; }
         public int? Total_weight { get; set;}
-        public int Order_Status { get; set; }
+        public int OrderStatusId { get; set; }
         public decimal? Products_Total_Cost { get; set; }
         public decimal? Order_Total_Cost { get; set; }
 
@@ -60,7 +60,7 @@ namespace Shipping_System.ViewModels
         public IList<ApplicationUser>? Representitve { get; set; }
         public IList<ApplicationUser>? Traders { get; set; }
 
-
+        public IList<Order_Status>? Statuses { get; set; }
         public List<Product> Products { get; set;}
 
     }

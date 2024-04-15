@@ -44,6 +44,10 @@ namespace Shipping_System.DAL.Database
                 .HasMany(u => u.TraderOrders)
                 .WithOne(o => o.Trader)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Order>()
+            .Property(o => o.Order_Total_Cost)
+            .HasComputedColumnSql("[Shipping_Total_Cost] + [Products_Total_Cost]"); // Specify the calculation
         }
 
 

@@ -33,6 +33,8 @@ namespace Shipping_System.DAL.Entites
         [Column(TypeName = "money")]
         public decimal Products_Total_Cost { get; set;}
         [Column(TypeName = "money")]
+        public decimal Shipping_Total_Cost { get; set; }
+        [Column(TypeName = "money")]
         public decimal Order_Total_Cost { get; set;}
 
         public int Payment_Type {  get; set;}

@@ -31,7 +31,29 @@ namespace Shipping_System.Controllers
         public async Task<IActionResult> Create(OrderVM order)
         {
            var result=  await _OrderRepo.Add(order);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Update(int Id)
+        {
+            var order = await _OrderRepo.GetById(Id);
             return View(order);
+        }
+        [HttpPost]
+        public async Task<IActionResult> Update(OrderVM ordervm)
+        {
+
+            var result = await _OrderRepo.Update(ordervm);
+            if (result != 0)
+            {
+                _ToastNotification.AddSuccessToastMessage("تم تعديل الطلــب بنجاح");
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to update . Please try again.");
+                return RedirectToAction("Index");
+            }
         }
         public async Task<IActionResult> Delete(int id)
         {
@@ -49,5 +71,6 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+        
     }
 }
