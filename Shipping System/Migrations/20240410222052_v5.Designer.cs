@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Shipping_System.DAL.Database;
 
@@ -11,9 +12,11 @@ using Shipping_System.DAL.Database;
 namespace Shipping_System.Migrations
 {
     [DbContext(typeof(Context))]
-    partial class ContextModelSnapshot : ModelSnapshot
+    [Migration("20240410222052_v5")]
+    partial class v5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -339,9 +342,7 @@ namespace Shipping_System.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<decimal>("Order_Total_Cost")
-                        .ValueGeneratedOnAddOrUpdate()
-                        .HasColumnType("money")
-                        .HasComputedColumnSql("[Shipping_Total_Cost] + [Products_Total_Cost]");
+                        .HasColumnType("money");
 
                     b.Property<int>("Payment_Type")
                         .HasColumnType("int");
@@ -358,9 +359,6 @@ namespace Shipping_System.Migrations
 
                     b.Property<int>("ShippingSetting_Id")
                         .HasColumnType("int");
-
-                    b.Property<decimal>("Shipping_Total_Cost")
-                        .HasColumnType("money");
 
                     b.Property<int>("Status_Id")
                         .HasColumnType("int");

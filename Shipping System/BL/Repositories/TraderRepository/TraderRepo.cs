@@ -26,7 +26,7 @@ public class TraderRepo : ITraderRepo
 
     public async Task<List<TraderRegistrationVM>> Get()
     {
-        var Traders = await _UserManager.GetUsersInRoleAsync("Trader");
+        var Traders = await _UserManager.GetUsersInRoleAsync("تاجر");
         var TraderVM = Traders.Select(Trd => new TraderRegistrationVM
         {
             Id = Trd.Id,
@@ -124,7 +124,7 @@ public class TraderRepo : ITraderRepo
 
     public async Task<IdentityResult> AddRole()
     {
-        var state = await _UserManager.AddToRoleAsync(User, "Trader");
+        var state = await _UserManager.AddToRoleAsync(User, "تاجر");
         return state;
     }
 

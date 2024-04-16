@@ -1,0 +1,360 @@
+﻿@model OrderVM
+
+
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title ">الطلب</strong>
+            <form method="post" asp-action="Update" asp-controller="Order" class="form-sample">
+                <p class="card-description"> بيانات الطلب </p>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">اسم العميل</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Client_Name" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Client_Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">العنوان</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Address" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Address"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+               @*  <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">الفرع</label>
+                            <div class="col-sm-9">
+                                <select asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
+                                </select>
+                                <span style="color:red" asp-validation-for="Branch_Id"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">المدينة</label>
+                            <div class="col-sm-9">
+                                <select asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
+                                </select>
+
+                                <span style="color:red" asp-validation-for="City_Id"></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">المحافظة</label>
+                            <div class="col-sm-9">
+                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
+                                </select>
+                                <span style="color:red" asp-validation-for="Governate_Id"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">نوع الشحن</label>
+                            <div class="col-sm-9">
+                                <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
+                                </select>
+                                <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
+                            </div>
+                        </div>
+                </div> *@
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
+                            <div class="col-sm-9">
+                                <input asp-for="Email" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="Email"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">رقم الهاتف الاول </label>
+                            <div class="col-sm-9">
+                                <input asp-for="FristPhoneNumber" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="FristPhoneNumber"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">رقم الهاتف الثاني </label>
+                                <div class="col-sm-9">
+                                    <input asp-for="SecoundPhoneNumber" type="text" class="form-control" />
+                                    <span style="color:red" asp-validation-for="SecoundPhoneNumber"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">نوع الدفع </label>
+                                <div class="col-sm-9">
+                                    <select asp-for="Payment_Type" class="form-control">
+                                        <option value=1>دفع بالفيزا</option>
+                                        <option value=2>دفع نقدي</option>
+
+                                    </select>
+                                    <span style="color:red" asp-validation-for="Payment_Type"></span>
+                                </div>
+                            </div>
+                        </div>
+                    
+                   
+                </div>
+                <div class="row">
+                            
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">التوصيل لقرية ؟</label>
+                                <div class="col-sm-1">
+                                        <input asp-for="Village_Flag" type="checkbox" class="form-check-input" />
+                                    <span style="color:red" asp-validation-for="Village_Flag"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">اسم القرية  </label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Village_Name" type="text" class="form-control" />
+
+                                    <span style="color:red" asp-validation-for="Village_Name"></span>
+                                </div>
+                            </div>
+                        </div>
+                </div>
+                   @*  <div class="row">
+                        if (User.IsInRole("تاجر"))
+                        {
+                            <input type="hidden" asp-for="Trader_Id" value="@userId" /> *
+                        }
+                        else
+                        {
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">اسم التاجر</label>
+                                    <div class="col-sm-9">
+                                        <select asp-for="Trader_Id" class="form-control" asp-items="@(new SelectList(Model.Traders, "Id", "FullName"))">
+                                        </select>
+                                        <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">اسم المندوب</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName"))">
+                                    </select>
+                                    <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                                </div>
+                            </div>
+                        </div> *@
+                    <div class="row">
+                       <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">الحالة</label>
+                            <div class="col-sm-9">
+                                <select asp-for="OrderStatusId" class="form-control" asp-items="@(new SelectList(Model.Statuses, "Id", "Name", Model.OrderStatusId))">
+                                </select>
+                                <span style="color:red" asp-validation-for="OrderStatusId"></span>
+                            </div>
+                        </div>
+                    </div>
+                    </div>
+                    @for(int i = 0; i < Model.Products.Count; i++)
+                    {
+                        <input type="hidden" asp-for="Products[i].Id" />
+                        <div class="row product-row">
+                            <div class="col-md-3">
+                                <input asp-for="@Model.Products[i].Name" type="text" class="form-control product-name" placeholder="اسم المنتج">
+                                <span style="color:red" class="product-name-validation"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <input asp-for="@Model.Products[i].Price" type="text" class="form-control product-price" placeholder="السعر">
+                                <span style="color:red" class="product-price-validation"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <input asp-for="@Model.Products[i].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية">
+                                <span style="color:red" class="product-quantity-validation"></span>
+                            </div>
+                            <div class="col-md-3">
+                                <input asp-for="@Model.Products[i].Weight" type="text" class="form-control product-weight" placeholder="الوزن">
+                                <span style="color:red" class="product-weight-validation"></span>
+                            </div>
+                            <div class="">
+                            <button type="button" class="btn btn-danger delete-existing_product-btn" id="@Model.Products[i].Id">حذف</button>
+                            </div>
+                                
+
+                        </div>
+                    }
+                <div class="col-md-12">
+                    <div id="products-container">
+                    </div>
+                    <button type="button" id="add-product-btn" class="btn btn-success">اضافة منتج</button>
+                </div>
+
+                        <br><br>
+                        <div class="row">
+                            <input id="submit-btn" type="submit" value="تعديل" class=" btn btn-primary" />
+                        </div>
+
+
+                        <div style="color:red" asp-validation-summary="All">
+                        </div>
+            </form>
+            @section Scripts {
+                <script src="~/lib/jquery/dist/jquery.min.js"></script>
+                <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+                <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+                <script>
+                    $(document).ready(function () {
+                        var productId = @Model.Products.Count;
+
+                        $('#add-product-btn').click(function () {
+                            var productHtml = `
+                                            <div class="product-row">
+                                             <input type="hidden" name="Order_Id" value="@Model.Id">
+                                                <div class="row">
+                                                    <div class="col-md-3">
+                                                        <input name="Products[${productId}].Name" type="text" class="form-control product-name" placeholder="اسم المنتج" />
+                                                        <span style="color:red" class="product-name-validation"></span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input name="Products[${productId}].Price" type="text" class="form-control product-price" placeholder="السعر" />
+                                                        <span style="color:red" class="product-price-validation"></span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                                        <input name="Products[${productId}].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية" />
+                                                        <span style="color:red" class="product-quantity-validation"></span>
+                                                    </div>
+                                                    <div class="col-md-3">
+                                                        <input name="Products[${productId}].Weight" type="text" class="form-control product-weight" placeholder="الوزن" />
+                                                        <span style="color:red" class="product-weight-validation"></span>
+                                                    </div>
+                                                </div>
+                                                <button type="button" class="btn btn-danger delete-product-btn">حذف</button>
+                                            </div>
+                                        `;
+
+                            $('#products-container').append(productHtml);
+                            productId++;
+
+                        });
+
+                        // Handle delete product button click
+                        $(document).on('click', '.delete-product-btn', function () {
+                            $(this).closest('.product-row').remove();
+                            // Re-index the product fields after deletion
+                            reindexProductFields();
+                        });
+                        // Handle delete exisiting product button click
+                        $(document).on('click', '.delete-existing_product-btn', function () {
+                            var index = 0;
+                            var id = $(this).attr('id');
+                            //alert(id);
+                            var productHtml = `<input type="hidden" name="product_Ids_To_Delete[${index}]" value="${id}" />`;
+
+                            $('#products-container').append(productHtml);
+                            
+                            $(this).closest('.product-row').remove();
+                            // Re-index the product fields after deletion
+                            
+                        });
+
+                        // Function to re-index product fields
+                        function reindexProductFields() {
+                            $('.product-row').each(function (index) {
+                                $(this).find('.product-name').attr('name', 'Products[' + index + '].Name');
+                                $(this).find('.product-price').attr('name', 'Products[' + index + '].Price');
+                                $(this).find('.product-quantity').attr('name', 'Products[' + index + '].Quantity');
+                                $(this).find('.product-weight').attr('name', 'Products[' + index + '].Weight');
+                                $(this).find('.product-name-validation').attr('data-valmsg-for', 'Products[' + index + '].Name');
+                                $(this).find('.product-price-validation').attr('data-valmsg-for', 'Products[' + index + '].Price');
+                                $(this).find('.product-quantity-validation').attr('data-valmsg-for', 'Products[' + index + '].Qunatity');
+                                $(this).find('.product-weight-validation').attr('data-valmsg-for', 'Products[' + index + '].Weight');
+                            });
+                        }
+
+                        // Custom client-side validation
+                        $('#submit-btn').click(function () {
+                            var isValid = true;
+                            $('.product-row').each(function () {
+                                var productName = $(this).find('.product-name').val().trim();
+                                var productPrice = $(this).find('.product-price').val().trim();
+                                var productQuantity = $(this).find('.product-quantity').val().trim();
+                                var productWeight = $(this).find('.product-weight').val().trim();
+
+                                if (productName === '') {
+                                    isValid = false;
+                                    $(this).find('.product-name-validation').text('يرجى إدخال اسم المنتج.');
+                                } else {
+                                    $(this).find('.product-name-validation').text('');
+                                }
+
+                                if (productPrice === '') {
+                                    isValid = false;
+                                    $(this).find('.product-price-validation').text('يرجى إدخال السعر.');
+                                } else if (isNaN(productPrice) || parseFloat(productPrice) <= 0) {
+                                    isValid = false;
+                                    $(this).find('.product-price-validation').text('السعر يجب أن يكون رقمًا صحيحًا موجبًا.');
+                                } else {
+                                    $(this).find('.product-price-validation').text('');
+                                }
+
+                                if (productQuantity === '') {
+                                    isValid = false;
+                                    $(this).find('.product-quantity-validation').text('يرجى إدخال الكمية.');
+                                } else if (isNaN(productQuantity) || parseInt(productQuantity) <= 0) {
+                                    isValid = false;
+                                    $(this).find('.product-quantity-validation').text('الكمية يجب أن تكون رقمًا صحيحًا موجبًا.');
+                                } else {
+                                    $(this).find('.product-quantity-validation').text('');
+                                }
+
+                                if (productWeight === '') {
+                                    isValid = false;
+                                    $(this).find('.product-weight-validation').text('يرجى إدخال الوزن.');
+                                } else if (isNaN(productWeight) || parseFloat(productWeight) <= 0) {
+                                    isValid = false;
+                                    $(this).find('.product-weight-validation').text('الوزن يجب أن يكون رقمًا صحيحًا موجبًا.');
+                                } else {
+                                    $(this).find('.product-weight-validation').text('');
+                                }
+
+                            });
+
+                            if (!isValid) {
+                                // Prevent form submission if validation fails
+                                return false;
+                            }
+                        });
+                    });
+                </script>
+
+            }

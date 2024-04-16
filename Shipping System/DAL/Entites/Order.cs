@@ -1,5 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 
 namespace Shipping_System.DAL.Entites
 {
@@ -32,6 +33,8 @@ namespace Shipping_System.DAL.Entites
         [Column(TypeName = "money")]
         public decimal Products_Total_Cost { get; set;}
         [Column(TypeName = "money")]
+        public decimal Shipping_Total_Cost { get; set; }
+        [Column(TypeName = "money")]
         public decimal Order_Total_Cost { get; set;}
 
         public int Payment_Type {  get; set;}
@@ -57,7 +60,7 @@ namespace Shipping_System.DAL.Entites
         public virtual Branch Branch { get; set;}
 
         [ForeignKey("ShippingSetting")]
-        public int? ShippingSetting_Id {  get; set; }
+        public int ShippingSetting_Id {  get; set; }
 
         public virtual ShippingSetting ShippingSetting { get; set; }
 
@@ -72,7 +75,10 @@ namespace Shipping_System.DAL.Entites
         [ForeignKey("Representitive")]
         public string Representitive_Id { get; set; }
         public virtual ApplicationUser Representitive { get; set; }
-
+        [ForeignKey("Trader")]
+        public string Trader_Id { get; set; }
+        public virtual ApplicationUser Trader { get; set; }
+        [InverseProperty("Order")]
         public virtual ICollection<Product> Products  { get; set; }
 
 

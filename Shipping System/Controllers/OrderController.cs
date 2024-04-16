@@ -2,21 +2,26 @@
 using Shipping_System.BL.Repositories.OrderRepo;
 using Shipping_System.DAL.Entites;
 using Shipping_System.ViewModels;
+using NToastNotify;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace Shipping_System.Controllers
 {
     public class OrderController : Controller
     {
         private readonly IOrderRepo _OrderRepo;
+        private readonly IToastNotification _ToastNotification;
 
-        public OrderController(IOrderRepo orderRepo)
+        public OrderController(IOrderRepo orderRepo, IToastNotification toastNotification)
         {
             _OrderRepo = orderRepo;
+            _ToastNotification = toastNotification;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
+            var orders = await _OrderRepo.GetAll();
+            return View(orders);
         }
         public async Task< IActionResult> Create()
         {
@@ -27,7 +32,46 @@ namespace Shipping_System.Controllers
         public async Task<IActionResult> Create(OrderVM order)
         {
            var result=  await _OrderRepo.Add(order);
+            return RedirectToAction("Index");
+        }
+        public async Task<IActionResult> Update(int Id)
+        {
+            var order = await _OrderRepo.GetById(Id);
             return View(order);
         }
+        [HttpPost]
+        public async Task<IActionResult> Update(OrderVM ordervm)
+        {
+           
+            var result = await _OrderRepo.Update(ordervm);
+            if (result != 0)
+            {
+                _ToastNotification.AddSuccessToastMessage("تم تعديل الطلــب بنجاح");
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to update . Please try again.");
+                return RedirectToAction("Index");
+            }
+        }
+        public async Task<IActionResult> Delete(int id)
+        {
+
+            var result = await _OrderRepo.Delete(id);
+            if (result != 0)
+            {
+                _ToastNotification.AddSuccessToastMessage("تم حذف الطلــب بنجاح");
+
+                return Ok();
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to delete . Please try again.");
+                return RedirectToAction("Index");
+            }
+        }
+        
     }
 }

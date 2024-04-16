@@ -32,7 +32,10 @@ namespace Shipping_System.DAL.Entites
         [ForeignKey("Branch")]
         public int Branch_Id { get; set; }
         public virtual Branch Branch { get; set; }
-        public virtual ICollection<Order> Orders { get; set; }
+        [InverseProperty("Representitive")]
+        public virtual ICollection<Order> RepresentiveOrders { get; set; }
+        [InverseProperty("Trader")]
+        public virtual ICollection<Order> TraderOrders { get; set; }
 
 
 

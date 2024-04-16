@@ -1,5 +1,13 @@
 ﻿@model OrderVM
-<div class="col-12 grid-margin">
+@using Microsoft.AspNetCore.Identity
+@using Shipping_System.DAL.Entites
+@inject UserManager<ApplicationUser> UserManager
+@{
+    var user = await UserManager.GetUserAsync(User);
+    var userId = user?.Id;
+}
+@* <div>@userId</div>
+ *@<div class="col-12 grid-margin">
     <div class="card">
         <div class="card-body">
             <strong class="card-title ">الطلب</strong>
@@ -104,32 +112,24 @@
                                 </div>
                             </div>
                         </div>
-
                         <div class="col-md-6">
                             <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">اسم المندوب</label>
+                                <label class="col-sm-3 col-form-label">نوع الدفع </label>
                                 <div class="col-sm-9">
-                                    <select asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName"))">
+                                    <select asp-for="Payment_Type" class="form-control">
+                                        <option value=1>دفع بالفيزا</option>
+                                        <option value=2>دفع نقدي</option>
+
                                     </select>
-                                    <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                                    <span style="color:red" asp-validation-for="Payment_Type"></span>
                                 </div>
                             </div>
+                        </div>
+                    
                    
                 </div>
                 <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">نوع الدفع </label>
-                                    <div class="col-sm-9">
-                                        <select asp-for="Payment_Type" class="form-control" >
-                                            <option value=1>دفع بالفيزا</option>
-                                            <option value=2>دفع نقدي</option>
-
-                                        </select>
-                                        <span style="color:red" asp-validation-for="Payment_Type"></span>
-                                    </div>
-                                </div>
-                            </div>
+                            
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">التوصيل لقرية ؟</label>
@@ -139,21 +139,51 @@
                                 </div>
                             </div>
                         </div>
-                        </div>
-                       <div class="row">
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">اسم القرية  </label>
-                                    <div class="col-sm-9">
-                                        <input asp-for="Village_Name" type="text" class="form-control" />
-                                        <span style="color:red" asp-validation-for="Village_Name"></span>
-                                    </div>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">اسم القرية  </label>
+                                <div class="col-sm-9">
+                                    <input asp-for="Village_Name" type="text" class="form-control" />
+
+                                    <span style="color:red" asp-validation-for="Village_Name"></span>
                                 </div>
                             </div>
-                       </div>
+                        </div>
+                </div>
+                    <div class="row">
+                        @if (User.IsInRole("تاجر"))
+                        {
+                            <input type="hidden" asp-for="Trader_Id" value="@userId" />
+                        }
+                        else
+                        {
+                            <div class="col-md-6">
+                                <div class="form-group row">
+                                    <label class="col-sm-3 col-form-label">اسم التاجر</label>
+                                    <div class="col-sm-9">
+                                        <select asp-for="Trader_Id" class="form-control" asp-items="@(new SelectList(Model.Traders, "Id", "FullName"))">
+                                        </select>
+                                        <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        }
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">اسم المندوب</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName"))">
+                                    </select>
+                                    <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                                </div>
+                            </div>
+                        </div>
+
 
                         <div class="col-md-12">
-                            <h4>Products</h4>
+                            <h4>المنتــج</h4>
                             <div id="products-container">
                                
                                     
