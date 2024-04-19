@@ -34,6 +34,7 @@
                                 <th> القرية </th>
                                 <th>التكلفة الكلية</th>
                                 <th>تعديــل</th>
+                                <th>تعديل الحالة</th>
                                 <th>حــذف</th>
                                 
                                 
@@ -53,6 +54,7 @@
                                     <td>@order.Village_Name</td>
                                     <td>@order.Order_Total_Cost</td>
                                     <td><a asp-action="Update" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">تعديل</a></td>
+                                    <td><a asp-action="UpdateStatus" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">تعديل الحالة</a></td>
                                     <td><a href="javascript:;" data-id="@order.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 
                                     
