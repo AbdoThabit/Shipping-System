@@ -56,6 +56,28 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+        public async Task<IActionResult> UpdateStatus(int Id)
+        {
+            var orderStatusVm = await _OrderRepo.GetStatus(Id);
+            return View(orderStatusVm);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateStatus(OrderStatusVM orderStatusVm)
+        {
+
+            var result = await _OrderRepo.updateStatus(orderStatusVm);
+            if (result != 0)
+            {
+                _ToastNotification.AddSuccessToastMessage("تم تعديل الحالة بنجاح");
+
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to update . Please try again.");
+                return RedirectToAction("Index");
+            }
+        }
         public async Task<IActionResult> Delete(int id)
         {
 

@@ -150,7 +150,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             }).ToListAsync();
             return orders;
         }
-
+        
         public async Task<OrderVM> GetById(int orderId)
         {
             var Order = await _Context.Orders.FindAsync(orderId);
@@ -191,6 +191,26 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                Statuses = _Context.Order_Statuses.ToList() ,
             };
             return orderVM;
+        }
+        public async Task<OrderStatusVM> GetStatus(int orderId)
+        {
+            var order = await _Context.Orders.FindAsync(orderId);
+
+            OrderStatusVM orderStatusVM = new OrderStatusVM()
+            {
+                OrderId = order.Id,
+                StatusId = order.Status_Id,
+                Status = await _Context.Order_Statuses.ToListAsync()
+            };
+            return orderStatusVM;
+
+
+        }
+        public async Task<int> updateStatus(OrderStatusVM orderStatusVM)
+        {
+            var order = await _Context.Orders.FindAsync(orderStatusVM.OrderId);
+            order.Status_Id = orderStatusVM.StatusId;
+            return await _Context.SaveChangesAsync();
         }
 
         public Task<List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate)
@@ -338,6 +358,6 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
             return cost;
         }
-       
+        
     }
 }
