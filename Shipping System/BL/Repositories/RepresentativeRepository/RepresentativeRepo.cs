@@ -146,6 +146,19 @@ using System.Net;
             return Lists;
         }
 
+    public async Task<List<RepresetivecheckListVm>> getAllRepresentivesOfBranch(int branchId)
+    {
+        var representives = await _UserManager.GetUsersInRoleAsync("مندوب");
+        var representivesOfBranch = representives.Where(r => r.Branch_Id == branchId)
+                                                 .Select(r => new RepresetivecheckListVm()
+                                                 {
+                                                     Id = r.Id,
+                                                     Name = r.FullName,
+                                                 })
+                                                 .ToList();
+        return representivesOfBranch;
 
+
+    }
     }
 

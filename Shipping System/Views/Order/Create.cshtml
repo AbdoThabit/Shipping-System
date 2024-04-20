@@ -95,7 +95,7 @@
                         <div class="form-group row">
                             <label class="col-sm-3 col-form-label">الفرع</label>
                             <div class="col-sm-9">
-                                <select id="brancheslist" class="form-control" asp-for="City_Id">
+                                <select id="brancheslist" class="form-control" asp-for="Branch_Id">
                                     <option></option>
                                 </select>
                                 <span style="color:red" asp-validation-for="Branch_Id"></span>
@@ -181,8 +181,9 @@
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">اسم المندوب</label>
                                 <div class="col-sm-9">
-                                    <select asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName"))">
-                                    </select>
+                                    <select id="representiveslist" class="form-control" asp-for="Representitive_Id">
+                                    <option></option>
+                                </select>
                                     <span style="color:red" asp-validation-for="Representitive_Id"></span>
                                 </div>
                             </div>
@@ -373,6 +374,35 @@
                         $.each(res, function (i, b) {
                             console.log(b)
                             $("#brancheslist").append("<option value='" + b.id + "'>" + b.name + "</option>");
+                        });
+                    }
+
+
+
+                });
+
+
+            });  
+
+        });
+
+        $(function () {
+
+            $("#brancheslist").change(function () {
+
+                $("#representiveslist").empty();
+                $("#representiveslist").append("<option>اختار المندوب</option>");
+                var branchId = $("#brancheslist").val()
+                alert(branchId);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Representative/GetRepresentivesOfbranch",
+                    data: { id: branchId },
+                    success: function (res) {
+                        $.each(res, function (i, r) {
+                            console.log(r)
+                            $("#representiveslist").append("<option value='" + r.id + "'>" + r.name + "</option>");
                         });
                     }
 

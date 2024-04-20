@@ -115,5 +115,11 @@ namespace Shipping_System.Controllers
             return RedirectToAction("Index");
 
         }
+        [HttpPost]
+        public async Task<IActionResult> GetRepresentivesOfbranch(int id)
+        {
+            var representives = await _RepresentativeRepo.getAllRepresentivesOfBranch(id);
+            return Json(representives);
+        }
     }
 }
