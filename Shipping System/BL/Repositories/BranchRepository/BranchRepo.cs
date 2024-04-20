@@ -99,5 +99,14 @@ namespace Shipping_System.BL.Repositories.BranchRepository
             };
             return Lists;
         }
+        public Task<List<BranchVM>> GetByCityId(int id)
+        {
+            var branches = _Context.Branches.Where(b => b.City_Id == id).Select(branch => new BranchVM
+            {
+                Id = branch.Id,
+                Name = branch.Name,
+            }).ToListAsync();
+            return branches;
+        }
     }
 }

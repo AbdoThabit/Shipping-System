@@ -10,5 +10,6 @@ namespace Shipping_System.BL.Repositories.BranchRepository
         Task<int> Edit(BranchVM Branch);
         Task<int> Delete(int id);
         Task<BranchVM> IncludeLists();
+        Task<List<BranchVM>> GetByCityId(int id);
     }
 }

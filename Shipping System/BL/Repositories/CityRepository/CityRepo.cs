@@ -99,5 +99,16 @@ namespace Shipping_System.BL.Repositories.CityRepository
             };
             return Lists;
         }
+        public Task<List<CityVM>> GetByGovernateId(int id)
+        {
+            var Cities = _Context.Cities.Where(C => C.Governate_Id == id).Select(City => new CityVM
+            {
+                Id = City.Id,
+                Name = City.Name,
+                Shipping_Cost = City.Shipping_Cost,
+                Governate_Id = City.Governate_Id,
+            }).ToListAsync();
+            return Cities;
+        }
     }
 }

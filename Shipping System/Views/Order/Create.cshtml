@@ -37,53 +37,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">الفرع</label>
-                            <div class="col-sm-9">
-                                <select asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="Branch_Id"></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">المدينة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
-                                </select>
-
-                                <span style="color:red" asp-validation-for="City_Id"></span>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">المحافظة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="Governate_Id"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">نوع الشحن</label>
-                            <div class="col-sm-9">
-                                <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
-                            </div>
-                        </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
                             <label class="col-sm-3 col-form-label">البريد الالكتروني</label>
                             <div class="col-sm-9">
                                 <input asp-for="Email" type="text" class="form-control" />
@@ -101,30 +54,84 @@
                         </div>
                     </div>
                 </div>
-
                 <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">رقم الهاتف الثاني </label>
-                                <div class="col-sm-9">
-                                    <input asp-for="SecoundPhoneNumber" type="text" class="form-control" />
-                                    <span style="color:red" asp-validation-for="SecoundPhoneNumber"></span>
-                                </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">رقم الهاتف الثاني </label>
+                            <div class="col-sm-9">
+                                <input asp-for="SecoundPhoneNumber" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="SecoundPhoneNumber"></span>
                             </div>
                         </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">نوع الدفع </label>
-                                <div class="col-sm-9">
-                                    <select asp-for="Payment_Type" class="form-control">
-                                        <option value=1>دفع بالفيزا</option>
-                                        <option value=2>دفع نقدي</option>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">المحافظة</label>
+                            <div class="col-sm-9">
+                                <select id="governateslist" asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
+                                    <option></option>
+                                </select>
+                                <span style="color:red" asp-validation-for="Governate_Id"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">المدينة</label>
+                            <div class="col-sm-9">
+                                <select id="citieslist" class="form-control" asp-for="City_Id">
+                                    
+                                    <option></option>
+                                </select>
 
-                                    </select>
-                                    <span style="color:red" asp-validation-for="Payment_Type"></span>
-                                </div>
+                                <span style="color:red" asp-validation-for="City_Id"></span>
+
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">الفرع</label>
+                            <div class="col-sm-9">
+                                <select id="brancheslist" class="form-control" asp-for="City_Id">
+                                    <option></option>
+                                </select>
+                                <span style="color:red" asp-validation-for="Branch_Id"></span>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">نوع الدفع </label>
+                            <div class="col-sm-9">
+                                <select asp-for="Payment_Type" class="form-control">
+                                    <option value=1>دفع بالفيزا</option>
+                                    <option value=2>دفع نقدي</option>
+
+                                </select>
+                                <span style="color:red" asp-validation-for="Payment_Type"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">نوع الشحن</label>
+                            <div class="col-sm-9">
+                                <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
+                                </select>
+                                <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
+                            </div>
+                        </div>
+                </div>
+               
+
+                
                     
                    
                 </div>
@@ -317,6 +324,65 @@
                 }
             });
         });
+
     </script>
-   
+ 
+   <script>
+        $(function () {
+
+            $("#governateslist").change(function () {
+                
+                $("#citieslist").empty();
+                $("#citieslist").append("<option>اختار مدينة</option>");
+                var governateId = $("#governateslist").val()
+                alert(governateId);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/City/GetCitesOfGovernate",
+                    data: { id: governateId },
+                    success: function (res) {
+                        $.each(res, function (i, c) {
+                            console.log(c)
+                            $("#citieslist").append("<option value='" + c.id + "'>" + c.name + "</option>");
+                        });
+                    }
+
+                   
+                
+                });
+
+
+                });
+
+            });
+        $(function () {
+
+            $("#citieslist").change(function () {
+
+                $("#brancheslist").empty();
+                $("#brancheslist").append("<option>اختار الفرع</option>");
+                var cityId = $("#citieslist").val()
+                alert(cityId);
+
+                $.ajax({
+                    type: "POST",
+                    url: "/branch/GetBranchesesOfCity",
+                    data: { id: cityId },
+                    success: function (res) {
+                        $.each(res, function (i, b) {
+                            console.log(b)
+                            $("#brancheslist").append("<option value='" + b.id + "'>" + b.name + "</option>");
+                        });
+                    }
+
+
+
+                });
+
+
+            });
+
+        });
+   </script>
 }
