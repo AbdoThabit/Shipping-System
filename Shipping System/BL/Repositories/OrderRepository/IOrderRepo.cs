@@ -7,7 +7,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
     {
         Task<int> Add(OrderVM order);
 
-        Task<int> Update(OrderVM order);
+        Task<int> Edit(OrderVM order);
 
        Task< OrderVM> GetById(int orderId);
 

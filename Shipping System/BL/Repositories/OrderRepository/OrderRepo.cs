@@ -1,6 +1,9 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.CodeAnalysis.Operations;
 using Microsoft.EntityFrameworkCore;
+using Shipping_System.BL.Repositories.BranchRepository;
 using Shipping_System.BL.Repositories.CityRepository;
+using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
 using Shipping_System.BL.Repositories.VillageSettingsRepository;
 using Shipping_System.BL.Repositories.WeightSettingsRepository;
@@ -18,10 +21,12 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         private readonly IShippingSettingRepo _ShippingRepo;
         private readonly IWeightSettingsRepo _WeightRepo;
         private readonly ICityRepo _CityRepo;
+        private readonly IBranchRepo _BranchRepo;
+        private readonly IRepresentativeRepo _RepresentiveRepo;
 
 
-
-        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager, ICityRepo cityRepo, IWeightSettingsRepo weightRepo = null  )
+        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager, ICityRepo cityRepo, IBranchRepo branchRepo,IRepresentativeRepo representativeRepo 
+            , IWeightSettingsRepo weightRepo = null  )
         {
             _Context = context;
             _VillageRepo = villageRepo;
@@ -29,6 +34,8 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             _UserManager = userManager;
             _WeightRepo = weightRepo;
             _CityRepo = cityRepo;
+            _BranchRepo = branchRepo;
+            _RepresentiveRepo = representativeRepo;
         }
 
         public async Task<int> Add(OrderVM Order)
@@ -153,6 +160,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         
         public async Task<OrderVM> GetById(int orderId)
         {
+            var representives = await _UserManager.GetUsersInRoleAsync("مندوب");
             var Order = await _Context.Orders.FindAsync(orderId);
             OrderVM orderVM = new OrderVM()
             {
@@ -188,7 +196,11 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                     Price = prod.Price,
                     Weight = prod.Weight,
                 }).ToList(),
-               Statuses = _Context.Order_Statuses.ToList() ,
+                Cities = _Context.Cities.Where(c=>c.Governate_Id == Order.Governate_Id).ToList(),
+                Branches = _Context.Branches.Where(b=>b.City_Id == Order.City_Id).ToList(),
+                Representitve =  representives.Where(r => r.Branch_Id == Order.Branch_Id).ToList(),
+                Statuses = _Context.Order_Statuses.ToList(),
+
             };
             return orderVM;
         }
@@ -218,7 +230,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             throw new NotImplementedException();
         }
 
-        public async Task<int> Update(OrderVM ordervm)
+        public async Task<int> Edit(OrderVM ordervm)
         {
             
             var order =  await _Context.Orders.FindAsync(ordervm.Id);

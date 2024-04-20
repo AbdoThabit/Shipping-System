@@ -43,7 +43,7 @@ namespace Shipping_System.Controllers
         public async Task<IActionResult> Update(OrderVM ordervm)
         {
            
-            var result = await _OrderRepo.Update(ordervm);
+            var result = await _OrderRepo.Edit(ordervm);
             if (result != 0)
             {
                 _ToastNotification.AddSuccessToastMessage("تم تعديل الطلــب بنجاح");
