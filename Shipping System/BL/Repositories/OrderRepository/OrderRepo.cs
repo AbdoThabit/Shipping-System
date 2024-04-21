@@ -196,9 +196,10 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                     Price = prod.Price,
                     Weight = prod.Weight,
                 }).ToList(),
-                Cities = _Context.Cities.Where(c=>c.Governate_Id == Order.Governate_Id).ToList(),
-                Branches = _Context.Branches.Where(b=>b.City_Id == Order.City_Id).ToList(),
-                Representitve =  representives.Where(r => r.Branch_Id == Order.Branch_Id).ToList(),
+                Cities = _Context.Cities.Where(c => c.Governate_Id == Order.Governate_Id).ToList(),
+                Branches = _Context.Branches.Where(b => b.City_Id == Order.City_Id).ToList(),
+                Representitve = representives.Where(r => r.Branch_Id == Order.Branch_Id).ToList(),
+                shippingSettings = _Context.ShippingSettings.ToList(),
                 Statuses = _Context.Order_Statuses.ToList(),
 
             };
@@ -236,7 +237,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             var order =  await _Context.Orders.FindAsync(ordervm.Id);
             if (order != null)
             {
-                decimal ShippingCost = await ShhipinlPrice(ordervm.Village_Flag, order.ShippingSetting_Id, ordervm.Products, order.City_Id);
+                decimal ShippingCost = await ShhipinlPrice(ordervm.Village_Flag, ordervm.ShippingSetting_Id, ordervm.Products, ordervm.City_Id);
                 decimal costAllProducts = await Cost_AllProducts(ordervm.Products);
                 double countWeight = await CountWeight(ordervm.Products);
 
@@ -262,20 +263,20 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                         }
                     }
                 }
-                foreach (Product prodVm in ordervm.Products)
+                foreach (Product product in ordervm.Products)
                 {
-                    var productdb = await _Context.Products.FindAsync(prodVm.Id);
+                    var productdb = await _Context.Products.FindAsync(product.Id);
                     if (productdb != null)
                     {
-                        productdb.Name = prodVm.Name;
-                        productdb.Price = prodVm.Price;
-                        productdb.Qunatity = prodVm.Qunatity;
-                        productdb.Weight = prodVm.Weight;
+                        productdb.Name = product.Name;
+                        productdb.Price = product.Price;
+                        productdb.Qunatity = product.Qunatity;
+                        productdb.Weight = product.Weight;
 
                     }
                     else
                     {
-                        order.Products.Add(prodVm);
+                        order.Products.Add(product);
                     }
                 }
 

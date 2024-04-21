@@ -143,6 +143,18 @@
                             </div>
                         </div>
                 </div>
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">نوع الشحن</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
+                                    </select>
+                                    <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 @for (int i = 0; i < Model.Products.Count; i++)
                 {
                     <input type="hidden" asp-for="Products[i].Id" />
