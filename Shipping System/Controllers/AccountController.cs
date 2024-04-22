@@ -29,6 +29,7 @@ namespace Shipping_System.Controllers
             if (ModelState.IsValid)
             {
                 var state = await _AccountRepo.Login(Login);
+               HttpContext.Session.SetString("Username",Login.UserName);
                 if (state.Succeeded)
                 {
                     _ToastNotification.AddSuccessToastMessage($"مرحبًا {Login.UserName} في لوحة التحكم");

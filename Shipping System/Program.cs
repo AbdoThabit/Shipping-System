@@ -38,6 +38,7 @@ namespace Shipping_System
                   options.Password.RequiredLength = 4;
               }
               ).AddEntityFrameworkStores<Context>().AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
+            builder.Services.AddSession();
             builder.Services.AddScoped< IEmployeeRepo, EmployeeRepo>();
             builder.Services.AddScoped<ITraderRepo, TraderRepo>();
             builder.Services.AddScoped<IRepresentativeRepo, RepresentativeRepo>();
@@ -78,9 +79,9 @@ namespace Shipping_System
             app.UseStaticFiles();
 
             app.UseRouting();
-
+            app.UseAuthentication();
             app.UseAuthorization();
-
+            app.UseSession();
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");
