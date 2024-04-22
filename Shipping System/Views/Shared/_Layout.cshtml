@@ -58,12 +58,12 @@
                 <div class="nav-profile-text">
                                 @if (Context.Session.GetInt32("id") != null)
                                 {
-                        <li><a class="nav-link scrollto " href="/Account/Login">@Context.Session.GetString("UserName")</a></li>
+                        <class ="mb-1 text-black" href="/Account/Login">@Context.Session.GetString("UserName")</class>
                                 }
                                 else
                                 {
 
-                        <li><a class="nav-link scrollto " href="/Account/Login">Login</a></li>
+                       <class ="mb-1 text-black " href="/Account/Login">Login</class>
                                 }  
                  @*   <p class="mb-1 text-black">User</p>  *@
                 </div>
@@ -153,7 +153,14 @@
                   <!--change to offline or busy as needed-->
                 </div>
                 <div class="nav-profile-text d-flex flex-column">
+                       @if (Context.Session.GetInt32("id") != null)
+                                {
+                        <class ="mb-1 text-black" href="/Account/Login">@Context.Session.GetString("UserName")</class>
+                                }
+                                else
+                                {
                   <h4 class="font-weight-bold mb-2">User</h4>
+                                }
                                @*  <span class="font-weight-bold mb-2">User</span> *@
                 </div>
                 @* <i class="mdi mdi-bookmark-check text-success nav-profile-badge"></i> *@
