@@ -23,6 +23,11 @@ namespace Shipping_System.Controllers
             var orders = await _OrderRepo.GetAll();
             return View(orders);
         }
+        public async Task<IActionResult> ShowDetails(int Id)
+        {
+            var order = await _OrderRepo.GetById(Id);
+            return View(order);
+        }
         public async Task< IActionResult> Create()
         {
             var Lists = await _OrderRepo.IncludeLists();

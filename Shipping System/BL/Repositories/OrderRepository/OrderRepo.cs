@@ -188,6 +188,8 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 BranchName = Order.Branch.Name,
                 RepresntiveName = Order.Representitive.FullName,
                 TraderName = Order.Trader.FullName,
+                statusName = Order.Status.Name,
+                ShippingSettingName = Order.ShippingSetting.Shipping_Type,
                 Products = Order.Products.Select(prod => new Product
                 {
                     Id = prod.Id,

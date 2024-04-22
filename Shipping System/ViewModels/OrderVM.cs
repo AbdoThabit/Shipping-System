@@ -51,6 +51,8 @@ namespace Shipping_System.ViewModels
         public string? GovernateName { get; set; }
         public string? CityName { get; set; }
         public string? BranchName { get; set; }
+        public string? ShippingSettingName { get; set; }
+        public string? statusName { get; set; }        
         public string? RepresntiveName { get; set; }
         public string? TraderName { get; set; }
 
