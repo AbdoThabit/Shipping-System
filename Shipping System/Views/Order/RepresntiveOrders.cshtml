@@ -1,0 +1,155 @@
+﻿@model List<OrderVM>
+@section Styles {
+
+    <style>
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #myTable thead th {
+            text-align: right;
+        }
+
+    </style>
+}
+
+<div class="row">
+    <div class="col-12 grid-margin">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title">طلباتي</h4>
+                <div class="table-responsive">
+                    <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
+                        <thead>
+                            <tr>
+                                <th> رقم الاوردر </th>
+                                <th> اسم العميل </th>
+                                <th> اسم التاجر </th>
+                                <th> اسم المندوب </th>
+                                <th> المخافظة </th>
+                                <th> المدينة </th>
+                                <th> الفرع </th>
+                                <th> القرية </th>
+                                <th>التكلفة الكلية</th>
+                                <th>تعديل الحالة</th>
+                               
+
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach (var order in Model)
+                            {
+                                <tr class="parent">
+                                    <td>@order.Id</td>
+                                    <td>@order.Client_Name</td>
+                                    <td>@order.TraderName</td>
+                                    <td>@order.RepresntiveName</td>
+                                    <td>@order.GovernateName</td>
+                                    <td>@order.CityName</td>
+                                    <td>@order.BranchName</td>
+                                    <td>@order.Village_Name</td>
+                                    <td>@order.Order_Total_Cost</td>
+                                    <td><a asp-action="UpdateStatus" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">تعديل الحالة</a></td>
+
+
+                                </tr>
+                            }
+
+
+                        </tbody>
+                    </table>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 3,
+                bSort: true,
+                bFilter: true,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
+                language: {
+                    "decimal": "",
+                    "emptyTable": "لا تتوفر بيانات في الجدول",
+                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
+                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
+                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "عرض _MENU_ مدخل",
+                    "loadingRecords": "تحميل...",
+                    "processing": "جاري المعالجة...",
+                    "search": " البحث",
+                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
+                    "aria": {
+                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+                },
+                buttons: [
+                    { extend: 'excel', className: 'btn btn-danger' },
+                    { extend: 'print', className: 'btn btn-success' }
+                ]
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function () {
+            $('.js-delete').on('click', function () {
+                var btn = $(this);
+                bootbox.confirm({
+                    title: 'حذف الطلــب',
+                    message: 'هل انت متاكد من انك تريد حذف الطلــب ؟',
+                    buttons: {
+                        cancel: {
+                            label: '<i class="fa fa-times"></i> الغاء'
+                        },
+                        confirm: {
+                            label: '<i class="fa fa-check"></i> تاكيد',
+                            className: 'btn-danger'
+                        }
+                    },
+                    callback: function (result) {
+                        if (result) {
+                            $.ajax({
+                                url: '/Order/Delete/' + btn.data('id'),
+                                success: function () {
+                                    btn.parents('.parent').fadeOut();
+                                    toastr.success("تم حدف الطلــب بنجاح");
+                                },
+                                error: function () {
+                                    toastr.error("حدث خطأ ما");
+
+                                }
+                            });
+                        }
+                    }
+                });
+
+
+            });
+        });
+    </script>
+}
+    }
