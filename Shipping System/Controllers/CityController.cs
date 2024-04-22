@@ -86,5 +86,11 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> GetCitesOfGovernate(int id)
+        {
+            var Cites = await _CityRepo.GetByGovernateId(id);
+            return Json(Cites);
+        }
     }
 }

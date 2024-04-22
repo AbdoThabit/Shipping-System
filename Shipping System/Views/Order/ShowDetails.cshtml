@@ -1,0 +1,164 @@
+﻿@model OrderVM
+@section Styles {
+
+    <style>
+        .top-section {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        #myTable thead th {
+            text-align: right;
+        }
+
+    </style>
+}
+<div class="col-12 grid-margin">
+    <div class="card">
+        <div class="card-body">
+            <strong class="card-title "> الطلب رقم @Model.Id</strong>
+            <p class="card-description"> بيانات الطلب </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>التــاجر : @Model.TraderName</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3>المندوب : @Model.RepresntiveName</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3>المحافظة : @Model.GovernateName</h3>
+                </div>
+                 <div class="col-md-4">
+                    <h3>المدينة : @Model.CityName</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3>الـفـرع : @Model.BranchName</h3>
+                </div>
+                @if(Model.Village_Flag == true)
+                {
+                    <div class="col-md-4">
+                        <h3> الـقـرية: @Model.Village_Name</h3>
+                    </div>
+                }
+            </div> 
+            <p class="card-description"> بيانات العمــيل </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>اسم العمــيل : @Model.Client_Name</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3>رقم محمول العميل : @Model.FristPhoneNumber</h3>
+                </div>
+                @* <div class="col-md-4">
+                    <h3>البريد الالكتروني : <h5>@Model.Email</h5></h3>
+                </div> *@
+               
+            </div>
+            <p class="card-description"> بيانات الشحن </p>
+            <div class="row">
+                <div class="col-md-4">
+                    <h3>الشحن : @Model.ShippingSettingName</h3>
+                </div>
+                <div class="col-md-4">
+                    <h3>الحالة : @Model.statusName</h3>
+                </div>
+                
+            </div>
+        </div>
+
+        <div class="container">
+        <div class="container">
+        <div class="container">
+            <h4 class="card-title">المنتجــات</h4>
+            <div class="table-responsive">
+                <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
+                    <thead>
+                        <tr>
+                            <th>  اسم المنتج</th>
+                            <th>السعر بالجنيه</th>
+                            <th> الوزن </th>
+                            <th> الكمية </th>
+
+
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var product in Model.Products)
+                        {
+                            <tr class="parent">
+                                <td>@product.Name</td>
+                                <td>@product.Price</td>
+                                <td>@product.Weight</td>
+                                <td>@product.Qunatity</td>
+                            </tr>
+                        }
+
+
+                    </tbody>
+                </table>
+        </div>
+        </div>
+        </div>
+            <div class="d-flex justify-content-center">
+                <a asp-action="Update" asp-controller="Order" asp-route-Id="@Model.Id" class=" btn btn-gradient-success">تعديل الطلب</a>
+                <br />
+                <br />
+            </div>
+
+        </div>
+    </div>
+</div> 
+
+
+
+
+
+@section Scripts {
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/dataTables.buttons.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.dataTables.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/pdfmake.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
+    <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
+    <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 3,
+                bSort: true,
+                bFilter: true,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
+                language: {
+                    "decimal": "",
+                    "emptyTable": "لا تتوفر بيانات في الجدول",
+                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
+                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
+                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "عرض _MENU_ مدخل",
+                    "loadingRecords": "تحميل...",
+                    "processing": "جاري المعالجة...",
+                    "search": " البحث",
+                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
+                    "aria": {
+                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+                },
+                buttons: [
+                    // { extend: 'excel', className: 'btn btn-danger' },
+                    // { extend: 'print', className: 'btn btn-success' }
+                ]
+            });
+        });
+    </script>
+    }

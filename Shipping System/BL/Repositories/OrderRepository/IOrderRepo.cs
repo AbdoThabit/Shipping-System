@@ -7,7 +7,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
     {
         Task<int> Add(OrderVM order);
 
-        Task<int> Update(OrderVM order);
+        Task<int> Edit(OrderVM order);
 
        Task< OrderVM> GetById(int orderId);
 
@@ -16,8 +16,10 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         Task<OrderVM> IncludeLists();
        Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate);
         Task<int> Delete(int id);
-        public Task<OrderStatusVM> GetStatus(int orderId);
-        public  Task<int> updateStatus(OrderStatusVM orderStatusVM);
+       Task<OrderStatusVM> GetStatus(int orderId);
+       Task<int> updateStatus(OrderStatusVM orderStatusVM);
+        Task<List<OrderVM>> GetRepresntiveOrders(string Representive_ID);
+        Task<List<OrderVM>> GetTraderOrders(string Trader_ID);
 
     }
 }

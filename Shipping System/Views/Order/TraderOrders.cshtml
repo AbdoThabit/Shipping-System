@@ -19,7 +19,7 @@
     <div class="col-12 grid-margin">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">التذاكر الحديثة</h4>
+                <h4 class="card-title">طلباتي</h4>
                 <div class="table-responsive">
                     <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
                         <thead>
@@ -37,8 +37,8 @@
                                 <th>عـــرض</th>
                                 <th>تعديل الحالة</th>
                                 <th>حــذف</th>
-                                
-                                
+
+
                             </tr>
                         </thead>
                         <tbody>
@@ -58,8 +58,8 @@
                                     <td><a asp-action="ShowDetails" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">عرض التفاصيل</a></td>
                                     <td><a asp-action="UpdateStatus" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">تعديل الحالة</a></td>
                                     <td><a href="javascript:;" data-id="@order.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
-                                
-                                    
+
+
                                 </tr>
                             }
 
@@ -86,6 +86,41 @@
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
     <script src="~/lib/bootbox.js/bootbox.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 3,
+                bSort: true,
+                bFilter: true,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
+                language: {
+                    "decimal": "",
+                    "emptyTable": "لا تتوفر بيانات في الجدول",
+                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
+                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
+                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "عرض _MENU_ مدخل",
+                    "loadingRecords": "تحميل...",
+                    "processing": "جاري المعالجة...",
+                    "search": " البحث",
+                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
+                    "aria": {
+                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+                },
+                buttons: [
+                    { extend: 'excel', className: 'btn btn-danger' },
+                    { extend: 'print', className: 'btn btn-success' }
+                ]
+            });
+        });
+    </script>
     <script>
         $(document).ready(function () {
             $('.js-delete').on('click', function () {
@@ -123,41 +158,5 @@
             });
         });
     </script>
-    <script>
-        $(document).ready(function () {
-            $('#myTable').DataTable({
-                responsive: true,
-                paging: true,
-                pageLength: 3,
-                bSort: true,
-                bFilter: true,
-                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
-                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
-                language: {
-                    "decimal": "",
-                    "emptyTable": "لا تتوفر بيانات في الجدول",
-                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
-                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
-                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "عرض _MENU_ مدخل",
-                    "loadingRecords": "تحميل...",
-                    "processing": "جاري المعالجة...",
-                    "search": " البحث",
-                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
-                    "aria": {
-                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
-                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
-                    }
-                },
-                buttons: [
-                    { extend: 'excel', className: 'btn btn-danger' },
-                    { extend: 'print', className: 'btn btn-success' }
-                ]
-            });
-        });
-    </script>
-   
-    }
+}
     }

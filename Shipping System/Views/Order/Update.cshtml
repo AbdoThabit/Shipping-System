@@ -28,53 +28,7 @@
                         </div>
                     </div>
                 </div>
-               @*  <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">الفرع</label>
-                            <div class="col-sm-9">
-                                <select asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="Branch_Id"></span>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">المدينة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
-                                </select>
-
-                                <span style="color:red" asp-validation-for="City_Id"></span>
-
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">المحافظة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="Governate_Id"></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">نوع الشحن</label>
-                            <div class="col-sm-9">
-                                <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
-                                </select>
-                                <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
-                            </div>
-                        </div>
-                </div> *@
+               
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -97,15 +51,84 @@
                 </div>
 
                 <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">رقم الهاتف الثاني </label>
-                                <div class="col-sm-9">
-                                    <input asp-for="SecoundPhoneNumber" type="text" class="form-control" />
-                                    <span style="color:red" asp-validation-for="SecoundPhoneNumber"></span>
-                                </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">رقم الهاتف الثاني </label>
+                            <div class="col-sm-9">
+                                <input asp-for="SecoundPhoneNumber" type="text" class="form-control" />
+                                <span style="color:red" asp-validation-for="SecoundPhoneNumber"></span>
                             </div>
                         </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">المدينة</label>
+                            <div class="col-sm-9">
+                                <select id="citieslist" asp-for="City_Id" class="form-control" asp-items="@(new SelectList(Model.Cities, "Id", "Name"))">
+                                </select>
+
+                                <span style="color:red" asp-validation-for="City_Id"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">الفرع</label>
+                            <div class="col-sm-9">
+                                <select id="brancheslist" asp-for="Branch_Id" class="form-control" asp-items="@(new SelectList(Model.Branches, "Id", "Name"))">
+                                </select>
+                                <span style="color:red" asp-validation-for="Branch_Id"></span>
+
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">اسم المندوب</label>
+                            <div class="col-sm-9">
+                                <select id="representiveslist" asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName",Model.Representitive_Id))">
+                                </select>
+                                <span style="color:red" asp-validation-for="Representitive_Id"></span>
+                            </div>
+                        </div>
+                </div>
+                <div class="row">
+
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">التوصيل لقرية ؟</label>
+                            <div class="col-sm-1">
+                                <input asp-for="Village_Flag" type="checkbox" class="form-check-input" />
+                                <span style="color:red" asp-validation-for="Village_Flag"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">اسم القرية  </label>
+                            <div class="col-sm-9">
+                                <input asp-for="Village_Name" type="text" class="form-control" />
+
+                                <span style="color:red" asp-validation-for="Village_Name"></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-sm-3 col-form-label">الحالة</label>
+                            <div class="col-sm-9">
+                                <select asp-for="OrderStatusId" class="form-control" asp-items="@(new SelectList(Model.Statuses, "Id", "Name", Model.OrderStatusId))">
+                                </select>
+                                <span style="color:red" asp-validation-for="OrderStatusId"></span>
+                            </div>
+                        </div>
+                    </div>
                         <div class="col-md-6">
                             <div class="form-group row">
                                 <label class="col-sm-3 col-form-label">نوع الدفع </label>
@@ -119,114 +142,60 @@
                                 </div>
                             </div>
                         </div>
-                    
-                   
                 </div>
-                <div class="row">
-                            
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">التوصيل لقرية ؟</label>
-                                <div class="col-sm-1">
-                                        <input asp-for="Village_Flag" type="checkbox" class="form-check-input" />
-                                    <span style="color:red" asp-validation-for="Village_Flag"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">اسم القرية  </label>
-                                <div class="col-sm-9">
-                                    <input asp-for="Village_Name" type="text" class="form-control" />
-
-                                    <span style="color:red" asp-validation-for="Village_Name"></span>
-                                </div>
-                            </div>
-                        </div>
-                </div>
-                   @*  <div class="row">
-                        if (User.IsInRole("تاجر"))
-                        {
-                            <input type="hidden" asp-for="Trader_Id" value="@userId" /> *
-                        }
-                        else
-                        {
-                            <div class="col-md-6">
-                                <div class="form-group row">
-                                    <label class="col-sm-3 col-form-label">اسم التاجر</label>
-                                    <div class="col-sm-9">
-                                        <select asp-for="Trader_Id" class="form-control" asp-items="@(new SelectList(Model.Traders, "Id", "FullName"))">
-                                        </select>
-                                        <span style="color:red" asp-validation-for="Representitive_Id"></span>
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        }
-                        <div class="col-md-6">
-                            <div class="form-group row">
-                                <label class="col-sm-3 col-form-label">اسم المندوب</label>
-                                <div class="col-sm-9">
-                                    <select asp-for="Representitive_Id" class="form-control" asp-items="@(new SelectList(Model.Representitve, "Id", "FullName"))">
-                                    </select>
-                                    <span style="color:red" asp-validation-for="Representitive_Id"></span>
-                                </div>
-                            </div>
-                        </div> *@
                     <div class="row">
-                       <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-sm-3 col-form-label">الحالة</label>
-                            <div class="col-sm-9">
-                                <select asp-for="OrderStatusId" class="form-control" asp-items="@(new SelectList(Model.Statuses, "Id", "Name", Model.OrderStatusId))">
-                                </select>
-                                <span style="color:red" asp-validation-for="OrderStatusId"></span>
+                        <div class="col-md-6">
+                            <div class="form-group row">
+                                <label class="col-sm-3 col-form-label">نوع الشحن</label>
+                                <div class="col-sm-9">
+                                    <select asp-for="ShippingSetting_Id" class="form-control" asp-items="@(new SelectList(Model.shippingSettings, "Id", "Shipping_Type"))">
+                                    </select>
+                                    <span style="color:red" asp-validation-for="ShippingSetting_Id"></span>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    </div>
-                    @for(int i = 0; i < Model.Products.Count; i++)
-                    {
-                        <input type="hidden" asp-for="Products[i].Id" />
-                        <div class="row product-row">
-                            <div class="col-md-3">
-                                <input asp-for="@Model.Products[i].Name" type="text" class="form-control product-name" placeholder="اسم المنتج">
-                                <span style="color:red" class="product-name-validation"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <input asp-for="@Model.Products[i].Price" type="text" class="form-control product-price" placeholder="السعر">
-                                <span style="color:red" class="product-price-validation"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <input asp-for="@Model.Products[i].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية">
-                                <span style="color:red" class="product-quantity-validation"></span>
-                            </div>
-                            <div class="col-md-3">
-                                <input asp-for="@Model.Products[i].Weight" type="text" class="form-control product-weight" placeholder="الوزن">
-                                <span style="color:red" class="product-weight-validation"></span>
-                            </div>
-                            <div class="">
+                @for (int i = 0; i < Model.Products.Count; i++)
+                {
+                    <input type="hidden" asp-for="Products[i].Id" />
+                    <div class="row product-row">
+                        <div class="col-md-3">
+                            <input asp-for="@Model.Products[i].Name" type="text" class="form-control product-name" placeholder="اسم المنتج">
+                            <span style="color:red" class="product-name-validation"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="@Model.Products[i].Price" type="text" class="form-control product-price" placeholder="السعر">
+                            <span style="color:red" class="product-price-validation"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="@Model.Products[i].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية">
+                            <span style="color:red" class="product-quantity-validation"></span>
+                        </div>
+                        <div class="col-md-3">
+                            <input asp-for="@Model.Products[i].Weight" type="text" class="form-control product-weight" placeholder="الوزن">
+                            <span style="color:red" class="product-weight-validation"></span>
+                        </div>
+                        <div class="">
                             <button type="button" class="btn btn-danger delete-existing_product-btn" id="@Model.Products[i].Id">حذف</button>
-                            </div>
-                                
-
                         </div>
-                    }
+
+
+                    </div>
+                }
                 <div class="col-md-12">
                     <div id="products-container">
                     </div>
                     <button type="button" id="add-product-btn" class="btn btn-success">اضافة منتج</button>
                 </div>
 
-                        <br><br>
-                        <div class="row">
-                            <input id="submit-btn" type="submit" value="تعديل" class=" btn btn-primary" />
-                        </div>
+                <br><br>
+                <div class="row">
+                    <input id="submit-btn" type="submit" value="تعديل" class=" btn btn-primary" />
+                </div>
 
 
-                        <div style="color:red" asp-validation-summary="All">
-                        </div>
+                <div style="color:red" asp-validation-summary="All">
+                </div>
             </form>
             @section Scripts {
                 <script src="~/lib/jquery/dist/jquery.min.js"></script>
@@ -238,29 +207,29 @@
 
                         $('#add-product-btn').click(function () {
                             var productHtml = `
-                                            <div class="product-row">
-                                             <input type="hidden" name="Order_Id" value="@Model.Id">
-                                                <div class="row">
-                                                    <div class="col-md-3">
-                                                        <input name="Products[${productId}].Name" type="text" class="form-control product-name" placeholder="اسم المنتج" />
-                                                        <span style="color:red" class="product-name-validation"></span>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input name="Products[${productId}].Price" type="text" class="form-control product-price" placeholder="السعر" />
-                                                        <span style="color:red" class="product-price-validation"></span>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                                        <input name="Products[${productId}].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية" />
-                                                        <span style="color:red" class="product-quantity-validation"></span>
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <input name="Products[${productId}].Weight" type="text" class="form-control product-weight" placeholder="الوزن" />
-                                                        <span style="color:red" class="product-weight-validation"></span>
-                                                    </div>
-                                                </div>
-                                                <button type="button" class="btn btn-danger delete-product-btn">حذف</button>
-                                            </div>
-                                        `;
+                                                                <div class="product-row">
+                                                                 <input type="hidden" name="Order_Id" value="@Model.Id">
+                                                                    <div class="row">
+                                                                        <div class="col-md-3">
+                                                                            <input name="Products[${productId}].Name" type="text" class="form-control product-name" placeholder="اسم المنتج" />
+                                                                            <span style="color:red" class="product-name-validation"></span>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input name="Products[${productId}].Price" type="text" class="form-control product-price" placeholder="السعر" />
+                                                                            <span style="color:red" class="product-price-validation"></span>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                                            <input name="Products[${productId}].Qunatity" type="text" class="form-control product-quantity" placeholder="الكمية" />
+                                                                            <span style="color:red" class="product-quantity-validation"></span>
+                                                                        </div>
+                                                                        <div class="col-md-3">
+                                                                            <input name="Products[${productId}].Weight" type="text" class="form-control product-weight" placeholder="الوزن" />
+                                                                            <span style="color:red" class="product-weight-validation"></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <button type="button" class="btn btn-danger delete-product-btn">حذف</button>
+                                                                </div>
+                                                            `;
 
                             $('#products-container').append(productHtml);
                             productId++;
@@ -281,10 +250,10 @@
                             var productHtml = `<input type="hidden" name="product_Ids_To_Delete[${index}]" value="${id}" />`;
 
                             $('#products-container').append(productHtml);
-                            
+
                             $(this).closest('.product-row').remove();
                             // Re-index the product fields after deletion
-                            
+
                         });
 
                         // Function to re-index product fields
@@ -356,5 +325,64 @@
                         });
                     });
                 </script>
+                <script>
+                   
+                    $(function () {
 
+                        $("#citieslist").change(function () {
+
+                            $("#brancheslist").empty();
+                            $("#brancheslist").append("<option>اختار الفرع</option>");
+                            var cityId = $("#citieslist").val()
+                            alert(cityId);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/branch/GetBranchesesOfCity",
+                                data: { id: cityId },
+                                success: function (res) {
+                                    $.each(res, function (i, b) {
+                                        console.log(b)
+                                        $("#brancheslist").append("<option value='" + b.id + "'>" + b.name + "</option>");
+                                    });
+                                }
+
+
+
+                            });
+
+
+                        });
+
+                    });
+
+                    $(function () {
+
+                        $("#brancheslist").change(function () {
+
+                            $("#representiveslist").empty();
+                            $("#representiveslist").append("<option>اختار المندوب</option>");
+                            var branchId = $("#brancheslist").val()
+                            alert(branchId);
+
+                            $.ajax({
+                                type: "POST",
+                                url: "/Representative/GetRepresentivesOfbranch",
+                                data: { id: branchId },
+                                success: function (res) {
+                                    $.each(res, function (i, r) {
+                                        console.log(r)
+                                        $("#representiveslist").append("<option value='" + r.id + "'>" + r.name + "</option>");
+                                    });
+                                }
+
+
+
+                            });
+
+
+                        });
+
+                    });
+                </script>
             }

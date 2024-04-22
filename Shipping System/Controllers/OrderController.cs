@@ -23,6 +23,21 @@ namespace Shipping_System.Controllers
             var orders = await _OrderRepo.GetAll();
             return View(orders);
         }
+        public async Task<IActionResult> TraderOrders(string Id)
+        {
+            var orders = await _OrderRepo.GetTraderOrders(Id);
+            return View(orders);
+        }
+        public async Task<IActionResult> RepresntiveOrders(string Id)
+        {
+            var orders = await _OrderRepo.GetRepresntiveOrders(Id);
+            return View(orders);
+        }
+        public async Task<IActionResult> ShowDetails(int Id)
+        {
+            var order = await _OrderRepo.GetById(Id);
+            return View(order);
+        }
         public async Task< IActionResult> Create()
         {
             var Lists = await _OrderRepo.IncludeLists();
@@ -43,7 +58,7 @@ namespace Shipping_System.Controllers
         public async Task<IActionResult> Update(OrderVM ordervm)
         {
            
-            var result = await _OrderRepo.Update(ordervm);
+            var result = await _OrderRepo.Edit(ordervm);
             if (result != 0)
             {
                 _ToastNotification.AddSuccessToastMessage("تم تعديل الطلــب بنجاح");

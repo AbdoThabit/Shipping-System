@@ -87,5 +87,11 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [HttpPost]
+        public async Task<IActionResult> GetBranchesesOfCity(int id)
+        {
+            var Branches = await _BranchRepo.GetByCityId(id);
+            return Json(Branches);
+        }
     }
 }

@@ -13,5 +13,6 @@ namespace Shipping_System.BL.Repositories.RepresentativeRepository
         Task<IdentityResult> Delete(string id);
         Task<IdentityResult> AddRole();
         Task<RepresentativeRegistrationVM> IncludeLists();
+        Task<List<RepresetivecheckListVm>> getAllRepresentivesOfBranch(int branchId);
     }
 }
