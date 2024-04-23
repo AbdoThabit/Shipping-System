@@ -1,75 +1,14 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
 }
+<div class="card bg-gradient-danger card-img-holder text-white">
+    <div class="card-body">
+        <h4 class="font-weight-normal mb-3">الحالة<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
 
-<div class="row">
-    <div class="col-12 grid-margin">
-        <div class="card">
-            <div class="card-body">
-                <h4 class="card-title">التذاكر الحديثة</h4>
-                <div class="table-responsive">
-                    <table id="myTable" class="table  table-bordered  table-striped table-hover js-basic-example dataTable">
-                        <thead>
-                            <tr>
-                                <th> المحال </th>
-                                <th> موضوع </th>
-                                <th> الحالة </th>
-                                <th> اخر تحديث </th>
-                                <th> تتبع الهوية </th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>
-                                    <img src="../../../assets/images/faces/face1.jpg" class="ms-2" alt="image"> ديفيد جراي
-                                </td>
-                                <td> لم يتم تلقي الصندوق</td>
-                                <td>
-                                    <label class="badge badge-gradient-success">منجز</label>
-                                </td>
-                                <td> 5 ديسمبر ، 2017 </td>
-                                <td> WD-12345 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../../../assets/images/faces/face2.jpg" class="ms-2" alt="image"> ستيلا جونسون
-                                </td>
-                                <td> ارتفاع وقت التحميل </td>
-                                <td>
-                                    <label class="badge badge-gradient-warning">التقدم</label>
-                                </td>
-                                <td> 12 ديسمبر ، 2017 </td>
-                                <td> WD-12346 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../../../assets/images/faces/face3.jpg" class="ms-2" alt="image">مارينا ميشيل
-                                </td>
-                                <td> موقع لأسفل لمدة أسبوع واحد </td>
-                                <td>
-                                    <label class="badge badge-gradient-info">في الانتظار</label>
-                                </td>
-                                <td> 16 ديسمبر ، 2017</td>
-                                <td> WD-12347 </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <img src="../../../assets/images/faces/face4.jpg" class="ms-2" alt="image"> فلان الفلاني
-                                </td>
-                                <td> فقدان السيطرة على الخادم</td>
-                                <td>
-                                    <label class="badge badge-gradient-danger">مرفوض</label>
-                                </td>
-                                <td> 3 ديسمبر ، 2017</td>
-                                <td> WD-12348 </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+
     </div>
 </div>
+
 @section Scripts{
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
@@ -80,58 +19,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.2.7/vfs_fonts.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.html5.min.js"></script>
     <script src="https://cdn.datatables.net/buttons/3.0.1/js/buttons.print.min.js"></script>
-
-
-
-
-    <script>
-        $(function () {
-            $('#myTable').DataTable({
-                responsive: true,
-                paging: true,
-                pageLength: 3,
-                bSort: true,
-                bFilter: true,
-
-                //bLengthChange: false,
-                //bInfo: false,
-                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
-
-                layout: {
-                    topStart: {
-                        buttons: [
-                            { extend: 'excel', className: 'btn btn-primary ' }, // Custom class for excel button
-                            { extend: 'print', className: 'btn btn-success ' }  // Custom class for print button
-                        ]
-                    }
-                },
-                language: {
-                    "decimal": "",
-                    "emptyTable": "لا تتوفر بيانات في الجدول",
-                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
-                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
-                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "عرض _MENU_ مدخل",
-                    "loadingRecords": "تحميل...",
-                    "processing": "جاري المعالجة...",
-                    "search": "البحث:",
-                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
-                   
-                    "aria": {
-                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
-                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
-                    }
-                },
-
-
-                  
-                
-            });
-        });
-
-
-    </script>  
 }
 
