@@ -154,9 +154,9 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             }).ToListAsync();
             return orders;
         }
-        public async Task<List<OrderVM>> GetTraderOrders(string Trader_ID)
+        public async Task<List<OrderVM>> GetTraderOrders(string Trader_UserName)
         {
-            List<OrderVM> orders = await _Context.Orders.Where(O=>O.Trader_Id == Trader_ID).Select(Order => new OrderVM
+            List<OrderVM> orders = await _Context.Orders.Where(O=>O.Trader.UserName == Trader_UserName).Select(Order => new OrderVM
             {
                 Id = Order.Id,
                 Client_Name = Order.Client_Name,
@@ -192,9 +192,9 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             }).ToListAsync();
             return orders;
         }
-        public async Task<List<OrderVM>> GetRepresntiveOrders(string Representive_ID)
+        public async Task<List<OrderVM>> GetRepresntiveOrders(string Representive_UserName)
         {
-            List<OrderVM> orders = await _Context.Orders.Where(O => O.Representitive_Id == Representive_ID).Select(Order => new OrderVM
+            List<OrderVM> orders = await _Context.Orders.Where(O => O.Representitive.UserName == Representive_UserName).Select(Order => new OrderVM
             {
                 Id = Order.Id,
                 Client_Name = Order.Client_Name,
