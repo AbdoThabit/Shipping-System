@@ -334,7 +334,6 @@
                             $("#brancheslist").empty();
                             $("#brancheslist").append("<option>اختار الفرع</option>");
                             var cityId = $("#citieslist").val()
-                            alert(cityId);
 
                             $.ajax({
                                 type: "POST",
@@ -363,7 +362,6 @@
                             $("#representiveslist").empty();
                             $("#representiveslist").append("<option>اختار المندوب</option>");
                             var branchId = $("#brancheslist").val()
-                            alert(branchId);
 
                             $.ajax({
                                 type: "POST",
