@@ -20,6 +20,9 @@ namespace Shipping_System.BL.Repositories.OrderRepo
        Task<int> updateStatus(OrderStatusVM orderStatusVM);
         Task<List<OrderVM>> GetRepresntiveOrders(string Representive_UserName);
         Task<List<OrderVM>> GetTraderOrders(string Trader_UserName);
+        Task<StatusCountVM> GetAllStatusCount();
+        Task<StatusCountVM> GetTraderStatusCount(string User_Id);
+        Task<StatusCountVM> GetRepresentiveStatusCount(string User_Id);
 
     }
 }

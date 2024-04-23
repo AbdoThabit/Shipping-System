@@ -1,11 +1,107 @@
 ﻿@{
     ViewData["Title"] = "Home Page";
+    
 }
-<div class="card bg-gradient-danger card-img-holder text-white">
-    <div class="card-body">
-        <h4 class="font-weight-normal mb-3">الحالة<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+@model StatusCountVM
+<div class="row">
 
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-info card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">كل الطلبات<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.All_Status_Count</h4>
+            </div>
+        </div>
+    </div>
 
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">الطلبات الجديدة<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.New_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم التسليم للمندوب<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.deliveredToRepresentive_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-warning card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">لم يمكن التسليم<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.CantReach_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-danger card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم الالغاء من العميل<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.CanceledByClient_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم التاجيل<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.Suspended_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم التسليم جزئيا<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.partlyDelivered_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم الرفض مع الدفع<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.rejectedWithFullPaying_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-primary card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم الرفض مع دفع جزء<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.rejectedWithSomePaying_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-danger card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم الرفض بدون دفع<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.rejectedWithoutPaying_Status_Count</h4>
+            </div>
+        </div>
+    </div>
+ 
+    <div class="col-4 my-3">
+        <div class="card bg-gradient-success card-img-holder text-white">
+            <div class="card-body">
+                <h4 class="font-weight-normal mb-3">تم التوصيل<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                <h4>@Model.Delivered_Status_Count</h4>
+            </div>
+        </div>
     </div>
 </div>
 

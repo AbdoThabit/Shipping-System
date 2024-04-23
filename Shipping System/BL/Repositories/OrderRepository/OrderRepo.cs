@@ -293,6 +293,70 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
 
         }
+        public async Task<StatusCountVM> GetAllStatusCount()
+        {
+            var orders = await _Context.Orders.ToListAsync();
+            var statusCount = new StatusCountVM()
+            {
+                All_Status_Count = orders.Count(),
+                New_Status_Count = orders.Where(o => o.Status.Name == "جديد").Count(),
+                Waiting_Status_Count = orders.Where(o => o.Status.Name == "قيد الانتظار").Count(),
+                deliveredToRepresentive_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم للمندوب").Count(),
+                CantReach_Status_Count = orders.Where(o => o.Status.Name == "لا يمكن الوصول").Count(),
+                Suspended_Status_Count = orders.Where(o => o.Status.Name == "تم التاجيل").Count(),
+                partlyDelivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم جزئيا").Count(),
+                CanceledByClient_Status_Count = orders.Where(o => o.Status.Name == "تم الالغاء من قبل المستلم").Count(),
+                rejectedWithFullPaying_Status_Count  = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
+                rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
+                rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
+                Delivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم").Count(),
+
+                
+            };
+            return statusCount;
+        }
+        public async Task<StatusCountVM> GetTraderStatusCount(string User_name)
+        {
+            var orders = await _Context.Orders.Where(o => o.Trader.UserName == User_name).ToListAsync();
+            var statusCount = new StatusCountVM()
+            {
+                All_Status_Count = orders.Count,
+                New_Status_Count = orders.Where(o => o.Status.Name == "جديد").Count(),
+                Waiting_Status_Count = orders.Where(o => o.Status.Name == "قيد الانتظار").Count(),
+                deliveredToRepresentive_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم للمندوب").Count(),
+                CantReach_Status_Count = orders.Where(o => o.Status.Name == "لا يمكن الوصول").Count(),
+                Suspended_Status_Count = orders.Where(o => o.Status.Name == "تم التاجيل").Count(),
+                partlyDelivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم جزئيا").Count(),
+                CanceledByClient_Status_Count = orders.Where(o => o.Status.Name == "تم الالغاء من قبل المستلم").Count(),
+                rejectedWithFullPaying_Status_Count = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
+                rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
+                rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
+
+
+            };
+            return statusCount;
+        }
+        public async Task<StatusCountVM> GetRepresentiveStatusCount(string User_name)
+        {
+            var orders = await _Context.Orders.Where(o => o.Representitive.UserName == User_name).ToListAsync();
+            var statusCount = new StatusCountVM()
+            {
+                All_Status_Count = orders.Count,
+                New_Status_Count = orders.Where(o => o.Status.Name == "جديد").Count(),
+                Waiting_Status_Count = orders.Where(o => o.Status.Name == "قيد الانتظار").Count(),
+                deliveredToRepresentive_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم للمندوب").Count(),
+                CantReach_Status_Count = orders.Where(o => o.Status.Name == "لا يمكن الوصول").Count(),
+                Suspended_Status_Count = orders.Where(o => o.Status.Name == "تم التاجيل").Count(),
+                partlyDelivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم جزئيا").Count(),
+                CanceledByClient_Status_Count = orders.Where(o => o.Status.Name == "تم الالغاء من قبل المستلم").Count(),
+                rejectedWithFullPaying_Status_Count = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
+                rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
+                rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
+
+
+            };
+            return statusCount;
+        }
         public async Task<int> updateStatus(OrderStatusVM orderStatusVM)
         {
             var order = await _Context.Orders.FindAsync(orderStatusVM.OrderId);

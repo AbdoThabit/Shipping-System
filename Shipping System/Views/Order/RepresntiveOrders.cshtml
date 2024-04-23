@@ -81,41 +81,6 @@
     <script src="~/lib/bootbox.js/bootbox.min.js"></script>
     <script>
         $(document).ready(function () {
-            $('#myTable').DataTable({
-                responsive: true,
-                paging: true,
-                pageLength: 3,
-                bSort: true,
-                bFilter: true,
-                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
-                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
-                language: {
-                    "decimal": "",
-                    "emptyTable": "لا تتوفر بيانات في الجدول",
-                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
-                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
-                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
-                    "infoPostFix": "",
-                    "thousands": ",",
-                    "lengthMenu": "عرض _MENU_ مدخل",
-                    "loadingRecords": "تحميل...",
-                    "processing": "جاري المعالجة...",
-                    "search": " البحث",
-                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
-                    "aria": {
-                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
-                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
-                    }
-                },
-                buttons: [
-                    { extend: 'excel', className: 'btn btn-danger' },
-                    { extend: 'print', className: 'btn btn-success' }
-                ]
-            });
-        });
-    </script>
-    <script>
-        $(document).ready(function () {
             $('.js-delete').on('click', function () {
                 var btn = $(this);
                 bootbox.confirm({
@@ -151,5 +116,41 @@
             });
         });
     </script>
+    <script>
+        $(document).ready(function () {
+            $('#myTable').DataTable({
+                responsive: true,
+                paging: true,
+                pageLength: 3,
+                bSort: true,
+                bFilter: true,
+                lengthMenu: [[3, 5, 10, 25, 50, -1], [3, 5, 10, 25, 50, "All"]],
+                dom: '<"top-section"lfB>rt<"bottom"ip><"clear">',
+                language: {
+                    "decimal": "",
+                    "emptyTable": "لا تتوفر بيانات في الجدول",
+                    "info": "عرض _START_ إلى _END_ من مجموع _TOTAL_ مدخل",
+                    "infoEmpty": "عرض 0 إلى 0 من 0 مدخل",
+                    "infoFiltered": "(تمت تصفية _MAX_ من الإجمالي)",
+                    "infoPostFix": "",
+                    "thousands": ",",
+                    "lengthMenu": "عرض _MENU_ مدخل",
+                    "loadingRecords": "تحميل...",
+                    "processing": "جاري المعالجة...",
+                    "search": " البحث",
+                    "zeroRecords": "لا توجد نتائج مطابقة للبحث",
+                    "aria": {
+                        "sortAscending": ": تفعيل لترتيب العمود تصاعدياً",
+                        "sortDescending": ": تفعيل لترتيب العمود تنازلياً"
+                    }
+                },
+                buttons: [
+                    { extend: 'excel', className: 'btn btn-danger' },
+                    { extend: 'print', className: 'btn btn-success' }
+                ]
+            });
+        });
+    </script>
+
 }
     }
