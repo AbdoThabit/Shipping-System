@@ -4,6 +4,7 @@ using Shipping_System.DAL.Entites;
 using Shipping_System.ViewModels;
 using NToastNotify;
 using Microsoft.AspNetCore.Http.HttpResults;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shipping_System.Controllers
 {
@@ -17,66 +18,115 @@ namespace Shipping_System.Controllers
             _OrderRepo = orderRepo;
             _ToastNotification = toastNotification;
         }
-
+        [Authorize(Roles = "موظف")]
         public async Task<IActionResult> Index()
         {
             var orders = await _OrderRepo.GetAll();
             return View(orders);
         }
+        
+        [Authorize(Roles = "تاجر")]
         public async Task<IActionResult> TraderOrders(string UserName)
         {
             var orders = await _OrderRepo.GetTraderOrders(UserName);
             return View(orders);
         }
+        [Authorize(Roles = "مندوب")]
         public async Task<IActionResult> RepresntiveOrders(string UserName)
         {
             var orders = await _OrderRepo.GetRepresntiveOrders(UserName);
             return View(orders);
         }
+        [Authorize(Roles = "موظف,تاجر")]
         public async Task<IActionResult> ShowDetails(int Id)
         {
             var order = await _OrderRepo.GetById(Id);
             return View(order);
         }
-        public async Task< IActionResult> Create()
+        [Authorize(Roles = "موظف,تاجر")]
+        public async Task<IActionResult> Create()
         {
             var Lists = await _OrderRepo.IncludeLists();
             return View(Lists);
         }
         [HttpPost]
-        public async Task<IActionResult> Create(OrderVM order)
+        [Authorize(Roles = "موظف,تاجر")]
+        public async Task<IActionResult> Create(OrderVM ordervm)
         {
-           var result=  await _OrderRepo.Add(order);
-            return RedirectToAction("Index");
+            var result = await _OrderRepo.Add(ordervm);
+            if (result != 0)
+            {
+                _ToastNotification.AddSuccessToastMessage("تم اضافة الطلــب بنجاح");
+                if (User.IsInRole("موظف"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("TraderOrders", new { UserName = User.Identity.Name });
+                }
+
+            }
+            else
+            {
+                ModelState.AddModelError(string.Empty, "Failed to create . Please try again.");
+                if (User.IsInRole("موظف"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("TraderOrders", new { UserName = User.Identity.Name });
+                }
+            }
+            
         }
+        [Authorize(Roles = "موظف,تاجر")]
         public async Task<IActionResult> Update(int Id)
         {
             var order = await _OrderRepo.GetById(Id);
             return View(order);
         }
         [HttpPost]
+        [Authorize(Roles = "موظف,تاجر")]
         public async Task<IActionResult> Update(OrderVM ordervm)
         {
-           
+
             var result = await _OrderRepo.Edit(ordervm);
             if (result != 0)
             {
                 _ToastNotification.AddSuccessToastMessage("تم تعديل الطلــب بنجاح");
+                if (User.IsInRole("موظف"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("TraderOrders", new { UserName = User.Identity.Name });
+                }
 
-                return RedirectToAction("Index");
             }
             else
             {
                 ModelState.AddModelError(string.Empty, "Failed to update . Please try again.");
-                return RedirectToAction("Index");
+                if (User.IsInRole("موظف"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else
+                {
+                    return RedirectToAction("TraderOrders", new { UserName = User.Identity.Name });
+                }
             }
         }
+        [Authorize]
         public async Task<IActionResult> UpdateStatus(int Id)
         {
             var orderStatusVm = await _OrderRepo.GetStatus(Id);
             return View(orderStatusVm);
         }
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> UpdateStatus(OrderStatusVM orderStatusVm)
         {
 
@@ -85,7 +135,18 @@ namespace Shipping_System.Controllers
             {
                 _ToastNotification.AddSuccessToastMessage("تم تعديل الحالة بنجاح");
 
-                return RedirectToAction("Index");
+                if (User.IsInRole("موظف"))
+                {
+                    return RedirectToAction("Index");
+                }
+                else if (User.IsInRole("تاجر"))
+                {
+                    return RedirectToAction("TraderOrders", new { UserName = User.Identity.Name });
+                }
+                else 
+                {
+                    return RedirectToAction("RepresntiveOrders", new { UserName = User.Identity.Name });
+                }
             }
             else
             {
@@ -93,6 +154,8 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
+        [Authorize(Roles = "موظف")]
+        [Authorize(Roles = "تاجر")]
         public async Task<IActionResult> Delete(int id)
         {
 

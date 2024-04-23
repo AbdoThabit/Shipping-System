@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
 using NToastNotify;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
@@ -7,6 +8,7 @@ using System.Net;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class RepresentativeController : Controller
     {
         private readonly IRepresentativeRepo _RepresentativeRepo;

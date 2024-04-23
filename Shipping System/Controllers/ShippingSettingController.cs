@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using Shipping_System.BL.Repositories.CityRepository;
 using Shipping_System.BL.Repositories.ShippingSettingRepository;
@@ -7,12 +8,13 @@ using Shipping_System.ViewModels;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class ShippingSettingController : Controller
     {
         private readonly IShippingSettingRepo _ShippingSettingRepo;
         private readonly IToastNotification _ToastNotification;
 
-
+        
         public ShippingSettingController(IShippingSettingRepo shippingSettingRepo, IToastNotification toastNotification)
         {
             _ShippingSettingRepo = shippingSettingRepo;

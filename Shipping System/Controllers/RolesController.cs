@@ -1,16 +1,19 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using Shipping_System.BL.Repositories.RolesRepository;
 using Shipping_System.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class RolesController : Controller
     {
         private readonly IRolesRepo _rolesRep;
         private readonly IToastNotification _ToastNotification;
 
-
+       
         public RolesController(IRolesRepo rolesRep, IToastNotification toastNotification)
         {
             _rolesRep = rolesRep;

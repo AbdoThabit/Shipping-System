@@ -5,9 +5,11 @@ using Shipping_System.BL.Repositories.TraderRepository;
 using Shipping_System.DAL.Entites;
 using Shipping_System.ViewModels;
 using System.Runtime.CompilerServices;
+using Microsoft.AspNetCore.Authorization;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class TraderController : Controller
     {
         private readonly ITraderRepo _TraderRepo;
