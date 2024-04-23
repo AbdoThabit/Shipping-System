@@ -3,9 +3,12 @@ using NToastNotify;
 using Shipping_System.BL.Repositories.VillageSettingsRepository;
 using Shipping_System.BL.Repositories.WeightSettingsRepository;
 using Shipping_System.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class VillageSettingController : Controller
     {
         private readonly IVillageSettingRepoe _VillageSettingsRepo;

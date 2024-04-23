@@ -2,9 +2,12 @@
 using NToastNotify;
 using Shipping_System.BL.Repositories.WeightSettingsRepository;
 using Shipping_System.ViewModels;
+using Microsoft.AspNetCore.Authorization;
+
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class WeightSettingsController : Controller
     {
         private readonly IWeightSettingsRepo _WeightSettingsRepo;

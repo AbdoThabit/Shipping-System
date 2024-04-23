@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using Shipping_System.BL.Repositories.GovernateRepository;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
@@ -8,6 +9,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize(Roles = "موظف")]
     public class GovernateController : Controller
     {
         private readonly IGovernateRepo _GovernateRepo;

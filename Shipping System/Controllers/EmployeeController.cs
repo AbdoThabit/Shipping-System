@@ -1,11 +1,12 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.ViewModels;
 
 namespace Shipping_System.Controllers
 {
-       
+    [Authorize(Roles = "موظف")]
     public class EmployeeController : Controller
     {
         private readonly IEmployeeRepo _EmployeeRepo;
