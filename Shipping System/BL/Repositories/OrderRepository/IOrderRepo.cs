@@ -18,8 +18,8 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         Task<int> Delete(int id);
        Task<OrderStatusVM> GetStatus(int orderId);
        Task<int> updateStatus(OrderStatusVM orderStatusVM);
-        Task<List<OrderVM>> GetRepresntiveOrders(string Representive_ID);
-        Task<List<OrderVM>> GetTraderOrders(string Trader_ID);
+        Task<List<OrderVM>> GetRepresntiveOrders(string Representive_UserName);
+        Task<List<OrderVM>> GetTraderOrders(string Trader_UserName);
 
     }
 }
