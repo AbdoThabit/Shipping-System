@@ -25,13 +25,14 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         private readonly IRepresentativeRepo _RepresentiveRepo;
 
 
-        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager,IWeightSettingsRepo weightRepo = null  )
+        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager,IWeightSettingsRepo weightRepo , ICityRepo cityRepo  )
         {
             _Context = context;
             _VillageRepo = villageRepo;
             _ShippingRepo = shippingRepo;
             _UserManager = userManager;
             _WeightRepo = weightRepo;
+            _CityRepo = cityRepo;
            
         }
 

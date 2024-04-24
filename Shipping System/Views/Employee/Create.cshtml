@@ -55,13 +55,13 @@
                 </div>
                 <div class="row">
                     <div class="col-md-6">
-                        <div class="form-group row">b
+                        <div class="form-group row">
                             <label class="col-sm-3 col-form-label">المحافظة</label>
                             <div class="col-sm-9">
-                                <select asp-for="Governate_Id" class="form-control" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))">
-                                  
+                                <select asp-for="Governate_Id" asp-items="@(new SelectList(Model.Governates, "Id", "Name"))" class=" form-control ">
                                 </select>
                                 <span style="color:red" asp-validation-for="Governate_Id"></span>
+
                             </div>
                         </div>
                     </div>
@@ -70,10 +70,13 @@
                             <label class="col-sm-3 col-form-label">اسم المستخدم</label>
                             <div class="col-sm-9">
                                 <input asp-for="UserName" type="text" class="form-control" />
+
                                 <span style="color:red" asp-validation-for="UserName"></span>
+
                             </div>
                         </div>
                     </div>
+
                 </div>
 
                 <div class="row">
