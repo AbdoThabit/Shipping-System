@@ -145,6 +145,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 BranchName = Order.Branch.Name,
                 RepresntiveName = Order.Representitive.FullName,
                 TraderName = Order.Trader.FullName,
+                statusName = Order.Status.Name,
                 Products = Order.Products.Select(prod => new Product
                 {
                     Name = prod.Name,
@@ -183,6 +184,8 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 BranchName = Order.Branch.Name,
                 RepresntiveName = Order.Representitive.FullName,
                 TraderName = Order.Trader.FullName,
+                statusName = Order.Status.Name,
+
                 Products = Order.Products.Select(prod => new Product
                 {
                     Name = prod.Name,
@@ -221,6 +224,8 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 BranchName = Order.Branch.Name,
                 RepresntiveName = Order.Representitive.FullName,
                 TraderName = Order.Trader.FullName,
+                statusName = Order.Status.Name,
+
                 Products = Order.Products.Select(prod => new Product
                 {
                     Name = prod.Name,
