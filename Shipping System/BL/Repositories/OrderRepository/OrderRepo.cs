@@ -365,10 +365,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             return await _Context.SaveChangesAsync();
         }
 
-        public Task<List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate)
-        {
-            throw new NotImplementedException();
-        }
+       
 
         public async Task<int> Edit(OrderVM ordervm)
         {
@@ -510,6 +507,45 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
             return cost;
         }
-        
+
+        public async Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate)
+        {
+            List<OrderVM> orders = await _Context.Orders.Where(o => o.Order_Date >= fromDate && o.Order_Date <= toDate).Select(Order => new OrderVM
+            {
+                Id = Order.Id,
+                Client_Name = Order.Client_Name,
+                FristPhoneNumber = Order.FristPhoneNumber,
+                SecoundPhoneNumber = Order.SecoundPhoneNumber,
+                Email = Order.Email,
+                Address = Order.Address,
+                Village_Name = Order.Village_Name,
+                Governate_Id = Order.Governate_Id,
+                City_Id = Order.City_Id,
+                Village_Flag = Order.Village_Flag,
+                ShippingSetting_Id = Order.ShippingSetting_Id,
+                Payment_Type = Order.Payment_Type,
+                Branch_Id = Order.Branch_Id,
+                Status_Id = Order.Status_Id,
+                Order_Date = Order.Order_Date,
+                Notes = Order.Notes,
+                Products_Total_Cost = Order.Products_Total_Cost,
+                Order_Total_Cost = Order.Order_Total_Cost,
+                Total_weight = Order.Total_weight,
+                GovernateName = Order.Governate.Name,
+                CityName = Order.City.Name,
+                BranchName = Order.Branch.Name,
+                RepresntiveName = Order.Representitive.FullName,
+                TraderName = Order.Trader.FullName,
+                Products = Order.Products.Select(prod => new Product
+                {
+                    Name = prod.Name,
+                    Qunatity = prod.Qunatity,
+                    Price = prod.Price,
+                    Weight = prod.Weight,
+                }).ToList()
+            }).ToListAsync();
+            return orders;
+        }
+
     }
 }

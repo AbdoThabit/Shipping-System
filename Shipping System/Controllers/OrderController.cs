@@ -172,6 +172,17 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
-        
+       
+        public  IActionResult Report()
+        {
+           return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Report(DateTime fromDate, DateTime toDate)
+        {
+            var order = await _OrderRepo.GetOrdersByDateRange(fromDate, toDate);
+            return View(order);
+        }
+
     }
 }
