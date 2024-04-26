@@ -29,7 +29,9 @@
         <!-- navbar starts here -->
         <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
             <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
-                <h3 class="font-weight-bold mb-6" style="color: #b66dff; font-style: italic;">SHIPPING SYSTEM</h3>
+                <h1 class="font-weight-bold mb-6" style="color:blueviolet; font-family:'Traditional Arabic'; font-weight:bolder; font-size:43px ">بايونيرز اكسبريس</h1> 
+                <span style="font-size:48px; color:blueviolet; margin-right:4px"  class="mdi mdi-truck-fast"></span>
+
 
                 @*  <a class="navbar-brand brand-logo" href="../../index.html"><img src="~/images/logo4.png" alt="logo" /></a>
                 <a class="navbar-brand brand-logo-mini" href="../../index.html"><img src="~/images/log3.png" alt="logo" /></a> *@
@@ -52,7 +54,7 @@
                     <li class="nav-item nav-profile dropdown">
                         <a class="nav-link dropdown-toggle" id="profileDropdown" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                             <div class="nav-profile-img">
-                                <img src="~/images/faces/purpleuser2.png" alt="image">
+                                <img src="~/images/faces/purpleuser2.png" alt="profile">
                                 <span class="availability-status online"></span>
                             </div>
                             <div class="nav-profile-text">
@@ -475,13 +477,20 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-action="TraderOrders" asp-controller="Order" asp-route-UserName="@User.Identity.Name">
                                 <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">طلبــاتي</span>
-                                <i class="mdi mdi-account-group menu-icon"></i>
+                                <i class="mdi mdi-cart menu-icon"></i>
                             </a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" asp-action="Create" asp-controller="Order">
                                 <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">اضافة طلـب</span>
-                                <i class="mdi mdi-account-group menu-icon"></i>
+                                <i class="mdi mdi-border-color menu-icon"></i>
+                            </a>
+                        </li>
+
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Report" asp-controller="Order">
+                                <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">تقارير الطلبات</span>
+                                <i class="mdi mdi-finance menu-icon"></i>
                             </a>
                         </li>
                     }
@@ -490,7 +499,13 @@
                         <li class="nav-item">
                             <a class="nav-link" asp-action="RepresntiveOrders" asp-controller="Order" asp-route-UserName="@User.Identity.Name">
                                 <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">طلبــاتي</span>
-                                <i class="mdi mdi-account-group menu-icon"></i>
+                                <i class="mdi mdi-cart menu-icon"></i>
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="Report" asp-controller="Order">
+                                <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">تقارير الطلبات</span>
+                                <i class="mdi mdi-finance menu-icon"></i>
                             </a>
                         </li>
 

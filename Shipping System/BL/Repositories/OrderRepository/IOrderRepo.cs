@@ -14,7 +14,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
        Task<List<OrderVM>> GetAll();
 
         Task<OrderVM> IncludeLists();
-       Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate);
+       Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate , string UserName);
         Task<int> Delete(int id);
        Task<OrderStatusVM> GetStatus(int orderId);
        Task<int> updateStatus(OrderStatusVM orderStatusVM);

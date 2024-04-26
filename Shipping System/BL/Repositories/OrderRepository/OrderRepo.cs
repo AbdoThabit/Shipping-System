@@ -25,7 +25,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         private readonly IRepresentativeRepo _RepresentiveRepo;
 
 
-        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager,IWeightSettingsRepo weightRepo , ICityRepo cityRepo  )
+        public OrderRepo(Context context, IVillageSettingRepoe villageRepo, IShippingSettingRepo shippingRepo, UserManager<ApplicationUser> userManager, IWeightSettingsRepo weightRepo, ICityRepo cityRepo)
         {
             _Context = context;
             _VillageRepo = villageRepo;
@@ -33,15 +33,15 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             _UserManager = userManager;
             _WeightRepo = weightRepo;
             _CityRepo = cityRepo;
-           
+
         }
 
         public async Task<int> Add(OrderVM Order)
         {
             decimal ShippingCost = await ShhipinlPrice(Order.Village_Flag, Order.ShippingSetting_Id, Order.Products, Order.City_Id);
             decimal costAllProducts = await Cost_AllProducts(Order.Products);
-            double countWeight =  await CountWeight(Order.Products);
-            
+            double countWeight = await CountWeight(Order.Products);
+
 
             Order order = new Order()
             {
@@ -53,7 +53,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Village_Name = Order.Village_Name,
                 Governate_Id = Order.Governate_Id,
                 City_Id = Order.City_Id,
-                Village_Flag =Order.Village_Flag,
+                Village_Flag = Order.Village_Flag,
                 ShippingSetting_Id = Order.ShippingSetting_Id,
                 Payment_Type = Order.Payment_Type,
                 Branch_Id = Order.Branch_Id,
@@ -64,7 +64,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Trader_Id = Order.Trader_Id,
                 Products_Total_Cost = costAllProducts,
                 Shipping_Total_Cost = ShippingCost,
-                Total_weight = (int) countWeight,
+                Total_weight = (int)countWeight,
                 Products = Order.Products.Select(prod => new Product
                 {
                     Name = prod.Name,
@@ -74,14 +74,14 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 }).ToList(),
             };
 
-           
-              await _Context.Orders.AddAsync(order);
-              await  _Context.Products.AddRangeAsync(order.Products.ToList());
-               var result= await _Context.SaveChangesAsync();
-            
-              return result;
 
-                
+            await _Context.Orders.AddAsync(order);
+            await _Context.Products.AddRangeAsync(order.Products.ToList());
+            var result = await _Context.SaveChangesAsync();
+
+            return result;
+
+
         }
 
         public async Task<OrderVM> IncludeLists()
@@ -119,7 +119,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
 
         public async Task<List<OrderVM>> GetAll()
         {
-            List<OrderVM> orders =await _Context.Orders.Select(Order => new OrderVM
+            List<OrderVM> orders = await _Context.Orders.Select(Order => new OrderVM
             {
                 Id = Order.Id,
                 Client_Name = Order.Client_Name,
@@ -158,7 +158,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         }
         public async Task<List<OrderVM>> GetTraderOrders(string Trader_UserName)
         {
-            List<OrderVM> orders = await _Context.Orders.Where(O=>O.Trader.UserName == Trader_UserName).Select(Order => new OrderVM
+            List<OrderVM> orders = await _Context.Orders.Where(O => O.Trader.UserName == Trader_UserName).Select(Order => new OrderVM
             {
                 Id = Order.Id,
                 Client_Name = Order.Client_Name,
@@ -312,12 +312,12 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 Suspended_Status_Count = orders.Where(o => o.Status.Name == "تم التاجيل").Count(),
                 partlyDelivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم جزئيا").Count(),
                 CanceledByClient_Status_Count = orders.Where(o => o.Status.Name == "تم الالغاء من قبل المستلم").Count(),
-                rejectedWithFullPaying_Status_Count  = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
+                rejectedWithFullPaying_Status_Count = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
                 rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
                 rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
                 Delivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم").Count(),
 
-                
+
             };
             return statusCount;
         }
@@ -370,12 +370,12 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             return await _Context.SaveChangesAsync();
         }
 
-       
+
 
         public async Task<int> Edit(OrderVM ordervm)
         {
-            
-            var order =  await _Context.Orders.FindAsync(ordervm.Id);
+
+            var order = await _Context.Orders.FindAsync(ordervm.Id);
             if (order != null)
             {
                 decimal ShippingCost = await ShhipinlPrice(ordervm.Village_Flag, ordervm.ShippingSetting_Id, ordervm.Products, ordervm.City_Id);
@@ -393,12 +393,12 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 order.Status_Id = ordervm.OrderStatusId;
                 order.Village_Flag = ordervm.Village_Flag;
                 order.Village_Name = ordervm.Village_Name;
-                if(ordervm.product_Ids_To_Delete !=null)
+                if (ordervm.product_Ids_To_Delete != null)
                 {
-                    foreach(int id in ordervm.product_Ids_To_Delete)
+                    foreach (int id in ordervm.product_Ids_To_Delete)
                     {
-                       var productToDelete = order.Products.FirstOrDefault(p=>p.Id == id);
-                       if(productToDelete != null)
+                        var productToDelete = order.Products.FirstOrDefault(p => p.Id == id);
+                        if (productToDelete != null)
                         {
                             order.Products.Remove(productToDelete);
                         }
@@ -441,7 +441,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
         }
 
 
-        private async Task< decimal> Cost_ShippingType(int shippingTypeId)
+        private async Task<decimal> Cost_ShippingType(int shippingTypeId)
         {
             var result = await _ShippingRepo.GetById(shippingTypeId);
             if (result != null)
@@ -460,7 +460,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             return 0;
         }
 
-        private async Task <double>CountWeight(ICollection<Product> products)
+        private async Task<double> CountWeight(ICollection<Product> products)
         {
             double weight = 0;
             foreach (var item in products)
@@ -479,15 +479,15 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             }
             return price;
         }
-       
-        private async Task<decimal> ShhipinlPrice(bool Village_Flag, int ShippingSetting_Id, List<Product> products,int cityId)
+
+        private async Task<decimal> ShhipinlPrice(bool Village_Flag, int ShippingSetting_Id, List<Product> products, int cityId)
         {
             decimal costDeliverToVillage = await Cost_DeliverToVillage(Village_Flag);
             decimal costShippingType = await Cost_ShippingType(ShippingSetting_Id);
             double countWeight = await CountWeight(products);
             decimal costAddititonalWeight = (decimal)await Cost_AdditionalWeight(countWeight);
             decimal costCityShippingPrice = await Cost_CityShipping(cityId);
-            return  costDeliverToVillage + costAddititonalWeight + costShippingType + costCityShippingPrice;
+            return costDeliverToVillage + costAddititonalWeight + costShippingType + costCityShippingPrice;
         }
         private async Task<double> Cost_AdditionalWeight(double totalWeight)
         {
@@ -513,44 +513,68 @@ namespace Shipping_System.BL.Repositories.OrderRepo
             return cost;
         }
 
-        public async Task< List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate)
+        public async Task<List<OrderVM>> GetOrdersByDateRange(DateTime fromDate, DateTime toDate, string UserName)
         {
-            List<OrderVM> orders = await _Context.Orders.Where(o => o.Order_Date >= fromDate && o.Order_Date <= toDate).Select(Order => new OrderVM
-            {
-                Id = Order.Id,
-                Client_Name = Order.Client_Name,
-                FristPhoneNumber = Order.FristPhoneNumber,
-                SecoundPhoneNumber = Order.SecoundPhoneNumber,
-                Email = Order.Email,
-                Address = Order.Address,
-                Village_Name = Order.Village_Name,
-                Governate_Id = Order.Governate_Id,
-                City_Id = Order.City_Id,
-                Village_Flag = Order.Village_Flag,
-                ShippingSetting_Id = Order.ShippingSetting_Id,
-                Payment_Type = Order.Payment_Type,
-                Branch_Id = Order.Branch_Id,
-                Status_Id = Order.Status_Id,
-                Order_Date = Order.Order_Date,
-                Notes = Order.Notes,
-                Products_Total_Cost = Order.Products_Total_Cost,
-                Order_Total_Cost = Order.Order_Total_Cost,
-                Total_weight = Order.Total_weight,
-                GovernateName = Order.Governate.Name,
-                CityName = Order.City.Name,
-                BranchName = Order.Branch.Name,
-                RepresntiveName = Order.Representitive.FullName,
-                TraderName = Order.Trader.FullName,
-                Products = Order.Products.Select(prod => new Product
-                {
-                    Name = prod.Name,
-                    Qunatity = prod.Qunatity,
-                    Price = prod.Price,
-                    Weight = prod.Weight,
-                }).ToList()
-            }).ToListAsync();
-            return orders;
-        }
+            IQueryable<Order> query = _Context.Orders.Where(o => o.Order_Date >= fromDate && o.Order_Date <= toDate);
 
+            if (!string.IsNullOrEmpty(UserName))
+            {
+                var user = await _UserManager.FindByNameAsync(UserName);
+
+                if (user != null)
+                {
+                    var userType = await _UserManager.GetRolesAsync(user);
+                    if (userType.FirstOrDefault() == "مندوب")
+                    {
+                        query = query.Where(o => o.Representitive.UserName == UserName);
+
+                    }
+                    else if(userType.FirstOrDefault() == "تاجر")
+                    {
+                        query = query.Where(o => o.Trader.UserName == UserName);
+
+                    }
+                }
+            }
+
+                List<OrderVM> orders = await query.Select(Order => new OrderVM
+                {
+                    Id = Order.Id,
+                    Client_Name = Order.Client_Name,
+                    FristPhoneNumber = Order.FristPhoneNumber,
+                    SecoundPhoneNumber = Order.SecoundPhoneNumber,
+                    Email = Order.Email,
+                    Address = Order.Address,
+                    Village_Name = Order.Village_Name,
+                    Governate_Id = Order.Governate_Id,
+                    City_Id = Order.City_Id,
+                    Village_Flag = Order.Village_Flag,
+                    ShippingSetting_Id = Order.ShippingSetting_Id,
+                    Payment_Type = Order.Payment_Type,
+                    Branch_Id = Order.Branch_Id,
+                    Status_Id = Order.Status_Id,
+                    Order_Date = Order.Order_Date,
+                    Notes = Order.Notes,
+                    Products_Total_Cost = Order.Products_Total_Cost,
+                    Order_Total_Cost = Order.Order_Total_Cost,
+                    Total_weight = Order.Total_weight,
+                    GovernateName = Order.Governate.Name,
+                    CityName = Order.City.Name,
+                    BranchName = Order.Branch.Name,
+                    RepresntiveName = Order.Representitive.FullName,
+                    TraderName = Order.Trader.FullName,
+                    statusName= Order.Status.Name,
+                    Products = Order.Products.Select(prod => new Product
+                    {
+                        Name = prod.Name,
+                        Qunatity = prod.Qunatity,
+                        Price = prod.Price,
+                        Weight = prod.Weight,
+                    }).ToList()
+                }).ToListAsync();
+
+                return orders;
+            
+        }
     }
 }
