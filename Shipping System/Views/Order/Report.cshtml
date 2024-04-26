@@ -25,6 +25,7 @@
                     <div class="input-group-addon mx-4">الي</div>
                     <input name="toDate" type="date" class="form-control" required>
                     <span id="toDateError" class="text-danger"></span>
+                    <input type="hidden" name="UserName" value="@User.Identity.Name" />
                         <input class="btn btn-primary me-3" type="submit" value="عرض الطلبات" />
 
                 </form>
@@ -53,6 +54,7 @@
                                     <th> المخافظة </th>
                                     <th> المدينة </th>
                                     <th> الفرع </th>
+                                    <th>الحالة</th>
                                     <th> القرية </th>
                                     <th>التكلفة الكلية</th>
                                     <th>عـــرض</th>
@@ -72,6 +74,7 @@
                                         <td>@order.GovernateName</td>
                                         <td>@order.CityName</td>
                                         <td>@order.BranchName</td>
+                                        <td>@order.statusName</td>
                                         <td>@order.Village_Name</td>
                                         <td>@order.Order_Total_Cost</td>
                                         <td><a asp-action="ShowDetails" asp-controller="Order" asp-route-Id="@order.Id" class=" btn btn-gradient-success">عرض التفاصيل</a></td>

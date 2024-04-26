@@ -178,9 +178,9 @@ namespace Shipping_System.Controllers
            return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Report(DateTime fromDate, DateTime toDate)
+        public async Task<IActionResult> Report(DateTime fromDate, DateTime toDate , string UserName)
         {
-            var order = await _OrderRepo.GetOrdersByDateRange(fromDate, toDate);
+            var order = await _OrderRepo.GetOrdersByDateRange(fromDate, toDate, UserName);
             return View(order);
         }
 
