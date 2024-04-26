@@ -23,6 +23,19 @@ namespace Shipping_System.BL.Repositories.AccountRepository
             return user;
         }
 
+        public Task<string> GetToken(ApplicationUser user)
+        {
+            var token = _userManager.GeneratePasswordResetTokenAsync(user);
+            return token;
+        }
+
+        public async Task<IdentityResult> ResetPassword(ApplicationUser User, string Token, string Password)
+        {
+
+            var result = await _userManager.ResetPasswordAsync(User, Token, Password);
+            return result;
+        }
+
         public Task<SignInResult> Login(LoginVM Login)
         {
             var state = _signInManager.PasswordSignInAsync(Login.UserName, Login.Password, Login.RememberMe, false);

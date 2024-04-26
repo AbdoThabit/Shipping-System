@@ -79,7 +79,7 @@
                                     <div class="form-check">
                                             <input asp-for="RememberMe" type="checkbox" class="form-check-input"> تذكرني
                                     </div>
-                                    <a href="#" class="auth-link text-black">هل نسيت كلمة المرور؟</a>
+                                    <a asp-action="ForgetPassword" asp-controller="Account" class="auth-link text-black">هل نسيت كلمة المرور؟</a>
                                 </div>
                                 <div class="my-3">
                                     <button type="submit" class="btn btn-block btn-gradient-primary btn-lg font-weight-medium auth-form-btn">تسجيل الدخول</button>
