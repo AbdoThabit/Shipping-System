@@ -1,7 +1,9 @@
+using Castle.Core.Configuration;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NToastNotify;
+using Shipping_System.BL.Helper;
 using Shipping_System.BL.Repositories.AccountRepository;
 using Shipping_System.BL.Repositories.BranchRepository;
 using Shipping_System.BL.Repositories.CityRepository;
@@ -52,6 +54,8 @@ namespace Shipping_System
             builder.Services.AddScoped<IOrderRepo, OrderRepo>();
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IRolesRepo, RolesRepo>();
+            builder.Services.AddScoped<IMailHelper, MailHelper>();
+
 
 
 
@@ -63,6 +67,8 @@ namespace Shipping_System
                 PositionClass = ToastPositions.TopCenter,
 
             });
+         builder.Services.Configure<MailSettings>(builder.Configuration.GetSection("MailSettings"));
+
 
 
             var app = builder.Build();

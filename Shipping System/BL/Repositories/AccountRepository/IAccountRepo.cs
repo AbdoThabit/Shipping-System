@@ -8,7 +8,8 @@ namespace Shipping_System.BL.Repositories.AccountRepository
     {
         Task<SignInResult> Login(LoginVM Login);
         Task<ApplicationUser> FindByEmail(string Email);
-
+        Task<string> GetToken(ApplicationUser user);
+        Task<IdentityResult> ResetPassword(ApplicationUser User, string Token, string Password);
         Task LogOut();
 
     }
