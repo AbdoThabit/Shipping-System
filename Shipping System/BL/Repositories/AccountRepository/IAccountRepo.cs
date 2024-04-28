@@ -10,6 +10,9 @@ namespace Shipping_System.BL.Repositories.AccountRepository
         Task<ApplicationUser> FindByEmail(string Email);
         Task<string> GetToken(ApplicationUser user);
         Task<IdentityResult> ResetPassword(ApplicationUser User, string Token, string Password);
+        Task<ChangeUserDataVM> GetById(string Id);
+        Task<IdentityResult> ChangePassword(ApplicationUser User, string OldPassword, string NewPassword);
+        Task<IdentityResult> UpdateUserData(ChangeUserDataVM User , string Id);
         Task LogOut();
 
     }
