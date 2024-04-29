@@ -6,6 +6,7 @@ using Shipping_System.DAL.Entites;
 using Shipping_System.ViewModels;
 using System.Runtime.CompilerServices;
 using Microsoft.AspNetCore.Authorization;
+using Shipping_System.BL.Helper;
 
 namespace Shipping_System.Controllers
 {
@@ -14,11 +15,14 @@ namespace Shipping_System.Controllers
     {
         private readonly ITraderRepo _TraderRepo;
         private readonly IToastNotification _ToastNotification;
+        private readonly IMailHelper _mailHelper;
 
-        public TraderController(ITraderRepo traderRepo, IToastNotification toastNotification)
+
+        public TraderController(ITraderRepo traderRepo, IToastNotification toastNotification, IMailHelper mailHelper)
         {
             _TraderRepo = traderRepo;
             _ToastNotification = toastNotification;
+            _mailHelper = mailHelper;
         }
 
         public async Task<IActionResult> Index()
@@ -42,6 +46,7 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _TraderRepo.AddRole();
+                    await _mailHelper.WelcomeEmail(Trader.FullName, Trader.UserName, Trader.Email, Trader.Password, "ترحيب بتاجر جديد");
                     return RedirectToAction("Index");
                 }
                 else

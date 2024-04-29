@@ -2,9 +2,11 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.Operations;
 using NToastNotify;
+using Shipping_System.BL.Helper;
 using Shipping_System.BL.Repositories.RepresentativeRepository;
 using Shipping_System.ViewModels;
 using System.Net;
+using System.Text;
 
 namespace Shipping_System.Controllers
 {
@@ -13,11 +15,14 @@ namespace Shipping_System.Controllers
     {
         private readonly IRepresentativeRepo _RepresentativeRepo;
         private readonly IToastNotification _ToastNotification;
+        private readonly IMailHelper _mailHelper;
 
-        public RepresentativeController(IRepresentativeRepo representativeRepo, IToastNotification toastNotification)
+
+        public RepresentativeController(IRepresentativeRepo representativeRepo, IToastNotification toastNotification, IMailHelper mailHelper)
         {
             _RepresentativeRepo = representativeRepo;
             _ToastNotification = toastNotification;
+            _mailHelper = mailHelper;
         }
 
         public async Task<IActionResult> Index()
@@ -41,8 +46,7 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _RepresentativeRepo.AddRole();
-                    _ToastNotification.AddSuccessToastMessage("تم اضافة المندوب بنجاح");
-
+                    await _mailHelper.WelcomeEmail(Representative.FullName, Representative.UserName , Representative.Email , Representative.Password, "ترحيب بمندوب جديد");
                     return RedirectToAction("Index");
                 }
                 else

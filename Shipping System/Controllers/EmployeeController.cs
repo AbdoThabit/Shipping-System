@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NToastNotify;
+using Shipping_System.BL.Helper;
 using Shipping_System.BL.Repositories.EmployeeRepository;
 using Shipping_System.ViewModels;
 
@@ -11,11 +12,14 @@ namespace Shipping_System.Controllers
     {
         private readonly IEmployeeRepo _EmployeeRepo;
         private readonly IToastNotification _ToastNotification;
+        private readonly IMailHelper _mailHelper;
 
-        public EmployeeController(IEmployeeRepo employeeRepo, IToastNotification toastNotification )
+
+        public EmployeeController(IEmployeeRepo employeeRepo, IToastNotification toastNotification, IMailHelper mailHelper)
         {
             _EmployeeRepo = employeeRepo;
             _ToastNotification = toastNotification;
+            _mailHelper = mailHelper;
         }
 
         public async Task< IActionResult> Index()
@@ -38,8 +42,8 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     await _EmployeeRepo.AddRole();
+                    await _mailHelper.WelcomeEmail(Employee.FullName, Employee.UserName, Employee.Email, Employee.Password, "ترحيب بموظف جديد");
                     _ToastNotification.AddSuccessToastMessage("تم اضافة الموظف بنجاح");
-
                     return RedirectToAction("Index");
                 }
                 else
