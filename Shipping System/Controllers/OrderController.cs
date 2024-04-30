@@ -5,6 +5,9 @@ using Shipping_System.ViewModels;
 using NToastNotify;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
+using Shipping_System.BL.hub;
+using Microsoft.AspNetCore.Identity;
 
 namespace Shipping_System.Controllers
 {
@@ -12,11 +15,17 @@ namespace Shipping_System.Controllers
     {
         private readonly IOrderRepo _OrderRepo;
         private readonly IToastNotification _ToastNotification;
+        private readonly IHubContext<NotifiactionHub> _HubContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
-        public OrderController(IOrderRepo orderRepo, IToastNotification toastNotification)
+
+
+        public OrderController(IOrderRepo orderRepo, IToastNotification toastNotification, IHubContext<NotifiactionHub> hubContext, UserManager<ApplicationUser> userManager)
         {
             _OrderRepo = orderRepo;
             _ToastNotification = toastNotification;
+            _HubContext = hubContext;
+            _userManager = userManager;
         }
         [Authorize(Roles = "موظف")]
         public async Task<IActionResult> Index()
@@ -57,6 +66,8 @@ namespace Shipping_System.Controllers
             if (result != 0)
             {
                 _ToastNotification.AddSuccessToastMessage("تم اضافة الطلــب بنجاح");
+                var rep= await _userManager.FindByIdAsync(ordervm.Representitive_Id);
+               await _HubContext.Clients.User(ordervm.Representitive_Id).SendAsync("Notifications",ordervm.Client_Name,rep.UserName);
                 if (User.IsInRole("موظف"))
                 {
                     return RedirectToAction("Index");

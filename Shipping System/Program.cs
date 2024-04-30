@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using NToastNotify;
 using Shipping_System.BL.Helper;
+using Shipping_System.BL.hub;
 using Shipping_System.BL.Repositories.AccountRepository;
 using Shipping_System.BL.Repositories.BranchRepository;
 using Shipping_System.BL.Repositories.CityRepository;
@@ -29,6 +30,7 @@ namespace Shipping_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddSignalR();
             builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
               options =>
@@ -91,7 +93,7 @@ namespace Shipping_System
             app.MapControllerRoute(
                 name: "default",
                 pattern: "{controller=Account}/{action=Login}/{id?}");
-
+            app.MapHub<NotifiactionHub>("/NotifiactionHub");
             app.Run();
         }
     }

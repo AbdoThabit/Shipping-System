@@ -10,7 +10,7 @@ namespace Shipping_System.BL.Repositories.AccountRepository
         private readonly SignInManager<ApplicationUser> _signInManager;
 
 
-        public AccountRepo(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager )
+        public AccountRepo(UserManager<ApplicationUser> userManager, SignInManager<ApplicationUser> signInManager)
         {
             _userManager = userManager;
             _signInManager = signInManager;
