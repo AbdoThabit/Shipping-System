@@ -12,6 +12,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
     {
      
         private readonly UserManager<ApplicationUser> _UserManager;
+        private readonly UserManager<ApplicationUser> _UserManager2;
         private readonly Context _Context;
 
         
@@ -19,10 +20,11 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
         private ApplicationUser User { get; set; }
 
 
-        public EmployeeRepo(Context context, UserManager<ApplicationUser> userManager)
+        public EmployeeRepo(Context context, UserManager<ApplicationUser> userManager, UserManager<ApplicationUser> userManager2)
         {
             _UserManager = userManager;
             _Context = context;
+            _UserManager2 = userManager2;
         }
 
 
@@ -43,6 +45,68 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
             }).ToList();
           
             return EmployeesVM;
+        }
+
+        public async Task<List<EmployeeRolesVM>> GetCheckedEmployees()
+        {
+            List<EmployeeRolesVM> emplyeeRolesVMs = new List<EmployeeRolesVM>();
+            var Employees = await _UserManager.GetUsersInRoleAsync("موظف");
+            foreach (var Employee in  Employees)
+            {
+                EmployeeRolesVM emplyeeRoles = new EmployeeRolesVM()
+                {
+                    Id = Employee.Id,
+                    Name = Employee.FullName,
+                    AdminSelected = await _UserManager.IsInRoleAsync(Employee, "ادمن"),
+                    SalesSelected = await _UserManager.IsInRoleAsync(Employee, "سيلز"),
+                };
+                emplyeeRolesVMs.Add(emplyeeRoles);
+            }
+
+            return emplyeeRolesVMs;
+        }
+        //public async Task<bool> isInAdminRole(ApplicationUser user)
+        //{
+        //    return await _UserManager.IsInRoleAsync(user, "ادمن");
+        //}
+        //public async Task<ApplicationUser> getUser(string id)
+        //{
+        //    return await _UserManager.FindByIdAsync(id);
+        //}
+        public async Task<IdentityResult> editEmployeeRole(List<EmployeeRolesVM> employeeAdminVMs)
+        {
+            IdentityResult result = null;
+            foreach (var employeeAdminVM in employeeAdminVMs)
+            {
+                var user = await _UserManager.FindByIdAsync(employeeAdminVM.Id);
+                if (user != null)
+                {
+                    bool hasAdminRole = await _UserManager.IsInRoleAsync(user, "ادمن");
+                    bool hasSalesRole = await _UserManager.IsInRoleAsync(user, "سيلز");
+                    if  (employeeAdminVM.AdminSelected  && !hasAdminRole)
+                    {
+                       result = await _UserManager.AddToRoleAsync(user, "ادمن");
+                    }
+                    else if(!employeeAdminVM.AdminSelected && hasAdminRole)
+                    {
+                       result = await _UserManager.RemoveFromRoleAsync(user, "ادمن");
+                    }
+                    if (employeeAdminVM.SalesSelected && !hasSalesRole)
+                    {
+                        result = await _UserManager.AddToRoleAsync(user, "سيلز");
+                    }
+                    else if (!employeeAdminVM.SalesSelected && hasSalesRole)
+                    {
+                        result = await _UserManager.RemoveFromRoleAsync(user, "سيلز");
+                    }
+                    else
+                    {
+                        continue;
+                    }
+                     
+                }
+            }
+            return result;
         }
 
         public async Task<EmployeeVM> GetById(string id)

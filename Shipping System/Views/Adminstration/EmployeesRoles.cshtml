@@ -1,0 +1,48 @@
+﻿@model List<EmployeeRolesVM>
+<style>
+    .top-section {
+        display: flex;
+        justify-content: space-between;
+        margin-bottom: 10px;
+    }
+
+    #myTable thead th {
+        text-align: right;
+    }
+
+</style>
+<div class="card">
+    <div class="card-body">
+        <strong class="card-title ">الموظفين</strong>
+
+        <form asp-action="UpdateEmployeesRoles" asp-controller="Adminstration" method="post" class="my-3">
+            <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
+                <thead>
+                    <tr>
+                        <th> اسم الموظف </th>
+                        <th> ادمن </th>
+                        <th> سيلز </th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    @for(int i = 0; i < Model.Count;i++)
+                    {
+                        <tr class="parent">
+                         <td>
+                                <label asp-for="@Model[i].AdminSelected">@Model[i].Name</label>
+                                <input type="hidden" asp-for="@Model[i].Id"></input>
+                         </td>
+                            <td><input type="checkbox" asp-for="@Model[i].AdminSelected"></input></td>
+                            <td><input type="checkbox" asp-for="@Model[i].SalesSelected"></input></td>
+                        </tr>
+                    }
+
+                </tbody>
+            </table>
+            <div class="row my-3 ">
+                <input id="submit-btn" type="submit" value="حفظ" class=" btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
