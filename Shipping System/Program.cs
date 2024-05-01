@@ -29,7 +29,7 @@ namespace Shipping_System
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
-            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ThabitConnection")));
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
               options =>
               {
