@@ -13,5 +13,6 @@ namespace Shipping_System.BL.Repositories.TraderRepository
         Task<IdentityResult> AddRole();
         Task<TraderRegistrationVM> IncludeLists();
 
+
     }
 }
