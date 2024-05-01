@@ -49,20 +49,21 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
 
         public async Task<List<EmployeeRolesVM>> GetCheckedEmployees()
         {
-            List<EmployeeRolesVM> emplyeeAdminVMs = new List<EmployeeRolesVM>();
+            List<EmployeeRolesVM> emplyeeRolesVMs = new List<EmployeeRolesVM>();
             var Employees = await _UserManager.GetUsersInRoleAsync("موظف");
             foreach (var Employee in  Employees)
             {
-                EmployeeRolesVM emplyeeAdmin = new EmployeeRolesVM()
+                EmployeeRolesVM emplyeeRoles = new EmployeeRolesVM()
                 {
                     Id = Employee.Id,
                     Name = Employee.FullName,
                     AdminSelected = await _UserManager.IsInRoleAsync(Employee, "ادمن"),
+                    SalesSelected = await _UserManager.IsInRoleAsync(Employee, "سيلز"),
                 };
-                emplyeeAdminVMs.Add(emplyeeAdmin);
+                emplyeeRolesVMs.Add(emplyeeRoles);
             }
 
-            return emplyeeAdminVMs;
+            return emplyeeRolesVMs;
         }
         //public async Task<bool> isInAdminRole(ApplicationUser user)
         //{
@@ -72,7 +73,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
         //{
         //    return await _UserManager.FindByIdAsync(id);
         //}
-        public async Task<IdentityResult> editAdminRole(List<EmployeeRolesVM> employeeAdminVMs)
+        public async Task<IdentityResult> editEmployeeRole(List<EmployeeRolesVM> employeeAdminVMs)
         {
             IdentityResult result = null;
             foreach (var employeeAdminVM in employeeAdminVMs)
@@ -81,6 +82,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                 if (user != null)
                 {
                     bool hasAdminRole = await _UserManager.IsInRoleAsync(user, "ادمن");
+                    bool hasSalesRole = await _UserManager.IsInRoleAsync(user, "سيلز");
                     if  (employeeAdminVM.AdminSelected  && !hasAdminRole)
                     {
                        result = await _UserManager.AddToRoleAsync(user, "ادمن");
@@ -88,6 +90,14 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                     else if(!employeeAdminVM.AdminSelected && hasAdminRole)
                     {
                        result = await _UserManager.RemoveFromRoleAsync(user, "ادمن");
+                    }
+                    if (employeeAdminVM.SalesSelected && !hasSalesRole)
+                    {
+                        result = await _UserManager.AddToRoleAsync(user, "سيلز");
+                    }
+                    else if (!employeeAdminVM.SalesSelected && hasSalesRole)
+                    {
+                        result = await _UserManager.RemoveFromRoleAsync(user, "سيلز");
                     }
                     else
                     {

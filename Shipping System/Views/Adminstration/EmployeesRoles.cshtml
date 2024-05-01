@@ -15,12 +15,13 @@
     <div class="card-body">
         <strong class="card-title ">الموظفين</strong>
 
-        <form asp-action="UpdateAdminsGroup" asp-controller="Adminstration" method="post" class="my-3">
+        <form asp-action="UpdateEmployeesRoles" asp-controller="Adminstration" method="post" class="my-3">
             <table id="myTable" class="table  table-bordered table-striped table-hover dataTable">
                 <thead>
                     <tr>
                         <th> اسم الموظف </th>
                         <th> ادمن </th>
+                        <th> سيلز </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -33,6 +34,7 @@
                                 <input type="hidden" asp-for="@Model[i].Id"></input>
                          </td>
                             <td><input type="checkbox" asp-for="@Model[i].AdminSelected"></input></td>
+                            <td><input type="checkbox" asp-for="@Model[i].SalesSelected"></input></td>
                         </tr>
                     }
 

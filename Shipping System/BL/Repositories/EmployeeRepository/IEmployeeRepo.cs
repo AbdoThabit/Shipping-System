@@ -14,7 +14,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
      Task<IdentityResult> AddRole();
      Task<EmployeeRegistrationVM> IncludeLists();
      Task<List<EmployeeRolesVM>> GetCheckedEmployees();
-     Task<IdentityResult> editAdminRole(List<EmployeeRolesVM> employeeAdminVMs);
+     Task<IdentityResult> editEmployeeRole(List<EmployeeRolesVM> employeeAdminVMs);
 
     }
 }

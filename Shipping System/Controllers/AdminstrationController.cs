@@ -20,18 +20,18 @@ namespace Shipping_System.Controllers
             return View();
         }
         [HttpGet]
-        public async Task<IActionResult> UpdateAdminsGroup()
+        public async Task<IActionResult> UpdateEmployeesRoles()
         {
             var employees = await _EmployeeRepo.GetCheckedEmployees();
-            return View("Admins", employees);
+            return View("EmployeesRoles", employees);
 
         }
         [HttpPost]
-        public async Task<IActionResult> UpdateAdminsGroup(List<EmployeeRolesVM> emplyeeAdminsVMs)
+        public async Task<IActionResult> UpdateEmployeesRoles(List<EmployeeRolesVM> emplyeeAdminsVMs)
         {
-            var result = await _EmployeeRepo.editAdminRole(emplyeeAdminsVMs);
+            var result = await _EmployeeRepo.editEmployeeRole(emplyeeAdminsVMs);
             _ToastNotification.AddSuccessToastMessage("تم التعديل بنجاح");
-            return RedirectToAction("UpdateAdminsGroup", "Adminstration");
+            return RedirectToAction("UpdateEmployeesRoles", "Adminstration");
 
         }
        

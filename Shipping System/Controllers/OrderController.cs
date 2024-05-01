@@ -154,8 +154,8 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
-        [Authorize(Roles = "موظف")]
-        [Authorize(Roles = "تاجر")]
+        [Authorize(Roles = "موظف,تاجر")]
+        
         public async Task<IActionResult> Delete(int id)
         {
 
