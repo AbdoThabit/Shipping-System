@@ -1,8 +1,10 @@
 ﻿
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 using NToastNotify;
 using Shipping_System.BL.Helper;
+using Shipping_System.BL.hub;
 using Shipping_System.BL.Repositories.AccountRepository;
 using Shipping_System.DAL.Entites;
 using Shipping_System.ViewModels;
@@ -16,16 +18,19 @@ namespace Shipping_System.Controllers
         private readonly IToastNotification _ToastNotification;
         private readonly IMailHelper _mailHelper;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IHubContext<NotifiactionHub> _HubContext;
 
 
 
 
-        public AccountController(IAccountRepo accountRepo, IToastNotification toastNotification, IMailHelper mailHelper, UserManager<ApplicationUser> userManager)
+
+        public AccountController(IAccountRepo accountRepo, IToastNotification toastNotification, IMailHelper mailHelper, UserManager<ApplicationUser> userManager, IHubContext<NotifiactionHub> hubContext)
         {
             _AccountRepo = accountRepo;
             _ToastNotification = toastNotification;
             _mailHelper = mailHelper;
             _userManager = userManager;
+            _HubContext = hubContext;
         }
 
 
@@ -43,6 +48,7 @@ namespace Shipping_System.Controllers
                 if (state.Succeeded)
                 {
                     _ToastNotification.AddSuccessToastMessage($"مرحبًا {Login.UserName} في لوحة التحكم");
+                 await _HubContext.Clients.All.SendAsync("Online", Login.UserName);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -55,6 +61,7 @@ namespace Shipping_System.Controllers
         public async Task<IActionResult> LogOut()
         {
             await _AccountRepo.LogOut();
+            await _HubContext.Clients.All.SendAsync("Offline", User.Identity.Name);
             return RedirectToAction("Login");
         }
         [HttpGet]

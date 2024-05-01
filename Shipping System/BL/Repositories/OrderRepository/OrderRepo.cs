@@ -337,6 +337,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 rejectedWithFullPaying_Status_Count = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
                 rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
                 rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
+                Delivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم").Count(),
 
 
             };
@@ -358,6 +359,7 @@ namespace Shipping_System.BL.Repositories.OrderRepo
                 rejectedWithFullPaying_Status_Count = orders.Where(o => o.Status.Name == "تم الرفض مع الدفع").Count(),
                 rejectedWithSomePaying_Status_Count = orders.Where(o => o.Status.Name == "رفض مع سداد جزء").Count(),
                 rejectedWithoutPaying_Status_Count = orders.Where(o => o.Status.Name == "رفض و لم يتم الدفع").Count(),
+                Delivered_Status_Count = orders.Where(o => o.Status.Name == "تم التسليم").Count(),
 
 
             };
