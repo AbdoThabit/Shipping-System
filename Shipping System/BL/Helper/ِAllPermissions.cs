@@ -1,10 +1,10 @@
 ﻿namespace Shipping_System.BL.Helper
 {
-    public class AllPermissions
+    public class AllPermission
     {
-        public AllPermissions()
+        public AllPermission()
         {
-            permmissionsList = new List<string>()
+            PermissionsList = new List<string>()
             {
                 "اضافة موظف",
                 "تعديل موظف",
@@ -53,7 +53,7 @@
 
             };
         }
-        public List<string> permmissionsList;
+        public List<string> PermissionsList;
 
     }
 }
