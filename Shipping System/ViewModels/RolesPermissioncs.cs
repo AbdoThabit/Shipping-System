@@ -34,6 +34,7 @@
         public bool hasViewRolesPermission { get; set; }
         public bool hasAddOrderPermission { get; set; }
         public bool hasEditOrderPermission { get; set; }
+        public bool hasEditOrderStatusPermission { get; set; }
         public bool hasDeleteRoleOrderPermission { get; set; }
         public bool hasViewOrdersPermission { get; set; }
         public bool hasViewOrderReportsPermission { get; set; }

@@ -59,6 +59,16 @@ namespace Shipping_System.BL.Repositories.RolesRepository
             return state;
         }
 
-
+        //public Task<RolesPermissioncsVM> GetRolesPermissioncs(string id )
+        //{
+        //    var role = GetRoleById(id);
+        //    if(role != null)
+        //    {
+        //        RolesPermissioncsVM rolesPermissioncsVM= new RolesPermissioncsVM()
+        //        {
+        //            hasAddBranchPermission = _roleManager.
+        //        }
+        //    }
+        //}
     }
 }
