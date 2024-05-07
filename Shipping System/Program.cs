@@ -44,6 +44,8 @@ namespace Shipping_System
                   options.Password.RequireLowercase = false;
                   options.Password.RequireUppercase = false;
                   options.Password.RequiredLength = 4;
+                  options.User.RequireUniqueEmail = true;
+
               }
               ).AddEntityFrameworkStores<Context>().AddTokenProvider<DataProtectorTokenProvider<ApplicationUser>>(TokenOptions.DefaultProvider);
             builder.Services.AddSession();

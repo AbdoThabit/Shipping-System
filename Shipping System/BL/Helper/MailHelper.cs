@@ -73,9 +73,9 @@ namespace Shipping_System.BL.Helper
             bodyBuilder.AppendLine("<body>");
             bodyBuilder.AppendLine("<div class='container'>");
             bodyBuilder.AppendLine("<div class='message'>");
-            bodyBuilder.AppendLine("<h1>مرحبًا بك في فريق بايونيرز اكسبريس!</h1>");
+            bodyBuilder.AppendLine("<h1>مرحبًا بك في فريق مرسال!</h1>");
             bodyBuilder.AppendLine($"<p>عزيزي {Name},</p>");
-            bodyBuilder.AppendLine("<p>نحن سعداء بإعلامك بأن تسجيلك كمندوب في موقع بايونيرز اكسبريس قد تم بنجاح.</p>");
+            bodyBuilder.AppendLine("<p>نحن سعداء بإعلامك بأن تسجيلك  في موقع مرسال قد تم بنجاح.</p>");
             bodyBuilder.AppendLine("<p>معلومات الاعتماد الافتراضية الخاصة بك هي:</p>");
             bodyBuilder.AppendLine("<ul>");
             bodyBuilder.AppendLine($"<li><strong>اسم المستخدم:</strong> {Username}</li>");
@@ -85,7 +85,7 @@ namespace Shipping_System.BL.Helper
             bodyBuilder.AppendLine("<p>نأمل أن تكون تجربتك معنا مثمرة وممتعة. إذا كانت لديك أي استفسارات أو اقتراحات، فلا تتردد في التواصل معنا.</p>");
             bodyBuilder.AppendLine("<p>مرة أخرى، نرحب بك في فريقنا ونتمنى لك كل التوفيق في مهمتك.</p>");
             bodyBuilder.AppendLine("<p>أطيب التحيات،</p>");
-            bodyBuilder.AppendLine("<p>فريق بايونيرز اكسبريس</p>");
+            bodyBuilder.AppendLine("<p>فريق مرسال</p>");
             bodyBuilder.AppendLine("</div>"); // Closing the div with class 'message'
             bodyBuilder.AppendLine("</div>"); // Closing the div with class 'container'
             bodyBuilder.AppendLine("</body>");
