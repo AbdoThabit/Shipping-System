@@ -1,0 +1,174 @@
+﻿@model RolesPermissioncsVM;
+@{
+    string Title = "التصاريح الخاصة بال" + Model.RoleName;
+}
+<div class="card">
+    <div class="card-body">
+        <strong class="card-title ">@Title</strong>
+        <br /> <br />
+        <form method="post" asp-action="UpdateRolesPermissions" asp-controller="Adminstration">
+            <input type="hidden" asp-for="RoleId"></input>
+            <input type="hidden" asp-for="RoleName"></input>
+            <div class="row">
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح الموظفين
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.employeesPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.employeesPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.employeesPermissions[i].Name"></input>
+                            <label asp-for="@Model.employeesPermissions[i].isExtiedToTheRole">@Model.employeesPermissions[i].Name</label>
+                             <br /> 
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح التجار
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.tradersPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.tradersPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.tradersPermissions[i].Name"></input>
+                            <label asp-for="@Model.tradersPermissions[i].isExtiedToTheRole">@Model.tradersPermissions[i].Name</label>
+                             <br /> 
+                        }
+                    </div>
+                </div>
+                 <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح المناديب
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.representivesPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.representivesPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.representivesPermissions[i].Name"></input>
+                            <label asp-for="@Model.representivesPermissions[i].isExtiedToTheRole">@Model.representivesPermissions[i].Name</label>
+                             <br /> 
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح المحافظات
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.governatesPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.governatesPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.governatesPermissions[i].Name"></input>
+                            <label asp-for="@Model.governatesPermissions[i].isExtiedToTheRole">@Model.governatesPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح المدن
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.citiesPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.citiesPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.citiesPermissions[i].Name"></input>
+                            <label asp-for="@Model.citiesPermissions[i].isExtiedToTheRole">@Model.citiesPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح الفروع
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.branchsPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.branchsPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.branchsPermissions[i].Name"></input>
+                            <label asp-for="@Model.branchsPermissions[i].isExtiedToTheRole">@Model.branchsPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح الصلاحيات 
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.rolesPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.rolesPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.rolesPermissions[i].Name"></input>
+                            <label asp-for="@Model.rolesPermissions[i].isExtiedToTheRole">@Model.rolesPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح اعدادات الشحن
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.shippingPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.shippingPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.shippingPermissions[i].Name"></input>
+                            <label asp-for="@Model.shippingPermissions[i].isExtiedToTheRole">@Model.shippingPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح اعدادات الوزن
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.weightPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.weightPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.weightPermissions[i].Name"></input>
+                            <label asp-for="@Model.weightPermissions[i].isExtiedToTheRole">@Model.weightPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-6">
+                    <div class="card-header">
+                        تصاريح اعدادات القرية
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.valigePermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.valigePermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.valigePermissions[i].Name"></input>
+                            <label asp-for="@Model.valigePermissions[i].isExtiedToTheRole">@Model.valigePermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+                <div class="card col-12">
+                    <div class="card-header">
+                        تصاريح الطلبات
+                    </div>
+                    <div class="card-body">
+                        @for (int i = 0; i < Model.ordersPermissions.Count; i++)
+                        {
+                            <input type="checkbox" asp-for="@Model.ordersPermissions[i].isExtiedToTheRole"></input>
+                            <input type="hidden" asp-for="@Model.ordersPermissions[i].Name"></input>
+                            <label asp-for="@Model.ordersPermissions[i].isExtiedToTheRole">@Model.ordersPermissions[i].Name</label>
+                            <br />
+                        }
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row">
+                <input type="submit" value="تعديل" class=" btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>

@@ -61,6 +61,7 @@ namespace Shipping_System
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IRolesRepo, RolesRepo>();
             builder.Services.AddScoped<IMailHelper, MailHelper>();
+            builder.Services.AddScoped<PermissionManger, PermissionManger>();
 
 
 
