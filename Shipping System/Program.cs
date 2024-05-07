@@ -31,7 +31,7 @@ namespace Shipping_System
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ThabitConnection")));
+            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddSignalR();
             builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -61,6 +61,7 @@ namespace Shipping_System
             builder.Services.AddScoped<IAccountRepo, AccountRepo>();
             builder.Services.AddScoped<IRolesRepo, RolesRepo>();
             builder.Services.AddScoped<IMailHelper, MailHelper>();
+            builder.Services.AddScoped<PermissionManger, PermissionManger>();
 
 
 

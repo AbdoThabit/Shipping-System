@@ -28,6 +28,7 @@
                             <tr>
                                 <th>اسم الصلاحية</th>
                                 <th> تعديل </th>
+                                <th> التصاريح </th>
                                 <th> حذف </th>
 
                             </tr>
@@ -38,6 +39,7 @@
                                 <tr class="parent">
                                     <td>@Role.Name</td>
                                     <td><a asp-action="Update" asp-controller="Roles" asp-route-Id="@Role.Id" class=" btn btn-gradient-success">تعديل</a></td>
+                                    <td><a asp-action="UpdateRolesPermissions" asp-controller="Adminstration" asp-route-Id="@Role.Id" class=" btn btn-gradient-success">التصاريح</a></td>
                                     <td><a href="javascript:;" data-id="@Role.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 </tr>
                             }

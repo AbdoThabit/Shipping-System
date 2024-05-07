@@ -10,5 +10,7 @@ namespace Shipping_System.BL.Repositories.RolesRepository
         Task<IdentityRole> GetRoleById(string id);
         Task<IdentityResult> UpdateRole(IdentityRole role);
         Task<IdentityResult> DeleteRole(string id, IdentityRole role);
+        Task<RolesPermissioncsVM> GetRolesPermissioncs(string id);
+        Task<IdentityResult> updatePermissions(RolesPermissioncsVM rolesPermissioncsVM);
     }
 }
