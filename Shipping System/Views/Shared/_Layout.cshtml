@@ -428,6 +428,17 @@
                         </li>
 
                     }
+
+                    @if (User.IsInRole("ادمن"))
+                    {
+                        <li class="nav-item">
+                            <a class="nav-link" asp-action="UpdateEmployeesRoles" asp-controller="Adminstration" asp-route-UserName="@User.Identity.Name">
+                                <span style="font-size:25px;font-weight:bolder; color:#b66dff;" class="menu-title">ادارة الموظفيين</span>
+                                <i class="mdi mdi-lock menu-icon"></i>
+                            </a>
+                        </li>
+
+                    }
                 </ul>
 
             </nav>
