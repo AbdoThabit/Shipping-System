@@ -10,7 +10,7 @@ using System.Text;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class RepresentativeController : Controller
     {
         private readonly IRepresentativeRepo _RepresentativeRepo;
@@ -24,19 +24,20 @@ namespace Shipping_System.Controllers
             _ToastNotification = toastNotification;
             _mailHelper = mailHelper;
         }
-
+        [Authorize(Policy = "viewRepresentivePloicy")]
         public async Task<IActionResult> Index()
         {
             var Representatives = await _RepresentativeRepo.Get();
             return View(Representatives);
         }
-
+        [Authorize(Policy = "addRepresentivePloicy")]
         public async Task<IActionResult> Create()
         {
             var Lists = await _RepresentativeRepo.IncludeLists();
             return View(Lists);
         }
         [HttpPost]
+        [Authorize(Policy = "addRepresentivePloicy")]
         public async Task<IActionResult> Create(RepresentativeRegistrationVM Representative)
         {
 
@@ -72,7 +73,7 @@ namespace Shipping_System.Controllers
 
             return View(user);
         }
-
+        [Authorize(Policy = "editRepresentivePloicy")]
         public async Task<IActionResult> Update(string id)
         {
             var Representative = await _RepresentativeRepo.GetById(id);
@@ -82,7 +83,8 @@ namespace Shipping_System.Controllers
             return View(Representative);
         }
 
-        [HttpPost]      
+        [HttpPost]
+        [Authorize(Policy = "editRepresentivePloicy")]
         public async Task<IActionResult> Update(RepresentativeVM Representative)
         {
             if (ModelState.IsValid)
@@ -108,7 +110,7 @@ namespace Shipping_System.Controllers
             return View(Representative);
 
         }
-
+        [Authorize(Policy = "deleteRepresentivePloicy")]
         public async Task<IActionResult> Delete(string Id)
         {
             var state = await _RepresentativeRepo.Delete(Id);

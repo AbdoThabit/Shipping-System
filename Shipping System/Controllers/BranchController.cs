@@ -7,7 +7,7 @@ using Shipping_System.ViewModels;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class BranchController : Controller
     {
         private readonly IBranchRepo _BranchRepo;
@@ -20,12 +20,13 @@ namespace Shipping_System.Controllers
             _BranchRepo = BranchRepo;
             _ToastNotification = toastNotification;
         }
+        [Authorize(Policy = "viewBranchPloicy")]
         public async Task<IActionResult> Index()
         {
             var Branches = await _BranchRepo.Get();
             return View(Branches);
         }
-
+        [Authorize(Policy = "addBranchPloicy")]
         public async Task<IActionResult> Create()
         {
             var Lists = await _BranchRepo.IncludeLists();
@@ -33,6 +34,7 @@ namespace Shipping_System.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "addBranchPloicy")]
         public async Task<IActionResult> Create(BranchVM Branch)
         {
             if (ModelState.IsValid)
@@ -44,6 +46,7 @@ namespace Shipping_System.Controllers
             }
             return View(Branch);
         }
+        [Authorize(Policy = "editBranchPloicy")]
         public async Task<IActionResult> Update(int Id)
         {
             var Branch = await _BranchRepo.GetById(Id);
@@ -52,6 +55,7 @@ namespace Shipping_System.Controllers
             return View(Branch);
         }
         [HttpPost]
+        [Authorize(Policy = "editBranchPloicy")]
         public async Task<IActionResult> Update(BranchVM Branch)
         {
             if (ModelState.IsValid)
@@ -73,7 +77,7 @@ namespace Shipping_System.Controllers
             return View(Branch);
 
         }
-
+        [Authorize(Policy = "deleteBranchPloicy")]
         public async Task<IActionResult> Delete(int Id)
         {
             var result = await _BranchRepo.Delete(Id);

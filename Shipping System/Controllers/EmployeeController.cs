@@ -27,13 +27,14 @@ namespace Shipping_System.Controllers
             var Employees = await _EmployeeRepo.Get();
             return View(Employees);
         }
-
-         public async Task< IActionResult> Create()
+        [Authorize(Policy = "addEmployeePloicy")]
+        public async Task< IActionResult> Create()
         {
             var Lists = await _EmployeeRepo.IncludeLists();
             return View(Lists);
         }
         [HttpPost]
+        [Authorize(Policy = "addEmployeePloicy")]
         public async Task< IActionResult> Create(EmployeeRegistrationVM Employee) {
 
             if (ModelState.IsValid)
@@ -57,7 +58,7 @@ namespace Shipping_System.Controllers
             }
             return View(Employee);
         }
-
+        [Authorize(Policy = "editEmployeePloicy")]
         public async Task<IActionResult> Update(string id)
         {
             var Employee = await _EmployeeRepo.GetById(id);
@@ -68,6 +69,7 @@ namespace Shipping_System.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "editEmployeePloicy")]
         public async Task<IActionResult> Update(EmployeeVM Employee)
         {
             if (ModelState.IsValid)
@@ -93,7 +95,7 @@ namespace Shipping_System.Controllers
             return View(Employee);
 
         }
-
+        [Authorize(Policy = "deleteEmployeePloicy")]
         public async Task<IActionResult> Delete(string Id)
         {
             var state = await _EmployeeRepo.Delete(Id);

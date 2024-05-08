@@ -7,7 +7,7 @@ using Shipping_System.ViewModels;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class CityController : Controller
     {
         private readonly ICityRepo _CityRepo;
@@ -20,12 +20,13 @@ namespace Shipping_System.Controllers
             _CityRepo = cityRepo;
             _ToastNotification = toastNotification;
         }
+        [Authorize(Policy = "viewCityPloicy")]
         public async Task<IActionResult> Index()
         {
             var Cities = await _CityRepo.Get();
             return View(Cities);
         }
-
+        [Authorize(Policy = "addCityPloicy")]
         public async Task <IActionResult> Create()
         {
             var Lists = await _CityRepo.IncludeLists();
@@ -33,6 +34,7 @@ namespace Shipping_System.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "addCityPloicy")]
         public async Task<IActionResult> Create(CityVM city)
         {
             if (ModelState.IsValid)
@@ -45,12 +47,14 @@ namespace Shipping_System.Controllers
 
             return View(city);
         }
+        [Authorize(Policy = "editCityPloicy")]
         public async Task<IActionResult> Update(int Id)
         {
             var Governate = await _CityRepo.GetById(Id);
             return View(Governate);
         }
         [HttpPost]
+        [Authorize(Policy = "editCityPloicy")]
         public async Task<IActionResult> Update(CityVM city)
         {
             if (ModelState.IsValid)
@@ -72,7 +76,7 @@ namespace Shipping_System.Controllers
             return View(city);
 
         }
-
+        [Authorize(Policy = "deleteCityPloicy")]
         public async Task<IActionResult> Delete(int Id)
         {
             var result = await _CityRepo.Delete(Id);

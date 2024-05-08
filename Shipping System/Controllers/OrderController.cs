@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Identity;
 
 namespace Shipping_System.Controllers
 {
+    [Authorize]
     public class OrderController : Controller
     {
         private readonly IOrderRepo _OrderRepo;
@@ -27,39 +28,40 @@ namespace Shipping_System.Controllers
             _HubContext = hubContext;
             _userManager = userManager;
         }
-        [Authorize(Roles = "موظف")]
+        [Authorize(Policy = "viewOrderPloicy")]
         public async Task<IActionResult> Index()
         {
             var orders = await _OrderRepo.GetAll();
             return View(orders);
         }
-        
-        [Authorize(Roles = "تاجر")]
+
+        [Authorize(Policy = "viewOrderPloicy")]
         public async Task<IActionResult> TraderOrders(string UserName)
         {
             var orders = await _OrderRepo.GetTraderOrders(UserName);
             return View(orders);
         }
-        [Authorize(Roles = "مندوب")]
+        [Authorize(Policy = "viewOrderPloicy")]
         public async Task<IActionResult> RepresntiveOrders(string UserName)
         {
             var orders = await _OrderRepo.GetRepresntiveOrders(UserName);
             return View(orders);
         }
-        [Authorize(Roles = "موظف,تاجر")]
+        [Authorize(Policy = "viewOrderDetailsPloicy")]
         public async Task<IActionResult> ShowDetails(int Id)
         {
             var order = await _OrderRepo.GetById(Id);
             return View(order);
         }
-        [Authorize(Roles = "موظف,تاجر")]
+        [Authorize(Policy = "addOrderPloicy")]
         public async Task<IActionResult> Create()
         {
             var Lists = await _OrderRepo.IncludeLists();
             return View(Lists);
         }
         [HttpPost]
-        [Authorize(Roles = "موظف,تاجر")]
+
+        [Authorize(Policy = "addOrderPloicy")]
         public async Task<IActionResult> Create(OrderVM ordervm)
         {
             var result = await _OrderRepo.Add(ordervm);
@@ -92,14 +94,14 @@ namespace Shipping_System.Controllers
             }
             
         }
-        [Authorize(Roles = "موظف,تاجر")]
+        [Authorize(Policy = "editOrderPloicy")]
         public async Task<IActionResult> Update(int Id)
         {
             var order = await _OrderRepo.GetById(Id);
             return View(order);
         }
         [HttpPost]
-        [Authorize(Roles = "موظف,تاجر")]
+        [Authorize(Policy = "editOrderPloicy")]
         public async Task<IActionResult> Update(OrderVM ordervm)
         {
 
@@ -130,7 +132,8 @@ namespace Shipping_System.Controllers
                 }
             }
         }
-        [Authorize]
+        
+        [Authorize(Policy = "editOrderStatusPloicy")]
         public async Task<IActionResult> UpdateStatus(int Id)
         {
             var orderStatusVm = await _OrderRepo.GetStatus(Id);
@@ -138,6 +141,7 @@ namespace Shipping_System.Controllers
         }
         [HttpPost]
         [Authorize]
+        [Authorize(Policy = "editOrderStatusPloicy")]
         public async Task<IActionResult> UpdateStatus(OrderStatusVM orderStatusVm)
         {
 
@@ -165,8 +169,8 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
-        [Authorize(Roles = "موظف,تاجر")]
-        
+        [Authorize(Policy = "deleteOrderPloicy")]
+
         public async Task<IActionResult> Delete(int id)
         {
 
@@ -183,12 +187,13 @@ namespace Shipping_System.Controllers
                 return RedirectToAction("Index");
             }
         }
-       
+        [Authorize(Policy = "viewOrderReportPloicy")]
         public  IActionResult Report()
         {
            return View();
         }
         [HttpPost]
+        [Authorize(Policy = "viewOrderReportPloicy")]
         public async Task<IActionResult> Report(DateTime fromDate, DateTime toDate , string UserName)
         {
             var order = await _OrderRepo.GetOrdersByDateRange(fromDate, toDate, UserName);
