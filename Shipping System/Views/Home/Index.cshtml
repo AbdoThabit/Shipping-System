@@ -43,19 +43,10 @@
             </div>
 
             <div class="col-4 my-3">
-                <div class="card bg-gradient-warning card-img-holder text-white">
+                <div class="card bg-gradient-primary card-img-holder text-white">
                     <div class="card-body">
                         <h4 class="font-weight-normal mb-3">لم يمكن التسليم<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
                         <h4>@Model.CantReach_Status_Count</h4>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-4 my-3">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">تم الالغاء من العميل<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
-                        <h4>@Model.CanceledByClient_Status_Count</h4>
                     </div>
                 </div>
             </div>
@@ -96,14 +87,7 @@
                 </div>
             </div>
 
-            <div class="col-4 my-3">
-                <div class="card bg-gradient-danger card-img-holder text-white">
-                    <div class="card-body">
-                        <h4 class="font-weight-normal mb-3">تم الرفض بدون دفع<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
-                        <h4>@Model.rejectedWithoutPaying_Status_Count</h4>
-                    </div>
-                </div>
-            </div>
+            
  
             <div class="col-4 my-3">
                 <div class="card bg-gradient-success card-img-holder text-white">
@@ -113,6 +97,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-4 my-3">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+                        <h4 class="font-weight-normal mb-3">تم الرفض بدون دفع<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                        <h4>@Model.rejectedWithoutPaying_Status_Count</h4>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-4 my-3">
+                <div class="card bg-gradient-danger card-img-holder text-white">
+                    <div class="card-body">
+                        <h4 class="font-weight-normal mb-3">تم الالغاء من العميل<i class="mdi mdi-chart-line mdi-24px float-start"></i></h4>
+                        <h4>@Model.CanceledByClient_Status_Count</h4>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </div>
