@@ -59,6 +59,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                     Name = Employee.FullName,
                     AdminSelected = await _UserManager.IsInRoleAsync(Employee, "ادمن"),
                     SalesSelected = await _UserManager.IsInRoleAsync(Employee, "سيلز"),
+                    GeneralExecutiveSelected   = await _UserManager.IsInRoleAsync(Employee,"اداري عام")
                 };
                 emplyeeRolesVMs.Add(emplyeeRoles);
             }
@@ -83,6 +84,7 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                 {
                     bool hasAdminRole = await _UserManager.IsInRoleAsync(user, "ادمن");
                     bool hasSalesRole = await _UserManager.IsInRoleAsync(user, "سيلز");
+                    bool hasGenerlExcutiveRole = await _UserManager.IsInRoleAsync(user, "اداري عام");
                     if  (employeeAdminVM.AdminSelected  && !hasAdminRole)
                     {
                        result = await _UserManager.AddToRoleAsync(user, "ادمن");
@@ -98,6 +100,14 @@ namespace Shipping_System.BL.Repositories.EmployeeRepository
                     else if (!employeeAdminVM.SalesSelected && hasSalesRole)
                     {
                         result = await _UserManager.RemoveFromRoleAsync(user, "سيلز");
+                    }
+                    if (employeeAdminVM.GeneralExecutiveSelected && !hasGenerlExcutiveRole)
+                    {
+                        result = await _UserManager.AddToRoleAsync(user, "اداري عام");
+                    }
+                    else if (!employeeAdminVM.GeneralExecutiveSelected && hasGenerlExcutiveRole)
+                    {
+                        result = await _UserManager.RemoveFromRoleAsync(user, "اداري عام");
                     }
                     else
                     {
