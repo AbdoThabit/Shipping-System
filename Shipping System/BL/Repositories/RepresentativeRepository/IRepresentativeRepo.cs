@@ -14,6 +14,5 @@ namespace Shipping_System.BL.Repositories.RepresentativeRepository
         Task<IdentityResult> AddRole();
         Task<RepresentativeRegistrationVM> IncludeLists();
         Task<List<RepresetivecheckListVm>> getAllRepresentivesOfBranch(int branchId);
-        Task WelcomeEmail(string Name , string Username , string password , string Email);
     }
 }
