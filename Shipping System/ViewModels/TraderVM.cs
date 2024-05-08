@@ -38,6 +38,9 @@ namespace Shipping_System.ViewModels
 
         [Required(ErrorMessage = "المحافظة مطلوبة")]
         public int Governate_Id { get; set; }
+        public string? GovernateName { get; set; }
+        public string? CityName { get; set; }
+        public string? BranchName { get; set; }
         public List<Governate>? Governates { get; set; }
         public List<City>? Cities { get; set; }
         public List<Branch>? Branches { get; set; }

@@ -106,6 +106,14 @@ namespace Shipping_System.Controllers
             return View(Trader);
 
         }
+        public async Task<IActionResult> Details(string id)
+        {
+            var TraderVM = await _TraderRepo.GetById(id);
+            if (TraderVM == null)
+                return NotFound();
+
+            return View(TraderVM);
+        }
 
         public async Task<IActionResult> Delete(string Id)
         {
