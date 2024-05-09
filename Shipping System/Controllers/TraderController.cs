@@ -10,7 +10,7 @@ using Shipping_System.BL.Helper;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class TraderController : Controller
     {
         private readonly ITraderRepo _TraderRepo;
@@ -24,19 +24,20 @@ namespace Shipping_System.Controllers
             _ToastNotification = toastNotification;
             _mailHelper = mailHelper;
         }
-
+        [Authorize(Policy = "viewTraderPloicy")]
         public async Task<IActionResult> Index()
         {
             var Traders = await _TraderRepo.Get();
             return View(Traders);
         }
-
+        [Authorize(Policy = "addTraderPloicy")]
         public async Task<IActionResult> Create()
         {
             var Lists = await _TraderRepo.IncludeLists();
             return View(Lists);
         }
         [HttpPost]
+        [Authorize(Policy = "addTraderPloicy")]
         public async Task<IActionResult> Create(TraderRegistrationVM Trader)
         {
 
@@ -70,6 +71,7 @@ namespace Shipping_System.Controllers
             userE.Governate_Id = Trader.Governate_Id;
             return View(userE);
         }
+        [Authorize(Policy = "editTraderPloicy")]
         public async Task<IActionResult> Update(string id)
         {
             var TraderVM = await _TraderRepo.GetById(id);
@@ -80,6 +82,7 @@ namespace Shipping_System.Controllers
         }
 
         [HttpPost]
+        [Authorize(Policy = "editTraderPloicy")]
         public async Task<IActionResult> Update(TraderVM Trader)
         {
             if (ModelState.IsValid)
@@ -114,6 +117,8 @@ namespace Shipping_System.Controllers
 
             return View(TraderVM);
         }
+
+        [Authorize(Policy = "deleteTraderPloicy")]
 
         public async Task<IActionResult> Delete(string Id)
         {

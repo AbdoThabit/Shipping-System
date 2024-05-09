@@ -20,19 +20,20 @@ namespace Shipping_System.Controllers
             _ShippingSettingRepo = shippingSettingRepo;
             _ToastNotification = toastNotification;
         }
-
+        [Authorize(Policy = "viewShippingSettingPloicy")]
         public async Task< IActionResult> Index()
         {
             var ShippingSettings = await _ShippingSettingRepo.Get();
             return View(ShippingSettings);
         }
-
+        [Authorize(Policy = "addShippingSettingPloicy")]
         public async Task<IActionResult> Create()
         {
             return View();
         }
 
         [HttpPost]
+        [Authorize(Policy = "addShippingSettingPloicy")]
         public async Task<IActionResult> Create(ShippingSettingVM ShippingSetting)
         {
             if (ModelState.IsValid)
@@ -45,12 +46,14 @@ namespace Shipping_System.Controllers
 
             return View(ShippingSetting);
         }
+        [Authorize(Policy = "editShippingSettingPloicy")]
         public async Task<IActionResult> Update(int Id)
         {
             var ShippingSetting = await _ShippingSettingRepo.GetById(Id);
             return View(ShippingSetting);
         }
         [HttpPost]
+        [Authorize(Policy = "editShippingSettingPloicy")]
         public async Task<IActionResult> Update(ShippingSettingVM ShippingSetting)
         {
             if (ModelState.IsValid)
@@ -72,7 +75,7 @@ namespace Shipping_System.Controllers
             return View(ShippingSetting);
 
         }
-
+        [Authorize(Policy = "deleteShippingSettingPloicy")]
         public async Task<IActionResult> Delete(int Id)
         {
             var result = await _ShippingSettingRepo.Delete(Id);

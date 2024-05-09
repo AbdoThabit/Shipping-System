@@ -22,18 +22,19 @@ namespace Shipping_System.Controllers
             _GovernateRepo = governateRepo;
             _ToastNotification = toastNotification;
         }
-
+        [Authorize(Policy = "viewGovernatePloicy")]
         public async Task< IActionResult> Index()
         {
             var Governates = await _GovernateRepo.Get();
             return View(Governates);
         }
-
+        [Authorize(Policy = "addGovernatePloicy")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Policy = "addGovernatePloicy")]
         public async Task< IActionResult> Create(GovernateVM governate)
         {
             if(ModelState.IsValid)
@@ -46,13 +47,14 @@ namespace Shipping_System.Controllers
 
             return View(governate);
         }
-
+        [Authorize(Policy = "editGovernatePloicy")]
         public async Task< IActionResult> Update(int Id)
         { 
          var Governate= await _GovernateRepo.GetById(Id);
             return View(Governate);
         }
         [HttpPost]
+        [Authorize(Policy = "editGovernatePloicy")]
         public async Task<IActionResult> Update(GovernateVM governate)
         {
             if (ModelState.IsValid)
@@ -74,7 +76,7 @@ namespace Shipping_System.Controllers
             return View(governate);
            
         }
-
+        [Authorize(Policy = "deleteGovernatePloicy")]
         public async Task<IActionResult> Delete(int Id)
         {
           var result = await _GovernateRepo.Delete(Id);

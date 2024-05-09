@@ -22,6 +22,7 @@
                         <th> اسم الموظف </th>
                         <th> ادمن </th>
                         <th> سيلز </th>
+                        <th> اداري عام </th>
                     </tr>
                 </thead>
                 <tbody>
@@ -30,12 +31,17 @@
                     {
                         <tr class="parent">
                          <td>
-                                <label asp-for="@Model[i].AdminSelected">@Model[i].Name</label>
+                                <label >@Model[i].Name</label>
                                 <input type="hidden" asp-for="@Model[i].Id"></input>
                          </td>
                             <td><input type="checkbox" asp-for="@Model[i].AdminSelected"></input></td>
                             <td><input type="checkbox" asp-for="@Model[i].SalesSelected"></input></td>
+                            <td><input type="checkbox" asp-for="@Model[i].GeneralExecutiveSelected"></input></td>
                         </tr>
+                        
+                            
+                            
+                        
                     }
 
                 </tbody>

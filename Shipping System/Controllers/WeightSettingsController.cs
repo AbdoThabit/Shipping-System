@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class WeightSettingsController : Controller
     {
         private readonly IWeightSettingsRepo _WeightSettingsRepo;
@@ -18,7 +18,7 @@ namespace Shipping_System.Controllers
             _ToastNotification = toastNotification;
         }
 
-        
+
 
         //public async Task<IActionResult> Index()
         //{
@@ -43,12 +43,14 @@ namespace Shipping_System.Controllers
 
         //    return View(weightSettingsVM);
         //}
+        [Authorize(Policy = "viewWeightSettingPloicy")]
         public async Task<IActionResult> Update()
         {
             var WeightSetting = await _WeightSettingsRepo.GetWeightSettings();
             return View(WeightSetting);
         }
         [HttpPost]
+        [Authorize(Policy = "editWeightSettingPloicy")]
         public async Task<IActionResult> Update(WeightSettingsVM WeightSetting)
         {
             if (ModelState.IsValid)

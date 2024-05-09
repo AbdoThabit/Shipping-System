@@ -173,7 +173,7 @@ namespace Shipping_System.BL.Repositories.RolesRepository
 
                 foreach(Permission permission in selectedPermissions)
                 {
-                    result = await _roleManager.AddClaimAsync(role, new Claim("permission", permission.Name));
+                    result = await _roleManager.AddClaimAsync(role, new Claim(permission.Name, permission.Name));
                 }
                 return result;
 

@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Shipping_System.Controllers
 {
-    [Authorize(Roles = "موظف")]
+    [Authorize]
     public class RolesController : Controller
     {
         private readonly IRolesRepo _rolesRep;
@@ -20,18 +20,19 @@ namespace Shipping_System.Controllers
             _ToastNotification = toastNotification;
         }
 
-
+        [Authorize(Policy = "viewRolePloicy")]
         public async Task<IActionResult> Index()
         {
             var Roles = await _rolesRep.GetRoles();
             return View(Roles);
         }
-
+        [Authorize(Policy = "editRolePloicy")]
         public IActionResult Create()
         {
             return View();
         }
         [HttpPost]
+        [Authorize(Policy = "addRolePloicy")]
         public async Task<IActionResult> Create(RolesVM role)
         {
             if (ModelState.IsValid)
@@ -59,7 +60,7 @@ namespace Shipping_System.Controllers
 
             return View(role);
         }
-
+        [Authorize(Policy = "editRolePloicy")]
         public async Task<IActionResult> Update(string id)
         {
             var roleDB = await _rolesRep.GetRoleById(id);
@@ -74,6 +75,7 @@ namespace Shipping_System.Controllers
             return View(role);
         }
         [HttpPost]
+        [Authorize(Policy = "editRolePloicy")]
         public async Task<IActionResult> Update(RolesVM role)
         {
             if (ModelState.IsValid)
@@ -100,7 +102,7 @@ namespace Shipping_System.Controllers
 
         }
 
-
+        [Authorize(Policy = "deleteRolePloicy")]
         public async Task<IActionResult> Delete(string Id)
         {
             var role = await _rolesRep.GetRoleById(Id);

@@ -41,12 +41,14 @@ namespace Shipping_System.Controllers
 
         //    return View(villageSettingVM);
         //}
+        [Authorize(Policy = "viewvillageSettingPloicy")]
         public async Task<IActionResult> Update()
         {
             var VillageSetting = await _VillageSettingsRepo.GetVillageSettings();
             return View(VillageSetting);
         }
         [HttpPost]
+        [Authorize(Policy = "editvillageSettingPloicy")]
         public async Task<IActionResult> Update(VillageSettingVM villageSetting)
         {
             if (ModelState.IsValid)
