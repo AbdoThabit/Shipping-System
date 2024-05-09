@@ -95,7 +95,18 @@ namespace Shipping_System.Controllers
             return View(Employee);
 
         }
+
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var Employee = await _EmployeeRepo.GetById(id);
+            if (Employee == null)
+                return NotFound();
+
+            return View(Employee);
+        }
         [Authorize(Policy = "deleteEmployeePloicy")]
+
         public async Task<IActionResult> Delete(string Id)
         {
             var state = await _EmployeeRepo.Delete(Id);

@@ -30,6 +30,7 @@
                                 <th> العنوان </th>
                                 <th> رقم الموبايل </th>
                                 <th> البريد الالكتورني </th>
+                                <th> عرض التفاصيل </th>
                                 <th> تعديل </th>
                                 <th> حذف </th>
 
@@ -45,6 +46,7 @@
                                     </td>
                                     <td>@Emp.PhoneNumber</td>
                                     <td>@Emp.Email</td>
+                                    <td><a asp-action="Details" asp-controller="Employee" asp-route-Id="@Emp.Id" class=" btn btn-gradient-success">عرض التفاصيل</a> </td>
                                     <td><a asp-action="Update" asp-controller="Employee" asp-route-Id="@Emp.Id" class=" btn btn-gradient-success">تعديل</a></td>
                                     <td><a href="javascript:;" data-id="@Emp.Id" class="btn btn-gradient-danger js-delete">حذف</a></td>
                                 </tr>

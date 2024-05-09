@@ -110,7 +110,18 @@ namespace Shipping_System.Controllers
             return View(Representative);
 
         }
+
+        public async Task<IActionResult> Details(string id)
+        {
+            var Representative = await _RepresentativeRepo.GetById(id);
+            if (Representative == null)
+                return NotFound();
+
+            return View(Representative);
+        }
+
         [Authorize(Policy = "deleteRepresentivePloicy")]
+
         public async Task<IActionResult> Delete(string Id)
         {
             var state = await _RepresentativeRepo.Delete(Id);
