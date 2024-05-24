@@ -34,7 +34,7 @@ namespace Shipping_System
             
 
             builder.Services.AddSignalR();
-            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("ThabitConnection")));
+            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddIdentity<ApplicationUser, IdentityRole>(
               options =>
