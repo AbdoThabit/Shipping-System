@@ -31,7 +31,7 @@ namespace Shipping_System
             // Add services to the container.
             builder.Services.AddControllersWithViews();
 
-            builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+            
 
             builder.Services.AddSignalR();
             builder.Services.AddDbContextPool<Context>(options => options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
@@ -126,7 +126,7 @@ namespace Shipping_System
             builder.Services.AddAuthorizationBuilder()
             .AddPolicy("viewOrderPloicy", policy => policy.RequireClaim("عرض الطلبات"));
             builder.Services.AddAuthorizationBuilder()
-            .AddPolicy("viewOrderReportPloicy", policy => policy.RequireClaim("عرض تقرير الطلبات"));
+            .AddPolicy("viewOrderReportPloicy", policy => policy.RequireClaim("عرض تقارير الطلبات"));
             builder.Services.AddAuthorizationBuilder()
             .AddPolicy("viewOrderDetailsPloicy", policy => policy.RequireClaim("عرض تفاصيل طلب"));
 
